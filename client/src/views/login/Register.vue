@@ -1,7 +1,12 @@
 <template>
-  <div class="register">
+  <section class="register">
     <h2>Register</h2>
-    <form action="/register" method="POST" enctype="application/x-www-form-urlencoded">
+    <form
+      action="/register"
+      method="POST"
+      enctype="application/x-www-form-urlencoded"
+      v-on:submit="onSubmit"
+    >
       <fieldset>
         <legend>
           <label for="firstName"
@@ -19,9 +24,9 @@
           </label>
 
           <label for="password"
-          >Wachtwoord
-          <input type="password" id="password" name="password" />
-        </label>
+            >Wachtwoord
+            <input type="password" id="password" name="password" />
+          </label>
 
           <label for="birthDate"
             >Geboortedatum
@@ -50,8 +55,7 @@
           </label>
 
           <label for="profileAvatar"
-            >Profiel avatar (radio btns met created avatars) (render in
-            template)
+            >Profiel avatar (radio btns met created avatars) (render in template)
             <input type="text" id="profileAvatar" name="profileAvatar" />
           </label>
 
@@ -64,17 +68,78 @@
         </legend>
       </fieldset>
     </form>
-  </div>
+  </section>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue';
-
 export default {
-  name: 'Register',
-  components: {
-    HelloWorld,
+  name: "Register",
+  methods: {
+    submit: function onSubmit() {
+      e.preventDefault();
+      console.log("submitted");
+      // 1. send to server
+      // 2. Search user
+      // 3. Give message if no user found
+    },
   },
 };
+
+// var store = { vital: "" };
+// vm = new Vue({
+//   el: "#vueRoot",
+//   data: { store: store },
+//   methods: {
+//     submit: function onSubmit() {
+//       e.preventDefault();
+//       console.log("submitted");
+//       // 1. send to server
+//       // 2. Search user
+//       // 3. Give message if no user found
+//     },
+//   },
+// });
 </script>
+
+<style lang="scss">
+.register {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-image: url("../../assets/svg/achtergrond.svg");
+  background-position: center;
+  background-size: cover 100% 100%;
+  background-repeat: no-repeat;
+  @include q-lg-min {
+    background-size: cover;
+  }
+
+  form {
+    width: 30em;
+
+    label {
+      display: block;
+      margin: 0.3em 0em;
+    }
+  }
+
+  h1 {
+    color: $orange;
+    font-size: 48px;
+    margin-bottom: 5rem;
+  }
+
+  // import button component
+  button {
+    color: red;
+  }
+
+  /* .start {
+    color: $orange;
+    font-size: 21px;
+    font-weight: bold;
+  } */
+}
+</style>
