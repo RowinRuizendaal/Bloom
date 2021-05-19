@@ -55,6 +55,8 @@ app.post('/register', function (req, res) {
     about: req.body.about,
   };
 
+  console.log('POST /register, data: ', userObject);
+
   createUser(userObject);
 
   // adds user to DB
@@ -89,9 +91,9 @@ app.post('/register', function (req, res) {
 });
 
 // Login account
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, './public/login.html'));
-});
+// app.get('/login', (req, res) => {
+//   res.sendFile(path.join(__dirname, './public/login.html'));
+// });
 
 app.post('/', inloggen);
 
@@ -127,7 +129,7 @@ async function inloggen(req, res) {
 }
 
 // set port, listen for requests
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });
