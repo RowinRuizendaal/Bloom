@@ -1,6 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const Users = require('./app/models/user.js');
+const path = require('path');
 
 const app = express();
 
@@ -10,11 +12,9 @@ var corsOptions = {
 
 app.use(cors(corsOptions));
 
-// parse requests of content-type - application/json
-app.use(bodyParser.json());
-
-// parse requests of content-type - application/x-www-form-urlencoded
+// parse requests of content-type - application/x-www-form-urlencoded --> multipart when use of multer (files)
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static('public'));
 
 const db = require('./app/models');
 db.mongoose
@@ -30,17 +30,24 @@ db.mongoose
     process.exit();
   });
 
+async function getAllUsers() {
+  const users = await Users.find().catch((err) => console.log(err));
+  console.log(users);
+}
+getAllUsers();
+
 // simple route
 app.get('/', (req, res) => {
-  res.json({ message: 'Welcome to bezkoder application.' });
+  res.sendFile(path.join(__dirname, './public/index.html'));
 });
 
-app.post('/login', function (req, res) {
+app.post('/', function (req, res) {
   const userObject = {
     firstName: req.body.firstName,
     surName: req.body.surName,
-    emailaddress: req.body.emailaddress,
-    birthdate: req.body.birthdate,
+    emailAddress: req.body.emailAddress,
+    password: req.body.password,
+    birthDate: req.body.birthDate,
     town: req.body.town,
     gender: req.body.gender,
     typeIllness: req.body.typeIllness,
@@ -51,15 +58,33 @@ app.post('/login', function (req, res) {
   createUser(userObject);
 
   // adds user to DB
-  function createUser({ titleSerie, images, imagesNames }) {
-    Series.create({
-      titleSerie: titleSerie,
-      images: images,
-      imagesNames: imagesNames,
+  function createUser({
+    firstName,
+    surName,
+    emailAddress,
+    password,
+    birthDate,
+    town,
+    gender,
+    typeIllness,
+    profileAvatar,
+    about,
+  }) {
+    Users.create({
+      firstName: firstName,
+      surName: surName,
+      emailAddress: emailAddress,
+      password: password,
+      birthDate: birthDate,
+      town: town,
+      gender: gender,
+      typeIllness: typeIllness,
+      profileAvatar: profileAvatar,
+      about: about,
     });
   }
 
-  res.redirect('/series/overview');
+  getAllUsers();
 });
 
 // set port, listen for requests
