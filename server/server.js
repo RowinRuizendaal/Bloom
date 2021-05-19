@@ -36,12 +36,12 @@ async function getAllUsers() {
 }
 getAllUsers();
 
-// simple route
-app.get('/', (req, res) => {
+// register account
+app.get('/register', (req, res) => {
   res.sendFile(path.join(__dirname, './public/index.html'));
 });
 
-app.post('/', function (req, res) {
+app.post('/register', function (req, res) {
   const userObject = {
     firstName: req.body.firstName,
     surName: req.body.surName,
@@ -85,7 +85,46 @@ app.post('/', function (req, res) {
   }
 
   getAllUsers();
+  res.sendFile(path.join(__dirname, './public/login.html'));
 });
+
+// Login account
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, './public/login.html'));
+});
+
+app.post('/', inloggen);
+
+async function inloggen(req, res) {
+  const user = await Users.findOne({ emailAddress: req.body.emailAddress });
+  if (user == null) {
+    // Account not found
+    console.log('no user found: ', user);
+  } else {
+    if (req.body.password == user.password) {
+      // Logged in!
+      console.log('Logged in with acc: ', user);
+    }
+  }
+  // if()
+  // try {
+  //   if (await bcrypt.compare(req.body.wachtwoord, user.wachtwoord)) {
+  //     req.session.loggedIN = true;
+  //     req.session.user = user;
+  //     console.log('Succesvol ingelogd');
+  //     req.flash('succes', 'Hoi ' + req.session.user.voornaam);
+  //     res.render('readytostart');
+  //   } else {
+  //     req.flash('error', 'Wachtwoord is incorrect');
+  //     res.render('index');
+  //     console.log('Wachtwoord is incorrect');
+  //   }
+  // } catch (err) {
+  //   console.log(err);
+  //   req.flash('error', 'Er ging iets mis. Probeer opnieuw');
+  //   res.render('index');
+  // }
+}
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
