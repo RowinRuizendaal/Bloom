@@ -5,66 +5,71 @@
       action="/register"
       method="POST"
       enctype="application/x-www-form-urlencoded"
-      v-on:submit="onSubmit"
+      v-if="!submitted"
     >
       <fieldset>
         <legend>
           <label for="firstName"
             >Voornaam
-            <input type="text" id="firstName" name="firstName" />
+            <input type="text" id="firstName" name="firstName" v-model="user.firstName" />
           </label>
           <label for="surName"
             >Achternaam
-            <input type="text" id="surName" name="surName" />
+            <input type="text" id="surName" name="surName" v-model="user.surName" />
           </label>
 
           <label for="emailAddress"
             >E-mailadres
-            <input type="text" id="emailAddress" name="emailAddress" />
+            <input type="text" id="emailAddress" name="emailAddress" v-model="user.emailAddress" />
           </label>
 
           <label for="password"
             >Wachtwoord
-            <input type="password" id="password" name="password" />
+            <input type="password" id="password" name="password" v-model="user.password" />
           </label>
 
           <label for="birthDate"
             >Geboortedatum
-            <input type="date" id="birthDate" name="birthDate" />
+            <input type="date" id="birthDate" name="birthDate" v-model="user.birthDate" />
           </label>
 
           <label for="town"
             >Woonplaats
-            <input type="text" id="town" name="town" />
+            <input type="text" id="town" name="town" v-model="user.town" />
           </label>
 
           <h3>gender</h3>
 
-          <input type="radio" id="men" value="Man" name="gender" />
+          <input type="radio" id="men" value="Man" name="gender" v-model="user.gender" />
           <label for="men">Man</label>
 
-          <input type="radio" id="woman" value="Vrouw" name="gender" />
+          <input type="radio" id="woman" value="Vrouw" name="gender" v-model="user.gender" />
           <label for="woman">Vrouw</label>
 
-          <input type="radio" id="neutral" value="Vrouw" name="gender" />
+          <input type="radio" id="neutral" value="Vrouw" name="gender" v-model="user.gender" />
           <label for="neutral">Neutraal</label>
 
           <label for="typeIllness"
             >Type kanker
-            <input type="text" id="typeIllness" name="typeIllness" />
+            <input type="text" id="typeIllness" name="typeIllness" v-model="user.typeIllness" />
           </label>
 
           <label for="profileAvatar"
             >Profiel avatar (radio btns met created avatars) (render in template)
-            <input type="text" id="profileAvatar" name="profileAvatar" />
+            <input
+              type="text"
+              id="profileAvatar"
+              name="profileAvatar"
+              v-model="user.profileAvatar"
+            />
           </label>
 
           <label for="about"
             >Vertel iets over jezelf
-            <input type="textarea" id="about" name="about" />
+            <input type="textarea" id="about" name="about" v-model="user.about" />
           </label>
 
-          <button type="Submit">Aanmaken</button>
+          <button @click="saveUser">Aanmaken</button>
         </legend>
       </fieldset>
     </form>
@@ -72,33 +77,55 @@
 </template>
 
 <script>
+import DataService from "../../services/DataService.js";
+
 export default {
   name: "Register",
+  data() {
+    return {
+      user: {
+        // remove?
+        id: null,
+        title: "",
+        description: "",
+        published: false,
+      },
+      submitted: false,
+    };
+  },
   methods: {
-    submit: function onSubmit() {
-      e.preventDefault();
-      console.log("submitted");
-      // 1. send to server
-      // 2. Search user
-      // 3. Give message if no user found
+    saveUser() {
+      var data = {
+        firstName: this.user.firstName,
+        surName: this.user.surName,
+        emailAddress: this.user.emailAddress,
+        password: this.user.password,
+        birthDate: this.user.birthDate,
+        town: this.user.town,
+        gender: this.user.gender,
+        typeIllness: this.user.typeIllness,
+        profileAvatar: this.user.profileAvatar,
+        about: this.user.about,
+      };
+
+      DataService.createUser(data)
+        .then((response) => {
+          console.log(response);
+          this.tutorial.id = response.data.id;
+          console.log(response.data);
+          this.submitted = true;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+
+    newTutorial() {
+      this.submitted = false;
+      this.tutorial = {};
     },
   },
 };
-
-// var store = { vital: "" };
-// vm = new Vue({
-//   el: "#vueRoot",
-//   data: { store: store },
-//   methods: {
-//     submit: function onSubmit() {
-//       e.preventDefault();
-//       console.log("submitted");
-//       // 1. send to server
-//       // 2. Search user
-//       // 3. Give message if no user found
-//     },
-//   },
-// });
 </script>
 
 <style lang="scss">
@@ -117,7 +144,7 @@ export default {
   }
 
   form {
-    width: 30em;
+    /* width: 30em; */
 
     label {
       display: block;

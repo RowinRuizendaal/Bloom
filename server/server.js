@@ -7,14 +7,15 @@ const path = require('path');
 const app = express();
 
 var corsOptions = {
-  origin: 'http://localhost:8081',
+  origin: 'http://localhost:8080',
+  optionsSuccessStatus: 200, // For legacy browser support
 };
 
 app.use(cors(corsOptions));
 
 // parse requests of content-type - application/x-www-form-urlencoded --> multipart when use of multer (files)
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static('public'));
+app.use(bodyParser.json());
 
 const db = require('./app/models');
 db.mongoose
@@ -30,18 +31,53 @@ db.mongoose
     process.exit();
   });
 
+// Get all users of db
 async function getAllUsers() {
   const users = await Users.find().catch((err) => console.log(err));
   console.log(users);
 }
-getAllUsers();
 
-// register account
-app.get('/register', (req, res) => {
-  res.sendFile(path.join(__dirname, './public/index.html'));
-});
+// Login
+app.post('/login', handleLogin);
 
-app.post('/register', function (req, res) {
+// Register
+app.post('/register', handleRegister);
+
+// Login handler
+async function handleLogin(req, res) {
+  const user = await Users.findOne({ emailAddress: req.body.emailAddress });
+  if (user == null) {
+    // Account not found
+    console.log('no user found: ', user);
+  } else {
+    if (req.body.password == user.password) {
+      // Logged in! - state at frontend/backend?
+      console.log('Logged in with acc: ', user);
+      // render page with user data
+    }
+  }
+  // if()
+  // try {
+  //   if (await bcrypt.compare(req.body.wachtwoord, user.wachtwoord)) {
+  //     req.session.loggedIN = true;
+  //     req.session.user = user;
+  //     console.log('Succesvol ingelogd');
+  //     req.flash('succes', 'Hoi ' + req.session.user.voornaam);
+  //     res.render('readytostart');
+  //   } else {
+  //     req.flash('error', 'Wachtwoord is incorrect');
+  //     res.render('index');
+  //     console.log('Wachtwoord is incorrect');
+  //   }
+  // } catch (err) {
+  //   console.log(err);
+  //   req.flash('error', 'Er ging iets mis. Probeer opnieuw');
+  //   res.render('index');
+  // }
+}
+
+// Add user to db
+function handleRegister(req, res) {
   const userObject = {
     firstName: req.body.firstName,
     surName: req.body.surName,
@@ -55,7 +91,7 @@ app.post('/register', function (req, res) {
     about: req.body.about,
   };
 
-  console.log('POST /register, data: ', userObject);
+  console.log('User data: ', userObject);
 
   createUser(userObject);
 
@@ -87,45 +123,6 @@ app.post('/register', function (req, res) {
   }
 
   getAllUsers();
-  res.sendFile(path.join(__dirname, './public/login.html'));
-});
-
-// Login account
-// app.get('/login', (req, res) => {
-//   res.sendFile(path.join(__dirname, './public/login.html'));
-// });
-
-app.post('/', inloggen);
-
-async function inloggen(req, res) {
-  const user = await Users.findOne({ emailAddress: req.body.emailAddress });
-  if (user == null) {
-    // Account not found
-    console.log('no user found: ', user);
-  } else {
-    if (req.body.password == user.password) {
-      // Logged in!
-      console.log('Logged in with acc: ', user);
-    }
-  }
-  // if()
-  // try {
-  //   if (await bcrypt.compare(req.body.wachtwoord, user.wachtwoord)) {
-  //     req.session.loggedIN = true;
-  //     req.session.user = user;
-  //     console.log('Succesvol ingelogd');
-  //     req.flash('succes', 'Hoi ' + req.session.user.voornaam);
-  //     res.render('readytostart');
-  //   } else {
-  //     req.flash('error', 'Wachtwoord is incorrect');
-  //     res.render('index');
-  //     console.log('Wachtwoord is incorrect');
-  //   }
-  // } catch (err) {
-  //   console.log(err);
-  //   req.flash('error', 'Er ging iets mis. Probeer opnieuw');
-  //   res.render('index');
-  // }
 }
 
 // set port, listen for requests

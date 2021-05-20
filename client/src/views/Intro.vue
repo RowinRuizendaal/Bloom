@@ -1,6 +1,7 @@
 <template>
-  <div class="about">
-    <h1>About</h1>
+  <div class="intro">
+    <h1>Introkaartjes</h1>
+    <router-link to="/login">Volgende(Inloggen)</router-link>
   </div>
 </template>
 
@@ -9,7 +10,7 @@
 // import HelloWorld from '@/components/HelloWorld.vue';
 
 export default {
-  name: "About",
+  name: "Intro",
   //   components: {
   //     HelloWorld,
   //   },

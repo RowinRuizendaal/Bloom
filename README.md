@@ -76,7 +76,8 @@ We used Mongoose data schemas to create schemas before I insert the data.
   profileAvatar: String,
   about: String,
 }
-  ```
+
+```
 
 ## :nerd_face: Technical summary
 This app is built, using:
@@ -118,7 +119,9 @@ Credits to [Eva Valkenburg]() for giving us this awesome exercise.
 ### Code sources
 - Stackoverflow (n.d.). Searching for answers on dev questions - Stackoverflow. Retrieved 18 May 2021 from https://www.stackoverflow.com
 
+- https://bezkoder.com/vue-node-express-mongodb-mevn-crud/
 
+- https://bezkoder.com/vue-js-crud-app/
 
 ## :cop: License
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)  

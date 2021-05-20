@@ -4,7 +4,7 @@
       <p>Welkom bij</p>
       <h1>Bloom</h1>
     </article>
-    <router-link to="/about" active-class="start">Starten</router-link>
+    <router-link to="/intro" active-class="start">Starten</router-link>
   </section>
 </template>
 
