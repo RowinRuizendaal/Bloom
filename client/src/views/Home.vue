@@ -1,19 +1,18 @@
 <template>
-  <section class="index__page">
-    <article>
-      <p>Welkom bij</p>
-      <h1>Bloom</h1>
-    </article>
-    <router-link to="/" active-class="start">Inloggen</router-link>
-  </section>
+  <main>
+    <section class="index__page">
+      <article>
+        <p>Welkom bij</p>
+        <h1>bloom</h1>
+      </article>
+      <router-link to="/onboarding" class="start">Starten</router-link>
+    </section>
+  </main>
 </template>
 
 <script>
 export default {
   name: "Home",
-  //   components: {
-  //     HelloWorld,
-  //   },
 };
 </script>
 
@@ -28,6 +27,7 @@ export default {
   background-position: center;
   background-size: cover 100% 100%;
   background-repeat: no-repeat;
+  overflow: hidden;
   @include q-lg-min {
     background-size: cover;
   }
