@@ -1,16 +1,17 @@
 // Font families & styles
-$font-family-primary : Nunito, Helvetica, sans-serif;
-$font-family-secondary : Silka, Helvetica, sans-serif;
-$font-weight-light : 200;
-$font-weight-regular : 400;
-$font-weight-medium : 500;
-$font-weight-semibold : 600;
-$font-weight-bold : 700;
-$font-weight-extra-bold : 900;
-
-
+$font-family-primary: Nunito,
+Helvetica,
+sans-serif;
+$font-family-secondary: Silka,
+Helvetica,
+sans-serif;
+$font-weight-light: 200;
+$font-weight-regular: 400;
+$font-weight-medium: 500;
+$font-weight-semibold: 600;
+$font-weight-bold: 700;
+$font-weight-extra-bold: 900;
 // Font face Nunito
-
 // Light
 @font-face {
     font-family: 'Nunito';
@@ -57,7 +58,6 @@ $font-weight-extra-bold : 900;
 }
 
 // Font face Silka
-
 // Light
 @font-face {
     font-family: 'Silka';
@@ -94,8 +94,6 @@ $font-weight-extra-bold : 900;
     font-display: swap;
 }
 
-
-
 h1,
 h2,
 h3,
@@ -107,7 +105,7 @@ h6 {
 }
 
 p {
-    font-family: $font-family-secondary;
+    font-family: $font-family-primary;
     font-weight: $font-weight-bold;
 }
 
