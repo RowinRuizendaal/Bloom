@@ -13,7 +13,8 @@
       :class="{ 'card-slider-inactive': index !== activeIndex }"
     >
       <div class="container">
-        <img class="image" :src="require(`../assets/onboarding/${item.img}`)" />
+        <img :src="'../assets/onboarding/' + item.img" />
+        <img src="../assets/onboarding/onboarding-1.jpg" alt="" />
         <div class="text">
           <h2>{{ item.heading }}</h2>
           <p>{{ item.text }}</p>
