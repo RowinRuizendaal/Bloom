@@ -10,7 +10,7 @@
       v-for="(item, index) in articles"
       :key="index"
       class="artikel"
-      :class="{ 'card-slider-inactive': index !== activeIndex }"
+      :class="{ 'card-slider-inactive': index !== $store.state.activeIndex }"
     >
       <div class="container">
         <img class="image" :src="require(`../assets/onboarding/${item.img}`)" />
@@ -21,24 +21,13 @@
       </div>
     </article>
     <div class="buttons">
-      <a class="nextButton" @click="nextSlide()">
-        volgende
-        <span>
-          <!-- arrow icon -->
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 7.246 11.941">
-            <path
-              fill="#f07904"
-              d="M7.054 6.434a.656.656 0 000-.928L1.74.192a.656.656 0 00-.928 0l-.62.62a.656.656 0 000 .927l4.21 4.231-4.211 4.231a.656.656 0 000 .927l.62.62a.656.656 0 00.928 0z"
-            />
-          </svg>
-        </span>
-      </a>
+      <Button message="volgende" v-bind:isSlider="true" />
       <div class="circles">
         <span
-          v-for="index in this.maxslides"
+          v-for="index in maxslides"
           :key="index"
-          :class="{ 'fill-active': index - 1 === activeIndex }"
-          @click="nextSlide()"
+          :class="{ 'fill-active': index - 1 === $store.state.activeIndex }"
+          @click="nextSlide(index)"
         ></span>
       </div>
     </div>
@@ -46,19 +35,18 @@
 </template>
 
 <script>
+import Button from "@/components/button/button";
 export default {
+  components: {
+    Button,
+  },
   methods: {
-    nextSlide() {
-      this.activeIndex += 1;
-
-      if (this.activeIndex === 3) {
-        this.activeIndex = 0;
-      }
+    nextSlide(index) {
+      return this.$store.commit("nextSlide", index);
     },
   },
   data() {
     return {
-      activeIndex: 0,
       maxslides: 3,
       articles: [
         {
