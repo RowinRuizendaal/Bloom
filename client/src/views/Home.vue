@@ -4,7 +4,7 @@
       <p>Welkom bij</p>
       <h1>Bloom</h1>
     </article>
-    <router-link to="/intro" active-class="start">Starten</router-link>
+    <router-link to="/" active-class="start">Inloggen</router-link>
   </section>
 </template>
 
@@ -39,7 +39,7 @@ export default {
     p {
       font-weight: bold;
       font-size: 16px;
-      color: rgb(114, 109, 97);
+      color: $gray;
     }
     h1 {
       color: $orange;
@@ -50,7 +50,6 @@ export default {
   .start {
     color: $orange;
     font-size: 21px;
-    font-weight: bold;
   }
 }
 </style>
