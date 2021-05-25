@@ -54,7 +54,7 @@ export default {
   },
   methods: {
     login() {
-      var data = {
+      let data = {
         emailAddress: this.user.emailAddress,
         password: this.user.password,
       };
@@ -62,19 +62,19 @@ export default {
       DataService.loginUser(data)
         .then((response) => {
           console.log(response);
-          this.tutorial.id = response.data.id;
-          console.log(response.data);
-          this.submitted = true;
+          // this.tutorial.id = response.data.id;
+          // console.log(response.data);
+          // this.submitted = true;
         })
         .catch((err) => {
           console.log(err);
         });
     },
 
-    newTutorial() {
-      this.submitted = false;
-      this.tutorial = {};
-    },
+    // newTutorial() {
+    //   this.submitted = false;
+    //   this.tutorial = {};
+    // },
   },
 };
 </script>

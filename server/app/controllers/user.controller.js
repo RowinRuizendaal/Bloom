@@ -1,5 +1,5 @@
-const db = require('../models');
-const Tutorial = db.tutorials;
+// const db = require('../models/index.js');
+// const Tutorial = db.tutorials;
 
 // Create and Save a new Tutorial
 exports.create = (req, res) => {};

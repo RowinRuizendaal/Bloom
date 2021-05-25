@@ -1,40 +1,21 @@
-module.exports = (mongoose) => {
-  const Tutorial = mongoose.model(
-    'tutorial',
-    mongoose.Schema(
-      {
-        firstName: String,
-        surName: String,
-        emailaddress: String,
-        birthdate: String,
-        town: String,
-        gender: String,
-        typeIllness: String,
-        profileAvatar: String,
-        about: String,
-      },
-      { timestamps: true }
-    )
-  );
+// module.exports = (mongoose) => {
+//   const Tutorial = mongoose.model(
+//     'tutorial',
+//     mongoose.Schema(
+//       {
+//         firstName: String,
+//         surName: String,
+//         emailaddress: String,
+//         birthdate: String,
+//         town: String,
+//         gender: String,
+//         typeIllness: String,
+//         profileAvatar: String,
+//         about: String,
+//       },
+//       { timestamps: true }
+//     )
+//   );
 
-  return Tutorial;
-};
-
-// const mongoose = require('mongoose');
-
-// const Schema = mongoose.Schema;
-
-// const userSchema = new Schema({
-//   firstName: String,
-//   surName: String,
-//   emailaddress: String,
-//   birthdate: String,
-//   town: String,
-//   gender: String,
-//   typeIllness: String,
-//   profileAvatar: String,
-//   about: String,
-// });
-
-// exports.userSchema = userSchema;
-// module.exports = new mongoose.model('user', userSchema);
+//   return Tutorial;
+// };

@@ -17,7 +17,7 @@ app.use(cors(corsOptions));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-const db = require('./app/models');
+const db = require('./app/models/index.js');
 db.mongoose
   .connect(db.url, {
     useNewUrlParser: true,
@@ -48,11 +48,11 @@ async function handleLogin(req, res) {
   const user = await Users.findOne({ emailAddress: req.body.emailAddress });
   if (user == null) {
     // Account not found
-    console.log('no user found: ', user);
+    console.log('No user found');
   } else {
     if (req.body.password == user.password) {
       // Logged in! - state at frontend/backend?
-      console.log('Logged in with acc: ', user);
+      console.log('Logged in with account: ', user);
       // render page with user data
     }
   }

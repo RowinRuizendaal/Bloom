@@ -95,7 +95,7 @@ export default {
   },
   methods: {
     saveUser() {
-      var data = {
+      let data = {
         firstName: this.user.firstName,
         surName: this.user.surName,
         emailAddress: this.user.emailAddress,
@@ -111,19 +111,20 @@ export default {
       DataService.createUser(data)
         .then((response) => {
           console.log(response);
-          this.tutorial.id = response.data.id;
-          console.log(response.data);
-          this.submitted = true;
+          // this.tutorial.id = response.data.id;
+          // console.log(response.data);
+          // this.submitted = true;
         })
         .catch((err) => {
           console.log(err);
         });
     },
 
-    newTutorial() {
-      this.submitted = false;
-      this.tutorial = {};
-    },
+    // newTutorial() {
+    //   this.submitted = false;
+    //   this.tutorial = {};
+    //   console.log(this.tutorial);
+    // },
   },
 };
 </script>
