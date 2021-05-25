@@ -2,6 +2,8 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Login from "../views/login/Login.vue";
 import Register from "../views/login/Register.vue";
+import RegisterIndex from "../views/login/register/index.vue";
+
 import ForgotPassword from "../views/login/ForgotPassword.vue";
 import Home from "../views/Home.vue";
 import Intro from "../views/Intro.vue";
@@ -20,11 +22,15 @@ const routes = [
     component: Register,
   },
   {
+    path: "/register-index",
+    name: "RegisterIndex",
+    component: RegisterIndex,
+  },
+  {
     path: "/forgot-password",
     name: "Forgot password",
     component: ForgotPassword,
   },
-
   {
     path: "/",
     name: "Home",

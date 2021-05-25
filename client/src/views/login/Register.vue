@@ -1,6 +1,6 @@
 <template>
   <section class="register">
-    <h2>Register</h2>
+    <h2>Registreren</h2>
     <form
       action="/register"
       method="POST"
@@ -69,6 +69,8 @@
             <input type="textarea" id="about" name="about" v-model="user.about" />
           </label>
 
+          <Textarea placeholderText="Vul hier iets over jezelf in" />
+
           <button @click="saveUser">Aanmaken</button>
         </legend>
       </fieldset>
@@ -78,8 +80,13 @@
 
 <script>
 import DataService from "../../services/DataService.js";
+import Textarea from "../../components/textarea/textarea";
 
 export default {
+  components: {
+    Textarea,
+  },
+
   name: "Register",
   data() {
     return {
@@ -96,6 +103,7 @@ export default {
   methods: {
     saveUser() {
       let data = {
+        // remove user, only this.firstName
         firstName: this.user.firstName,
         surName: this.user.surName,
         emailAddress: this.user.emailAddress,
@@ -130,7 +138,7 @@ export default {
 </script>
 
 <style lang="scss">
-.register {
+/* .register {
   height: 100vh;
   display: flex;
   justify-content: center;
@@ -145,7 +153,6 @@ export default {
   }
 
   form {
-    /* width: 30em; */
 
     label {
       display: block;
@@ -163,11 +170,5 @@ export default {
   button {
     color: red;
   }
-
-  /* .start {
-    color: $orange;
-    font-size: 21px;
-    font-weight: bold;
-  } */
-}
+} */
 </style>

@@ -1,0 +1,26 @@
+// :root {
+//     --gray: lightgray;
+//     --orange: #f07904;
+//     --lightOrange: #fed7a0;
+//     --lightYellow: #fee89e;
+//     --lighterYellow: #fef1c5;
+//   }
+  
+textarea {
+    
+    font-size: 0.875rem;
+    font-family: "Open Sans", sans-serif;
+    font-weight: 500;
+
+    padding: 0.625rem 1.125rem;
+    resize: none;
+    width: 100%;
+    width: 10000px;
+
+    border: solid 1px var(--gray);
+    border-radius: 1.25rem;
+
+    &:focus {
+        outline: none;
+    }
+}

@@ -42,13 +42,6 @@ export default {
   name: "Login",
   data() {
     return {
-      user: {
-        // remove?
-        id: null,
-        title: "",
-        description: "",
-        published: false,
-      },
       submitted: false,
     };
   },
