@@ -6,7 +6,7 @@
     <ul>
       <li>
         <div>
-          <input type="radio" id="men" value="Man" name="gender" v-model="gender" />
+          <input type="radio" id="men" name="gender" :value="Man" @input="updateGender" />
           <label for="men">M</label>
           <p>man</p>
         </div>
@@ -14,7 +14,7 @@
 
       <li>
         <div>
-          <input type="radio" id="woman" value="Vrouw" name="gender" v-model="gender" />
+          <input type="radio" id="woman" name="gender" :value="Vrouw" @input="updateGender" />
           <label for="woman">V</label>
           <p>Vrouw</p>
         </div>
@@ -22,7 +22,7 @@
 
       <li>
         <div>
-          <input type="radio" id="neutral" value="Vrouw" name="gender" v-model="gender" />
+          <input type="radio" id="neutral" name="gender" :value="gender" @input="updateGender" />
           <label for="neutral">X</label>
           <p>Neutraal</p>
         </div>
@@ -35,11 +35,19 @@
 <script>
 // import DataService from "../../services/DataService.js";
 
+import { mapState } from "vuex";
+
 export default {
-  data() {
-    return {
-      gender: "",
-    };
+  computed: {
+    ...mapState({
+      gender: (state) => state.user.gender,
+    }),
+  },
+  methods: {
+    updateGender(e) {
+      console.log(e.target);
+      this.$store.commit("updateStateGender", e.target.value);
+    },
   },
 };
 </script>

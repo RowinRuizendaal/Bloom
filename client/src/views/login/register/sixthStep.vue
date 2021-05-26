@@ -30,9 +30,9 @@
           <input
             type="radio"
             :id="item"
-            :value="item"
             name="profileAvatar"
-            v-model="profileAvatar"
+            :value="item"
+            @input="updateProfileAvatar"
           />
           <label :for="item">{{ item }}</label>
         </div>
@@ -44,11 +44,21 @@
 
 <script>
 // import DataService from "../../services/DataService.js";
+import { mapState } from "vuex";
 
 export default {
+  computed: {
+    ...mapState({
+      profileAvatar: (state) => state.user.profileAvatar,
+    }),
+  },
+  methods: {
+    updateProfileAvatar(e) {
+      this.$store.commit("updateStateProfileAvatar", e.target.value);
+    },
+  },
   data() {
     return {
-      profileAvatar: "",
       avatars: [1, 2, 3, 4, 5, 6, "AJ", "AJ", "AJ"],
     };
   },

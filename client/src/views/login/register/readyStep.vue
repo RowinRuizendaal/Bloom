@@ -1,5 +1,5 @@
 <template>
-  <button>Ready for take of, Start nu</button>
+  <p>je bent ready</p>
 </template>
 
 <script>
@@ -7,6 +7,7 @@ export default {
   data() {
     return {
       gender: "",
+      // check if all data is filled in
     };
   },
 };

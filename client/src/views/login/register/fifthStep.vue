@@ -12,7 +12,13 @@
     <ul>
       <li v-for="(item, index) in choices" :key="index">
         <div class="checkChip">
-          <input type="checkbox" :id="item" :value="item" name="typeIllness" />
+          <input
+            type="checkbox"
+            :id="item"
+            name="typeIllness"
+            :value="item"
+            @input="updateTypeIllness"
+          />
           <label :for="item">{{ item }}</label>
         </div>
       </li>
@@ -22,11 +28,21 @@
 
 <script>
 // import DataService from "../../services/DataService.js";
+import { mapState } from "vuex";
 
 export default {
+  computed: {
+    ...mapState({
+      typeIllness: (state) => state.user.typeIllness,
+    }),
+  },
+  methods: {
+    updateTypeIllness(e) {
+      this.$store.commit("updateStateTypeIllness", e.target.value);
+    },
+  },
   data() {
     return {
-      typeIllness: "",
       choices: [
         "Hoofd-halskanker",
         "Spijsverteringsorganen",

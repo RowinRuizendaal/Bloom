@@ -6,18 +6,30 @@
       delen!
     </p>
 
-    <input type="date" id="birthDate" name="birthDate" v-model="birthDate" />
+    <input
+      type="date"
+      id="birthDate"
+      name="birthDate"
+      :value="birthDate"
+      @input="updateBirthDate"
+    />
   </label>
 </template>
 
 <script>
 // import DataService from "../../services/DataService.js";
+import { mapState } from "vuex";
 
 export default {
-  data() {
-    return {
-      birthDate: "",
-    };
+  computed: {
+    ...mapState({
+      birthDate: (state) => state.user.birthDate,
+    }),
+  },
+  methods: {
+    updateBirthDate(e) {
+      this.$store.commit("updateStateBirthDate", e.target.value);
+    },
   },
 };
 </script>

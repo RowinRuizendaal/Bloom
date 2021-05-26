@@ -8,7 +8,7 @@
 
     <label for="town">Selecteer jouw woonplaats</label>
 
-    <select id="town" name="town" v-model="town">
+    <select id="town" name="town" :value="town" @input="updateTown">
       <option value="Amsterdam">Amsterdam</option>
       <option value="Den Haag">Den Haag</option>
       <option value="Rotterdam">Rotterdam</option>
@@ -20,12 +20,18 @@
 <script>
 // import DataService from "../../services/DataService.js";
 
+import { mapState } from "vuex";
+
 export default {
-  data() {
-    return {
-      town: "",
-      names: ["adam", "rotterdam"],
-    };
+  computed: {
+    ...mapState({
+      town: (state) => state.user.town,
+    }),
+  },
+  methods: {
+    updateTown(e) {
+      this.$store.commit("updateStateTown", e.target.value);
+    },
   },
 };
 </script>
