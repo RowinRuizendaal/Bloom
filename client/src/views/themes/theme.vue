@@ -1,0 +1,131 @@
+<template>
+  <main class="themes">
+    <header class="topnav">
+      <nav>
+        <li><h2>Thema's</h2></li>
+        <li>
+          <svg xmlns="http://www.w3.org/2000/svg" width="17.5" height="17.5">
+            <ellipse cx="7.524" cy="7.572" rx="7.524" ry="7.572" fill="#f07904" />
+            <path
+              d="M16.34 17.456a1.156 1.156 0 01-.778-.337l-1.782-2.078a.952.952 0 01-.07-1.331.852.852 0 011.214 0l2.241 1.793a1.18 1.18 0 01.254 1.253 1.168 1.168 0 01-1.032.744z"
+              fill="#f07904"
+              opacity=".4"
+            />
+          </svg>
+        </li>
+      </nav>
+    </header>
+    <section class="theme">
+      <h3>Hoe ga ik om met...</h3>
+      <div class="container">
+        <div v-for="(theme, index) in themelist" :key="index">
+          <router-link :to="{ name: 'article', params: { id: theme.id } }">
+            <article>
+              <h3>{{ theme.name }}</h3>
+            </article>
+          </router-link>
+        </div>
+      </div>
+    </section>
+  </main>
+</template>
+
+<script>
+export default {
+  computed: {
+    themelist() {
+      return this.$store.getters.themelist;
+    },
+  },
+};
+</script>
+
+<style lang="scss">
+.themes {
+  height: 100vh;
+  .topnav {
+    list-style-type: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    nav {
+      width: 100%;
+      margin-top: 2rem;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      margin-left: -7rem;
+      h2 {
+        color: $orange;
+        font-family: silka;
+        font-weight: bold;
+        font-size: 2.16rem;
+      }
+    }
+  }
+  .theme {
+    h3 {
+      margin-top: 2rem;
+      margin-left: 2rem;
+      font-family: silka;
+      font-weight: bold;
+      font-size: 1.0000007559056rem;
+      color: $gray;
+      text-transform: uppercase;
+    }
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      flex-direction: row;
+      margin-top: 2rem;
+
+      a {
+        text-decoration: none;
+        color: #f07904;
+        font-weight: bold;
+        font-size: 1.5rem;
+      }
+      article {
+        position: relative;
+        display: flex;
+        align-items: center;
+        min-width: 13rem;
+        height: 10rem;
+        background-color: #fef1c5;
+        margin-right: 1rem;
+        margin-bottom: 1rem;
+        cursor: pointer;
+        justify-content: center;
+        border-radius: 5px;
+        &:after {
+          content: "";
+          position: absolute;
+          background-color: #fee89e;
+          height: 2rem;
+          width: 2rem;
+          bottom: 0;
+          right: 0;
+          border-radius: 5px;
+          background-image: url("data:image/svg+xml, %3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 7.246 11.941'%3E%3Cpath fill='%23f07904' d='M7.054 6.434a.656.656 0 000-.928L1.74.192a.656.656 0 00-.928 0l-.62.62a.656.656 0 000 .927l4.21 4.231-4.211 4.231a.656.656 0 000 .927l.62.62a.656.656 0 00.928 0z' /%3E%3C/svg%3E");
+          background-repeat: no-repeat;
+          background-size: 20px 20px;
+          background-position: center;
+        }
+        h3 {
+          color: $orange;
+          text-transform: none;
+          font-size: 1.5rem;
+          max-width: 10rem;
+          font-family: Nunito;
+          font-weight: bold;
+          margin-right: auto;
+          margin-left: auto;
+        }
+      }
+    }
+  }
+}
+</style>

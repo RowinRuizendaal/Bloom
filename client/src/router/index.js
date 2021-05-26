@@ -6,6 +6,8 @@ import ForgotPassword from "../views/login/ForgotPassword.vue";
 import Home from "../views/Home.vue";
 import Onboarding from "../views/onboarding.vue";
 import Intro from "../views/Intro.vue";
+import Theme from "../views/themes/theme.vue";
+import Themeslug from "../views/themes/slug.vue";
 
 Vue.use(VueRouter);
 
@@ -40,6 +42,16 @@ const routes = [
     path: "/onboarding",
     name: "onboarding",
     component: Onboarding,
+  },
+  {
+    path: "/themes",
+    name: "themes",
+    component: Theme,
+  },
+  {
+    path: "/article/:id",
+    component: Themeslug,
+    name: "article",
   },
 ];
 
