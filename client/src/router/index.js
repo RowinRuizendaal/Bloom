@@ -4,12 +4,9 @@ import Login from "../views/login/Login.vue";
 import Register from "../views/login/Register.vue";
 import ForgotPassword from "../views/login/ForgotPassword.vue";
 import Home from "../views/Home.vue";
-<<<<<<< HEAD
 import About from "../views/About.vue";
 import Onboarding from "../views/onboarding.vue";
-=======
 import Intro from "../views/Intro.vue";
->>>>>>> master
 
 Vue.use(VueRouter);
 
