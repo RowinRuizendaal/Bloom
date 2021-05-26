@@ -7,11 +7,24 @@ export default new Vuex.Store({
   state: {
     // Register
     firstName: "",
+    surName: "",
+    emailAddress: "",
+    password: "",
+    birthDate: "",
+    town: "",
+    gender: "",
+    typeIllness: "",
+    profileAvatar: "",
+    about: "",
+
     // Onboarding
     activeIndex: 0,
     Onboardingmax: 3,
   },
   mutations: {
+    // getData(state){
+    //   console.log('whole state: ', state)
+    // }
     // Set state of the bullet points
     nextSlide(state, index) {
       // check for bulletpoints

@@ -1,7 +1,7 @@
 <template>
   <label for="password"
     ><h2>Kies een wachtwoord</h2>
-    <p>Dan weten...</p>
+    <p>Verzin een wachtwoord die je niet snel vergeet.</p>
 
     <input type="password" id="password" name="password" v-model="password" />
   </label>
@@ -11,10 +11,10 @@
 // import DataService from "../../services/DataService.js";
 
 export default {
-  methods: {
-    nextSlide() {
-      return this.$store.commit("nextSlide");
-    },
+  data() {
+    return {
+      password: "",
+    };
   },
 };
 </script>

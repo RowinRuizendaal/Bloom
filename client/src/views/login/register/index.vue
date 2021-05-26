@@ -17,10 +17,54 @@
     </header>
 
     <section class="register">
-      <form action="/register" method="POST" enctype="application/x-www-form-urlencoded">
+      <form
+        enctype="application/x-www-form-urlencoded"
+        v-on:submit.prevent="onSubmit"
+        method="POST"
+      >
         <fieldset>
           <legend>
-            <FirstStep />
+            <div v-if="state === 1">
+              <FirstStep />
+            </div>
+
+            <div v-else-if="state === 2">
+              <SecondStep />
+            </div>
+
+            <div v-else-if="state === 3">
+              <ThirdStep />
+            </div>
+
+            <div v-else-if="state === 4">
+              <FourthStep />
+            </div>
+
+            <div v-else-if="state === 5">
+              <FifthStep />
+            </div>
+
+            <div v-else-if="state === 6">
+              <SixthStep />
+            </div>
+
+            <div v-else-if="state === 7">
+              <SeventhStep />
+            </div>
+
+            <div v-else-if="state === 8">
+              <EightStep />
+            </div>
+
+            <div v-else-if="state === 9">
+              <NinthStep />
+            </div>
+
+            <div v-else-if="state === 10">
+              <Ready />
+            </div>
+            <button @click="setState('prev')">Vorige</button>
+            <button @click="setState('next')">Volgende</button>
           </legend>
         </fieldset>
       </form>
@@ -66,28 +110,46 @@ import SixthStep from "./sixthStep.vue";
 import SeventhStep from "./seventhStep.vue";
 import EightStep from "./eightStep.vue";
 import NinthStep from "./ninthStep.vue";
+import Ready from "./readyStep.vue";
 
 export default {
   components: {
     // Button,
     FirstStep,
-    // SecondStep,
-    // ThirdStep,
-    // FourthStep,
-    // FifthStep,
-    // SixthStep,
-    // SeventhStep,
-    // EightStep,
-    // NinthStep,
+    SecondStep,
+    ThirdStep,
+    FourthStep,
+    FifthStep,
+    SixthStep,
+    SeventhStep,
+    EightStep,
+    NinthStep,
+    Ready,
   },
   methods: {
-    nextSlide(index) {
-      return this.$store.commit("nextSlide", index);
+    //store in Vuex and return the whole data store and post to server
+    // getData(index)
+
+    setState(sort) {
+      if (sort === "next") {
+        return (this.state += 1);
+      } else if (sort === "prev") {
+        return (this.state -= 1);
+      }
+      return;
+    },
+    // if this.state == 10 {
+    // change the onsubmit to real post submit
+    // }
+
+    onSubmit(e) {
+      e.preventDefault();
     },
   },
   data() {
     return {
-      maxslides: 7,
+      maxslides: 9,
+      state: 1,
     };
   },
 };

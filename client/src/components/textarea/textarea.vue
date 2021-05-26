@@ -1,5 +1,5 @@
 <template>
-  <input type="textarea" :placeholder="placeholderText" />
+  <textarea type="textarea" :placeholder="placeholderText" />
 </template>
 
 <script>

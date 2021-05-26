@@ -1,7 +1,7 @@
 <template>
   <label for="about"
     ><h2>Vertel iets over jezelf</h2>
-    <p>Is er...</p>
+    <p>Is er nog iets wat je zou willen delen? Dat kun je kwijt in je biografie.</p>
     <Textarea id="about" name="about" v-model="about" placeholder="Vertel iets over jezelf" />
   </label>
 </template>
@@ -14,10 +14,10 @@ export default {
   components: {
     Textarea,
   },
-  methods: {
-    nextSlide() {
-      return this.$store.commit("nextSlide");
-    },
+  data() {
+    return {
+      about: "",
+    };
   },
 };
 </script>

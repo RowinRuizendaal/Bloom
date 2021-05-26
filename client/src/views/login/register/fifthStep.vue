@@ -24,13 +24,9 @@
 // import DataService from "../../services/DataService.js";
 
 export default {
-  methods: {
-    nextSlide() {
-      return this.$store.commit("nextSlide");
-    },
-  },
   data() {
     return {
+      typeIllness: "",
       choices: [
         "Hoofd-halskanker",
         "Spijsverteringsorganen",
@@ -40,12 +36,12 @@ export default {
         "Urinewegen",
         "Bot, kraakbeen en weke delen",
         "Vrouwelijke geslachtsorganen",
-        "Overig",
         "Oogkanker",
         "Hematologische maligniteiten",
         "Mannelijke geslachtsorganen",
         "Endocriene klieren",
         "Centraal zenuwstelsel",
+        "Overig",
         "Zeg ik liever niet",
       ],
     };
@@ -59,7 +55,7 @@ ul {
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
-  width: 50vw;
+  width: 80vw;
 
   li {
     display: inline;

@@ -1,9 +1,10 @@
 <template>
   <label for="firstName"
     ><h2>Wat is je volledige naam?</h2>
-    <p>Dan weten...</p>
+    <p>Dan weten gebruikers hoe ze je kunnen aanspreken. Het mag ook een verzonnen naam zijn.</p>
 
-    <input type="text" id="firstName" name="firstName" v-model="firstName" />
+    <input type="text" id="firstName" name="firstName" v-model="firstName" placeholder="John" />
+    <input type="text" id="surName" name="surName" v-model="surName" placeholder="Doe" />
   </label>
   <!-- <label for="surName"
             >Achternaam
@@ -16,10 +17,11 @@
 // console.log("state: ", this.$store.state.firstName);
 
 export default {
-  methods: {
-    nextSlide() {
-      return this.$store.commit("nextSlide");
-    },
+  data() {
+    return {
+      firstName: "",
+      surName: "",
+    };
   },
 };
 </script>
