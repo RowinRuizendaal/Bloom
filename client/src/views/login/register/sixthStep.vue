@@ -43,7 +43,6 @@
 </template>
 
 <script>
-// import DataService from "../../services/DataService.js";
 import { mapState } from "vuex";
 
 export default {
@@ -88,8 +87,11 @@ div.msg {
   padding: 0.51em;
   text-shadow: none;
   border-radius: 5px;
-  background-color: crimson;
-  color: white;
+  background-color: #797979;
   font-size: 0.7rem;
+
+  p {
+    color: white !important;
+  }
 }
 </style>

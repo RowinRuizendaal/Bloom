@@ -1,14 +1,26 @@
-@import 'variables/assets';
-@import 'variables/colors';
-@import 'variables/responsive';
-@import 'variables/typography';
+@import "variables/assets";
+@import "variables/colors";
+@import "variables/responsive";
+@import "variables/typography";
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 a,
 button {
-    cursor: pointer;
+  cursor: pointer;
 }
+
+input {
+  font-family: $font-family-primary;
+  font-weight: $font-weight-light;
+}
+
+
+
+p {
+    font-weight: 100;
+    color: $gray;
+  }

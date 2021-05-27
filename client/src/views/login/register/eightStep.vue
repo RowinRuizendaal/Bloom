@@ -55,7 +55,13 @@ export default {
 <style lang="scss">
 label {
   input {
+    width: 20em;
+    padding: 0.6em 1em;
+    border-radius: 20px;
+    border: none;
+    border: 1px solid $lightgray;
   }
+
   a {
     font-weight: bold;
     color: rgb(114, 109, 97);

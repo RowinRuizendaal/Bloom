@@ -1,5 +1,5 @@
 .register {
-    overflow-y: hidden;
+  overflow-y: hidden;
   height: 100vh;
   background-image: url("../../../assets/svg/signup-background.svg");
 
@@ -14,7 +14,8 @@
       //   align-items: center;
       position: relative;
       width: 100%;
-      margin-top: 4rem;
+      // margin-top: 4rem;
+      margin: 4em 0 1em 0;
 
       button {
         font-weight: bold;
@@ -74,20 +75,19 @@
       }
       div {
         &:not(:nth-last-of-type(1)) {
-          color: red;
+          // color: red;
           height: 50vh;
         }
+
       }
-      // all but not the last one
     }
     div.footer {
       position: absolute;
       z-index: 2;
-      background-color: green;
       bottom: 0;
-      width: 50%;
+      width: 100%;
       display: flex;
-      justify-content: space-between;
+      justify-content: flex-end;
       align-items: center;
 
       button {

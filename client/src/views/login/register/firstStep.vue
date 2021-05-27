@@ -10,7 +10,7 @@
       name="firstName"
       :value="firstName"
       @input="updateFirstName"
-      placeholder="John"
+      placeholder="Voornaam"
     />
     <input
       type="text"
@@ -18,7 +18,7 @@
       name="surName"
       :value="surName"
       @input="updateSurName"
-      placeholder="Doe"
+      placeholder="Achternaam"
     />
   </div>
   <!-- </label> -->
@@ -48,22 +48,11 @@ export default {
 </script>
 
 <style lang="scss">
-/* form {
+input {
   width: 20em;
-
-  label {
-    display: block;
-    margin: 0.3em 0em;
-  }
-
-  input {
-    color: red;
-  }
+  padding: 0.6em 1em;
+  border-radius: 20px;
+  border: none;
+  border: 1px solid $lightgray;
 }
-
-h1 {
-  color: $orange;
-  font-size: 48px;
-  margin-bottom: 5rem;
-} */
 </style>
