@@ -1,8 +1,9 @@
 <template>
-  <main>
+  <section class="register">
     <header>
       <!-- <div>{{ myValue }}</div> -->
       <nav>
+        <button @click="setState('prev')"></button>
         <li class="logo"><h2>bloom</h2></li>
         <li>
           <!-- <router-link
@@ -17,7 +18,7 @@
       </nav>
     </header>
 
-    <section class="register">
+    <main>
       <form enctype="application/x-www-form-urlencoded" @submit.prevent="onSubmit" method="POST">
         <fieldset>
           <legend>
@@ -56,40 +57,16 @@
             <div v-else-if="stepState === 9">
               <Ready />
             </div>
-            <button @click="setState('prev')">Vorige</button>
-            <button @click="setState('next')">Volgende</button>
+            <div class="footer">
+              <button @click="setState('next')">Volgende</button>
+            </div>
           </legend>
         </fieldset>
       </form>
-      <!-- <Button message="terug" v-bind:isSlider="true" />
-      <Button message="volgende" v-bind:isSlider="true" /> -->
-    </section>
-
-    <!-- <article
-      v-for="(item, index) in steps"
-      :key="index"
-      class="artikel"
-      :class="{ 'card-slider-inactive': index !== $store.state.activeIndex }"
-    >
-      <div class="container">
-        <div class="text">
-          <h2>{{ item.heading }}</h2>
-          <p>{{ item.text }}</p>
-        </div>
-      </div>
-    </article> -->
-    <!-- <div class="buttons">
-    
-      <div class="circles">
-        <span
-          v-for="index in maxslides"
-          :key="index"
-          :class="{ 'fill-active': index - 1 === $store.state.activeIndex }"
-          @click="nextSlide(index)"
-        ></span>
-      </div>
-    </div> -->
-  </main>
+    </main>
+    <!-- <Button message="terug" v-bind:isSlider="true" /> -->
+    <!-- <Button message="starten" v-bind:isSlider="false" /> -->
+  </section>
 </template>
 
 <script>

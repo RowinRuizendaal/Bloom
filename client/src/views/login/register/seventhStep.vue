@@ -37,4 +37,9 @@ export default {
 };
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+textarea {
+  resize: vertical;
+  width: 100%;
+}
+</style>

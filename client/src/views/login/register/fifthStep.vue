@@ -71,11 +71,11 @@ ul {
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
-  width: 80vw;
+  width: 100%;
 
   li {
     display: inline;
-    margin: 1rem;
+    margin: 0.8em;
 
     .checkChips {
       display: flex;
@@ -88,9 +88,10 @@ ul {
 
     .checkChip {
       label {
-        font-size: 0.875rem;
-        font-family: "Open Sans", sans-serif;
-        font-weight: 500;
+        font-size: 0.73em;
+        /* font-family: "Open Sans", sans-serif; */
+        font-family: $font-family-primary;
+        font-weight: 600;
 
         padding: 0.625rem 0.75rem;
 

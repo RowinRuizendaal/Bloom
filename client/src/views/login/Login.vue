@@ -3,8 +3,9 @@
     <header>
       <h1>bloom</h1>
     </header>
-    <article>
-      <h2>Welkom</h2>
+
+    <main>
+      <h2>Welkom terug</h2>
       <form
         v-on:submit="login"
         action="/api/login"
@@ -46,7 +47,7 @@
           </legend>
         </fieldset>
       </form>
-    </article>
+    </main>
   </section>
 </template>
 
@@ -99,85 +100,6 @@ export default {
 };
 </script>
 
-<style lang="scss">
-.login {
-  height: 100vh;
-  display: flex;
-  /* justify-content: center; */
-  /* align-items: center; */
-  flex-direction: column;
-  background-image: url("../../assets/svg/signup-background.svg");
-  background-position: center;
-  background-size: cover 100% 100%;
-  background-repeat: no-repeat;
-  @include q-lg-min {
-    background-size: cover;
-  }
-
-  h1 {
-    color: $orange;
-    font-size: 2rem;
-    margin-bottom: 5rem;
-    text-align: center;
-  }
-
-  article {
-    width: 86%;
-    background: rgba(129, 107, 107, 0.327);
-    border: 1px solid red;
-    margin: 0 auto;
-    position: relative;
-
-    form {
-      /* width: 90vw; */
-      height: 40vh;
-      display: block;
-      text-align: center;
-
-      fieldset,
-      legend {
-        width: inherit;
-        height: inherit;
-        border: none;
-      }
-
-      label {
-        display: block;
-        margin: 1em 0em;
-        text-align: left;
-        width: 100%;
-      }
-
-      div {
-        position: absolute;
-        bottom: 0;
-        border: 1px solid blue;
-
-        a {
-          font-weight: bold;
-          color: rgb(114, 109, 97);
-          font-size: 0.7rem;
-          &:nth-of-type(1) {
-            left: 0;
-            background-color: red;
-          }
-        }
-      }
-
-      a {
-        font-weight: bold;
-        color: rgb(114, 109, 97);
-        font-size: 0.7rem;
-      }
-
-      button {
-        font-weight: bold;
-        font-family: Silka, Helvetica, sans-serif;
-        /* position: absolute;
-        bottom: 0;
-        right: 0; */
-      }
-    }
-  }
-}
+<style lang="scss" scoped>
+@import "@/components/login/login.scss";
 </style>

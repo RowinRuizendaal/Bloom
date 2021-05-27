@@ -19,11 +19,15 @@
       @input="updatePassword"
       placeholder="Wachtwoord"
     />
+
+    <router-link to="/register" active-class="hulpaanbieder-register"
+      >Ik ben een hulpaanbieder</router-link
+    >
+    <router-link to="/login" active-class="login">Ik heb al een account</router-link>
   </label>
 </template>
 
 <script>
-// import DataService from "../../services/DataService.js";
 import Input from "../../../components/input/input.vue";
 import { mapState } from "vuex";
 
@@ -48,4 +52,14 @@ export default {
 };
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+label {
+  input {
+  }
+  a {
+    font-weight: bold;
+    color: rgb(114, 109, 97);
+    font-size: 0.7rem;
+  }
+}
+</style>
