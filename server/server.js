@@ -47,16 +47,19 @@ app.get(/.*/, (req, res) =>
 
 // Login handler
 async function handleLogin(req, res) {
-    console.log("hallo");
     const user = await Users.findOne({ emailAddress: req.body.emailAddress });
     if (user == null) {
         // Account not found
         console.log("No user found");
+        
     } else {
+        // Account found
+        // Check password
         if (req.body.password == user.password) {
             // Logged in! - state at frontend/backend?
             console.log("Logged in with account: ", user);
-            // render page with user data
+            // send user data to the front
+            // return res.send(user)
         }
     }
     // if()

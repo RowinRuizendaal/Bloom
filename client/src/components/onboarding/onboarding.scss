@@ -96,11 +96,7 @@ main {
             border-radius: 0.625rem;
             padding-left: 0.8rem;
             color: $orange;
-<<<<<<< HEAD
-            background-color: $yellow;
-=======
             background-color: $lighterYellow;
->>>>>>> master
             margin-left: auto;
             margin-right: 4rem;
             @include q-lg-min {
@@ -113,11 +109,7 @@ main {
                 width: 2.1875rem;
                 height: 2.1875rem;
                 margin-left: 0.8rem;
-<<<<<<< HEAD
-                background-color: $yellow;
-=======
                 background-color: $lightYellow;
->>>>>>> master
                 border-radius: 0.625rem 0.625rem 0.625rem 0;
                 svg {
                     height: 0.75rem;

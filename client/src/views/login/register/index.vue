@@ -22,42 +22,38 @@
         <fieldset>
           <legend>
             <div v-if="stepState === 1">
-              <FirstStep />
-            </div>
-
-            <div v-else-if="stepState === 2">
-              <SecondStep />
-            </div>
-
-            <div v-else-if="stepState === 3">
-              <ThirdStep />
-            </div>
-
-            <div v-else-if="stepState === 4">
-              <FourthStep />
-            </div>
-
-            <div v-else-if="stepState === 5">
-              <FifthStep />
-            </div>
-
-            <div v-else-if="stepState === 6">
-              <SixthStep />
-            </div>
-
-            <div v-else-if="stepState === 7">
-              <SeventhStep />
-            </div>
-
-            <div v-else-if="stepState === 8">
               <EightStep />
             </div>
 
-            <div v-else-if="stepState === 9">
-              <NinthStep />
+            <div v-else-if="stepState === 2">
+              <FirstStep />
             </div>
 
-            <div v-else-if="stepState === 10">
+            <div v-else-if="stepState === 3">
+              <SecondStep />
+            </div>
+
+            <div v-else-if="stepState === 4">
+              <ThirdStep />
+            </div>
+
+            <div v-else-if="stepState === 5">
+              <FourthStep />
+            </div>
+
+            <div v-else-if="stepState === 6">
+              <FifthStep />
+            </div>
+
+            <div v-else-if="stepState === 7">
+              <SixthStep />
+            </div>
+
+            <div v-else-if="stepState === 8">
+              <SeventhStep />
+            </div>
+
+            <div v-else-if="stepState === 9">
               <Ready />
             </div>
             <button @click="setState('prev')">Vorige</button>
@@ -106,7 +102,6 @@ import FifthStep from "./fifthStep.vue";
 import SixthStep from "./sixthStep.vue";
 import SeventhStep from "./seventhStep.vue";
 import EightStep from "./eightStep.vue";
-import NinthStep from "./ninthStep.vue";
 import Ready from "./readyStep.vue";
 
 import { mapState } from "vuex";
@@ -122,7 +117,6 @@ export default {
     SixthStep,
     SeventhStep,
     EightStep,
-    NinthStep,
     Ready,
   },
   // computed: {
@@ -134,6 +128,7 @@ export default {
   methods: {
     //store in Vuex and return the whole data store and post to server
     // getData(index)
+    // Bullet points state --> change background
 
     setState(sort) {
       if (sort === "next") {
@@ -141,21 +136,27 @@ export default {
       } else if (sort === "prev") {
         return (this.stepState -= 1);
       }
-      if (this.stepState == 10) {
-      }
+      // if (this.stepState == 9) {
+      // }
       return;
     },
-    // if this.stepState == 10 {
+    // if this.stepState == 9 {
     // change the onsubmit to real post submit
-    // change button text
+    // change button text = "starten"
+    // vorige button remove
     // }
 
     onSubmit(e) {
       e.preventDefault();
 
-      if (this.stepState === 10) {
+      if (this.stepState === 9) {
         // get data from vuex store
         console.log("user data: ", this.$store.state.user);
+      }
+
+      if (this.stepState == 1) {
+        // button text = "starten"
+        // vorige button remove
       }
     },
   },
