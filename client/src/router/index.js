@@ -6,6 +6,7 @@ import RegisterIndex from "../views/login/register/index.vue";
 
 import ForgotPassword from "../views/login/ForgotPassword.vue";
 import Home from "../views/Home.vue";
+import Onboarding from "../views/onboarding.vue";
 import Intro from "../views/Intro.vue";
 
 Vue.use(VueRouter);
@@ -40,6 +41,11 @@ const routes = [
     path: "/intro",
     name: "Intro",
     component: Intro,
+  },
+  {
+    path: "/onboarding",
+    name: "onboarding",
+    component: Onboarding,
   },
 ];
 

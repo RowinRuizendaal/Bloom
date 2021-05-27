@@ -10,11 +10,11 @@ class DataService {
   // }
 
   createUser(data) {
-    return http.post("/register", data);
+    return http.post("/api/register", data);
   }
 
   loginUser(data) {
-    return http.post("/login", data);
+    return http.post("/api/login", data);
   }
 
   // update(id, data) {
