@@ -100,6 +100,7 @@ export default {
         cursor: pointer;
         justify-content: center;
         border-radius: 5px;
+        box-shadow: 0 15px 15px -14px rgb(114, 109, 97 / 25%);
         &:after {
           content: "";
           position: absolute;
