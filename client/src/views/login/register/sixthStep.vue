@@ -53,7 +53,8 @@ export default {
   },
   methods: {
     updateProfileAvatar(e) {
-      this.$store.commit("updateStateProfileAvatar", e.target.value);
+      console.log("user data: ", this.$store.state.user.firstName),
+        this.$store.commit("updateStateProfileAvatar", e.target.value);
     },
   },
   data() {
