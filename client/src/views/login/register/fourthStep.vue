@@ -3,7 +3,7 @@
     <!-- <label for="gender"> -->
     <h2>Wat is je gender?</h2>
 
-    <ul>
+    <ul class="gender">
       <li>
         <div>
           <input type="radio" id="men" name="gender" :value="Man" @input="updateGender" />
@@ -53,7 +53,7 @@ export default {
 </script>
 
 <style lang="scss">
-ul {
+ul.gender {
   list-style: none;
   display: flex;
   flex-wrap: wrap;

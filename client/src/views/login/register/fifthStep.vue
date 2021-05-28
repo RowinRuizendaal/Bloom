@@ -9,7 +9,7 @@
   <div class="checkChips">
     <h2>Welk type kanker heb je gehad?</h2>
 
-    <ul>
+    <ul class="chips">
       <li v-for="(item, index) in choices" :key="index">
         <div class="checkChip">
           <input
@@ -66,7 +66,7 @@ export default {
 </script>
 
 <style lang="scss">
-ul {
+ul.chips {
   list-style: none;
   display: flex;
   flex-wrap: wrap;
