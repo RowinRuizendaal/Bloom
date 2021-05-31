@@ -61,6 +61,7 @@ export default new Vuex.Store({
 
     // Step 7
     updateStateAbout(state, value) {
+      console.log("yo");
       state.user.about = value;
     },
 
@@ -72,6 +73,11 @@ export default new Vuex.Store({
     // Step 9
     updateStatePassword(state, value) {
       state.user.password = value;
+    },
+
+    // store user data when logged in
+    updateUser(state, value) {
+      state.user = value;
     },
   },
   actions: {},

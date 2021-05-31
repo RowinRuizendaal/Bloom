@@ -1,58 +1,61 @@
 <template>
-  <!-- <label for="firstName"> -->
-  <div>
-    <h2>Wat is je volledige naam?</h2>
-    <p>Dan weten gebruikers hoe ze je kunnen aanspreken. Het mag ook een verzonnen naam zijn.</p>
+  <label for="emailAddress"
+    ><h2>Welkom</h2>
 
     <input
-      type="text"
-      id="firstName"
-      name="firstName"
-      :value="firstName"
-      @input="updateFirstName"
-      placeholder="Voornaam"
+      type="email"
+      class="loginInput"
+      id="emailAddress"
+      name="emailAddress"
+      :value="emailAddress"
+      @input="updateEmailAddress"
+      placeholder="Emailadres"
     />
+
     <input
-      type="text"
-      id="surName"
-      name="surName"
-      :value="surName"
-      @input="updateSurName"
-      placeholder="Achternaam"
+      type="password"
+      class="loginInput"
+      id="password"
+      name="password"
+      :value="password"
+      @input="updatePassword"
+      placeholder="Wachtwoord"
     />
-  </div>
-  <!-- </label> -->
+
+    <router-link to="/register" active-class="hulpaanbieder-register"
+      >Ik ben een hulpaanbieder</router-link
+    >
+    <router-link to="/login" active-class="login">Ik heb al een account</router-link>
+  </label>
 </template>
 
 <script>
-// import DataService from "../../services/DataService.js";
-// console.log("state: ", this.$store.state.firstName);
 import { mapState } from "vuex";
 
 export default {
   computed: {
     ...mapState({
-      firstName: (state) => state.user.firstName,
-      surName: (state) => state.user.surName,
+      emailAddress: (state) => state.user.emailAddress,
+      password: (state) => state.user.password,
     }),
   },
   methods: {
-    updateFirstName(e) {
-      this.$store.commit("updateStateFirstName", e.target.value);
+    updateEmailAddress(e) {
+      this.$store.commit("updateStateEmailAddress", e.target.value);
     },
-    updateSurName(e) {
-      this.$store.commit("updateStateSurName", e.target.value);
+    updatePassword(e) {
+      this.$store.commit("updateStatePassword", e.target.value);
     },
   },
 };
 </script>
 
 <style lang="scss">
-input {
-  width: 20em;
-  padding: 0.6em 1em;
-  border-radius: 20px;
-  border: none;
-  border: 1px solid $lightgray;
+label {
+  a {
+    font-weight: bold;
+    color: rgb(114, 109, 97);
+    font-size: 0.7rem;
+  }
 }
 </style>

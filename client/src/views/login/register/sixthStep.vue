@@ -1,36 +1,29 @@
 <template>
-  <!-- <label for="profileAvatar"> -->
-  <div>
-    <h2>Kies een profel pictogram</h2>
-    <p>
-      Je kunt kiezen voor je
-      <span class="span">memoji</span>
-      of initialen.
-    </p>
+  <!-- <label for="typeIllness"
+    ><h4>Wat is je geboortedatum?</h4>
+    <p>Dan weten...</p>
 
-    <div class="msg">
-      <p>
-        Memoji is een vorm van het weergeven van een karakter, wat erg persoonlijk is, maar niet
-        privacygevoelig als bij een foto.
-      </p>
-    </div>
+    <input type="date" id="typeIllness" name="typeIllness" v-model="typeIllness" />
+  </label> -->
 
-    <ul class="six">
-      <li v-for="(item, index) in avatars" :key="index">
-        <input
-          type="radio"
-          :id="item.color"
-          name="profileAvatar"
-          :value="item.color"
-          @input="updateProfileAvatar"
-        />
-        <label :for="item.color" :class="item.color">
-          <p>{{ item.firstName }} {{ item.surName }}</p>
-        </label>
+  <div class="checkChips">
+    <h2>Welk type kanker heb je gehad?</h2>
+
+    <ul class="chips">
+      <li v-for="(item, index) in choices" :key="index">
+        <div class="checkChip">
+          <input
+            type="checkbox"
+            :id="item"
+            name="typeIllness"
+            :value="item"
+            @input="updateTypeIllness"
+          />
+          <label :for="item">{{ item }}</label>
+        </div>
       </li>
     </ul>
   </div>
-  <!-- </label> -->
 </template>
 
 <script>
@@ -39,28 +32,42 @@ import { mapState } from "vuex";
 export default {
   computed: {
     ...mapState({
-      profileAvatar: (state) => state.user.profileAvatar,
+      typeIllness: (state) => state.user.typeIllness,
     }),
   },
   methods: {
-    updateProfileAvatar(e) {
-      this.$store.commit("updateStateProfileAvatar", e.target.value);
+    updateTypeIllness(e) {
+      let checkedArray = this.checked;
+      // get all from data state
+
+      // push selected value to array
+      checkedArray.push(e.target.value);
+
+      // Check when checkbox isn't checked --> update state
+
+      // Commit array to the Vuex store
+      this.$store.commit("updateStateTypeIllness", checkedArray);
     },
   },
   data() {
-    let firstName = this.$store.state.user.firstName.charAt(0).toUpperCase();
-    let surName = this.$store.state.user.surName.charAt(0).toUpperCase();
     return {
-      avatars: [
-        { firstName: firstName, surName: surName, color: "yellow" },
-        { firstName: firstName, surName: surName, color: "orange" },
-        { firstName: firstName, surName: surName, color: "pink" },
-        { firstName: firstName, surName: surName, color: "green" },
-        { firstName: firstName, surName: surName, color: "blue" },
-        { firstName: firstName, surName: surName, color: "purple" },
-        { firstName: firstName, surName: surName, color: "gray" },
-        { firstName: firstName, surName: surName, color: "pinkTwo" },
-        { firstName: firstName, surName: surName, color: "yellowTwo" },
+      checked: [],
+      choices: [
+        "Hoofd-halskanker",
+        "Spijsverteringsorganen",
+        "Huidkanker",
+        "Luchtwegen",
+        "Borstkanker",
+        "Urinewegen",
+        "Bot, kraakbeen en weke delen",
+        "Vrouwelijke geslachtsorganen",
+        "Oogkanker",
+        "Hematologische maligniteiten",
+        "Mannelijke geslachtsorganen",
+        "Endocriene klieren",
+        "Centraal zenuwstelsel",
+        "Overig",
+        "Zeg ik liever niet",
       ],
     };
   },
@@ -68,103 +75,57 @@ export default {
 </script>
 
 <style lang="scss">
-.six {
-  display: grid;
-  grid-template-columns: 6em 6em 6em;
-  grid-template-rows: 6em 6em 6em;
+ul.chips {
   list-style: none;
-  justify-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  width: 100%;
 
   li {
-    width: 5em;
-    height: 5em;
-    /* border: 1px solid red; */
+    display: inline;
+    margin: 0.8em;
 
-    input {
-      display: none;
-      width: 9px;
+    .checkChips {
+      display: flex;
+      flex-direction: row;
 
-      &:checked {
-        ~ {
-          label {
-            border: 2px solid $lighterOrange;
-          }
-        }
+      & > * {
+        margin-right: 1rem;
       }
     }
 
-    label {
-      width: 100%;
-      height: 100%;
-      background: red;
-      display: inherit;
-      /* font-size: 0.875rem;
-        font-size: 1.5rem;
-        font-family: "Open Sans", sans-serif;
-        font-weight: 500; */
-      font-size: 2rem;
-      padding: 0.625rem 0.75rem;
-      /* padding: 1em; */
+    .checkChip {
+      label {
+        font-size: 0.73em;
+        /* font-family: "Open Sans", sans-serif; */
+        font-family: $font-family-primary;
+        font-weight: 600;
 
-      box-shadow: 0 3px 8px $gray;
-      border: solid 2px transparent; // transparent border to prevent weird jumping
-      border-radius: 5px;
-      color: $gray;
+        padding: 0.625rem 0.75rem;
 
-      transition: all 0.1s ease;
-    }
+        // transparent border to prevent weird jumping
+        border: solid 2px transparent;
+        border-radius: 25rem;
+        background-color: $lightYellow;
+        color: $gray;
 
-    label.yellow {
-      background: rgb(254, 232, 158);
-    }
-    label.orange {
-      background: rgb(254, 215, 160);
-    }
-    label.pink {
-      background: rgb(254, 180, 176);
-    }
-    label.green {
-      background: rgb(186, 240, 195);
-    }
-    label.blue {
-      background: rgb(194, 234, 251);
-    }
-    label.purple {
-      background: rgb(218, 208, 251);
-    }
-    label.gray {
-      background: rgb(214, 214, 214);
-    }
-    label.pinkTwo {
-      background: rgb(254, 197, 212);
-    }
-    label.yellowTwo {
-      background: rgb(254, 232, 158);
-    }
-  }
-}
+        transition: all 0.1s ease;
+      }
 
-.span {
-  &:hover {
-    cursor: pointer;
-    text-decoration: underline;
-  }
-}
+      input {
+        width: 0;
+        height: 0;
+        display: none;
 
-div.msg {
-  opacity: 0;
-  position: absolute;
-  z-index: 1;
-  top: 0.5em;
-  min-width: 330px;
-  padding: 0.51em;
-  text-shadow: none;
-  border-radius: 5px;
-  background-color: #797979;
-  font-size: 0.7rem;
+        &:checked + label {
+          // selected state
 
-  p {
-    color: white !important;
+          border: solid 2px $orange;
+          background-color: $lightOrange;
+        }
+      }
+    }
   }
 }
 </style>

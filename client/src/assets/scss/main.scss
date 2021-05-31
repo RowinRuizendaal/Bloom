@@ -18,9 +18,17 @@ input {
   font-weight: $font-weight-light;
 }
 
-
-
 p {
-    font-weight: 100;
-    color: $gray;
-  }
+  font-weight: 100;
+  color: $gray;
+}
+
+input.loginInput {
+  // width: 20em;
+  width: 100%;
+  height: 3em;
+  padding: 0.6em 1em;
+  border-radius: 20px;
+  border: none;
+  border: 1px solid $lightgray;
+}

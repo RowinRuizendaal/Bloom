@@ -6,31 +6,33 @@
 
     <main>
       <h2>Welkom terug</h2>
-      <form
-        v-on:submit="login"
-        action="/api/login"
-        method="POST"
-        enctype="application/x-www-form-urlencoded"
-      >
+      <ul v-if="errors.length">
+        <li v-for="(error, index) in errors" :key="index">{{ error }}</li>
+      </ul>
+      <form v-on:submit="onSubmit" method="POST" enctype="application/x-www-form-urlencoded">
         <fieldset>
           <legend>
             <label for="emailAddress">
-              <Input
-                type="text"
+              <input
+                type="email"
+                class="loginInput"
                 placeholder="E-mailadres"
                 id="emailAddress"
-                v-model="user.emailAddress"
+                v-model="emailAddress"
                 name="emailAddress"
+                required
               />
             </label>
 
             <label for="password">
-              <Input
+              <input
                 type="password"
+                class="loginInput"
                 placeholder="Wachtwoord"
                 id="password"
-                v-model="user.password"
+                v-model="password"
                 name="password"
+                required
               />
             </label>
             <router-link to="/forgot-password" active-class="forgot-password"
@@ -41,7 +43,6 @@
               <router-link to="/register" active-class="register"
                 >Ik heb nog geen account</router-link
               >
-
               <Button message="inloggen" v-bind:isSlider="false" />
             </div>
           </legend>
@@ -52,50 +53,45 @@
 </template>
 
 <script>
-import DataService from "../../services/DataService.js";
 import Button from "../../components/button/button.vue";
-import Input from "../../components/input/input.vue";
+import axios from "axios";
 
 export default {
   name: "Login",
   components: {
     Button,
-    Input,
   },
   data() {
     return {
-      user: {
-        emailAddress: "",
-        password: "",
-      },
-      submitted: false,
+      emailAddress: "",
+      password: "",
+      errors: [],
     };
   },
   methods: {
-    login() {
+    async login(e) {
       let data = {
-        emailAddress: this.user.emailAddress,
-        password: this.user.password,
+        emailAddress: this.emailAddress,
+        password: this.password,
       };
-
-      DataService.loginUser(data)
+      axios
+        .post("/api/login", data, { headers: { "Content-type": "application/json" } })
         .then((response) => {
-          console.log("Logged In", response.data);
-          // router.push("/themes");
-
-          // this.tutorial.id = response.data.id;
-          // console.log(response.data);
-          // this.submitted = true;
+          if (response.status === 200) {
+            console.log(response);
+            this.$store.commit("updateUser", response.data);
+            return this.$router.push("/themes");
+          }
         })
         .catch((err) => {
-          console.log("Cannot login - ERROR: ", err);
+          this.errors.push("Er is helaas geen account gevonden");
+          console.log(err);
         });
     },
-
-    // newTutorial() {
-    //   this.submitted = false;
-    //   this.tutorial = {};
-    // },
+    onSubmit(e) {
+      e.preventDefault();
+      this.login();
+    },
   },
 };
 </script>

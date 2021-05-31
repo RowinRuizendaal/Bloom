@@ -1,81 +1,66 @@
 <template>
-  <!-- <label for="typeIllness"
-    ><h4>Wat is je geboortedatum?</h4>
-    <p>Dan weten...</p>
-
-    <input type="date" id="typeIllness" name="typeIllness" v-model="typeIllness" />
-  </label> -->
-
   <div class="checkChips">
-    <h2>Welk type kanker heb je gehad?</h2>
+    <!-- <label for="gender"> -->
+    <h2>Wat is je gender?</h2>
 
-    <ul class="chips">
+    <ul class="gender">
       <li v-for="(item, index) in choices" :key="index">
-        <div class="checkChip">
+        <div>
           <input
-            type="checkbox"
-            :id="item"
-            name="typeIllness"
-            :value="item"
-            @input="updateTypeIllness"
+            type="radio"
+            :id="item.type"
+            name="gender"
+            :value="item.type"
+            @input="updateGender"
           />
-          <label :for="item">{{ item }}</label>
+          <label :for="item.type" :class="item.color">
+            {{ item.type.charAt(0).toUpperCase() }}</label
+          >
+          <p>{{ item.type }}</p>
         </div>
       </li>
     </ul>
+    <!-- </label> -->
   </div>
 </template>
 
 <script>
-// import DataService from "../../services/DataService.js";
 import { mapState } from "vuex";
 
 export default {
   computed: {
     ...mapState({
-      typeIllness: (state) => state.user.typeIllness,
+      gender: (state) => state.user.gender,
     }),
   },
   methods: {
-    updateTypeIllness(e) {
-      this.$store.commit("updateStateTypeIllness", e.target.value);
+    updateGender(e) {
+      this.$store.commit("updateStateGender", e.target.value);
     },
   },
   data() {
     return {
-      choices: [
-        "Hoofd-halskanker",
-        "Spijsverteringsorganen",
-        "Huidkanker",
-        "Luchtwegen",
-        "Borstkanker",
-        "Urinewegen",
-        "Bot, kraakbeen en weke delen",
-        "Vrouwelijke geslachtsorganen",
-        "Oogkanker",
-        "Hematologische maligniteiten",
-        "Mannelijke geslachtsorganen",
-        "Endocriene klieren",
-        "Centraal zenuwstelsel",
-        "Overig",
-        "Zeg ik liever niet",
-      ],
+      choices: [{ type: "Man" }, { type: "Vrouw" }, { type: "Neutraal" }],
     };
   },
 };
 </script>
 
 <style lang="scss">
-ul.chips {
+ul.gender {
   list-style: none;
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
-  width: 100%;
+  width: 80vw;
 
   li {
     display: inline;
-    margin: 0.8em;
+    /* margin: 1rem; */
+
+    &:hover {
+      cursor: pointer;
+    }
 
     .checkChips {
       display: flex;
@@ -86,18 +71,18 @@ ul.chips {
       }
     }
 
-    .checkChip {
+    div {
       label {
-        font-size: 0.73em;
-        /* font-family: "Open Sans", sans-serif; */
-        font-family: $font-family-primary;
-        font-weight: 600;
+        font-size: 0.875rem;
+        font-size: 1.5rem;
+        font-family: "Open Sans", sans-serif;
+        font-weight: 500;
 
         padding: 0.625rem 0.75rem;
-
+        padding: 1em;
         // transparent border to prevent weird jumping
         border: solid 2px transparent;
-        border-radius: 25rem;
+        border-radius: 5px;
         background-color: $lightYellow;
         color: $gray;
 
@@ -108,6 +93,10 @@ ul.chips {
         width: 0;
         height: 0;
         display: none;
+
+        &:hover {
+          cursor: pointer;
+        }
 
         &:checked + label {
           // selected state

@@ -1,34 +1,47 @@
 <template>
-  <label for="birthDate"
-    ><h2>Wat is je geboortedatum?</h2>
-    <p>
-      Dan weten kunnen we je koppelen aan leeftijdsgenoten. Je bent niet verplicht om je leeftijd te
-      delen!
-    </p>
+  <!-- <label for="firstName"> -->
+  <div>
+    <h2>Wat is je volledige naam?</h2>
+    <p>Dan weten gebruikers hoe ze je kunnen aanspreken. Het mag ook een verzonnen naam zijn.</p>
 
     <input
-      type="date"
-      id="birthDate"
-      name="birthDate"
-      :value="birthDate"
-      @input="updateBirthDate"
+      type="text"
+      class="loginInput"
+      id="firstName"
+      name="firstName"
+      :value="firstName"
+      @input="updateFirstName"
+      placeholder="Voornaam"
     />
-  </label>
+    <input
+      type="text"
+      class="loginInput"
+      id="surName"
+      name="surName"
+      :value="surName"
+      @input="updateSurName"
+      placeholder="Achternaam"
+    />
+  </div>
+  <!-- </label> -->
 </template>
 
 <script>
-// import DataService from "../../services/DataService.js";
 import { mapState } from "vuex";
 
 export default {
   computed: {
     ...mapState({
-      birthDate: (state) => state.user.birthDate,
+      firstName: (state) => state.user.firstName,
+      surName: (state) => state.user.surName,
     }),
   },
   methods: {
-    updateBirthDate(e) {
-      this.$store.commit("updateStateBirthDate", e.target.value);
+    updateFirstName(e) {
+      this.$store.commit("updateStateFirstName", e.target.value);
+    },
+    updateSurName(e) {
+      this.$store.commit("updateStateSurName", e.target.value);
     },
   },
 };

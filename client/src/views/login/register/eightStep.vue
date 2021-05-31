@@ -1,71 +1,57 @@
 <template>
-  <label for="emailAddress"
-    ><h2>Welkom</h2>
-
-    <input
-      type="email"
-      id="emailAddress"
-      name="emailAddress"
-      :value="emailAddress"
-      @input="updateEmailAddress"
-      placeholder="Emailadres"
-    />
-
-    <input
-      type="password"
-      id="password"
-      name="password"
-      :value="password"
-      @input="updatePassword"
-      placeholder="Wachtwoord"
-    />
-
-    <router-link to="/register" active-class="hulpaanbieder-register"
-      >Ik ben een hulpaanbieder</router-link
-    >
-    <router-link to="/login" active-class="login">Ik heb al een account</router-link>
+  <label for="about"
+    ><h2>Vertel iets over jezelf</h2>
+    <p>Is er nog iets wat je zou willen delen? Dat kun je kwijt in je biografie.</p>
+    <textarea id="about" name="about" v-model="about" placeholder="Vertel iets over jezelf" />
+    <p>{{ about }}</p>
   </label>
 </template>
 
 <script>
-import Input from "../../../components/input/input.vue";
+import Textarea from "../../../components/textarea/textarea";
 import { mapState } from "vuex";
 
 export default {
   components: {
-    // Input,
+    // Textarea,
   },
+
   computed: {
     ...mapState({
-      emailAddress: (state) => state.user.emailAddress,
-      password: (state) => state.user.password,
+      about: (state) => state.user.about,
     }),
   },
   methods: {
-    updateEmailAddress(e) {
-      this.$store.commit("updateStateEmailAddress", e.target.value);
+    updateAbout(e) {
+      console.log("clicked: ", e);
+      console.log(this.about);
+      this.$store.commit("updateStateAbout", e.target.value);
     },
-    updatePassword(e) {
-      this.$store.commit("updateStatePassword", e.target.value);
+    data() {
+      return {
+        about: "",
+      };
     },
   },
 };
 </script>
 
 <style lang="scss">
-label {
-  input {
-    width: 20em;
-    padding: 0.6em 1em;
-    border-radius: 20px;
-    border: none;
-    border: 1px solid $lightgray;
-  }
+textarea {
+  font-size: 0.875rem;
+  font-family: $font-family-primary;
+  font-weight: $font-weight-light;
 
-  a {
-    font-weight: bold;
-    color: rgb(114, 109, 97);
-    font-size: 0.7rem;
+  padding: 0.625rem 1.125rem;
+  resize: none;
+  width: 100%;
+  height: 20vh;
+
+  border: solid 1px $lightgray;
+  border-radius: 1.25rem;
+
+  &:focus {
+    outline: none;
   }
 }
 </style>

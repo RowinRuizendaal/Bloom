@@ -23,35 +23,35 @@
         <fieldset>
           <legend>
             <div v-if="stepState === 1">
-              <EightStep />
-            </div>
-
-            <div v-else-if="stepState === 2">
               <FirstStep />
             </div>
 
-            <div v-else-if="stepState === 3">
+            <div v-else-if="stepState === 2">
               <SecondStep />
             </div>
 
-            <div v-else-if="stepState === 4">
+            <div v-else-if="stepState === 3">
               <ThirdStep />
             </div>
 
-            <div v-else-if="stepState === 5">
+            <div v-else-if="stepState === 4">
               <FourthStep />
             </div>
 
-            <div v-else-if="stepState === 6">
+            <div v-else-if="stepState === 5">
               <FifthStep />
             </div>
 
-            <div v-else-if="stepState === 7">
+            <div v-else-if="stepState === 6">
               <SixthStep />
             </div>
 
-            <div v-else-if="stepState === 8">
+            <div v-else-if="stepState === 7">
               <SeventhStep />
+            </div>
+
+            <div v-else-if="stepState === 8">
+              <EightStep />
             </div>
 
             <div v-else-if="stepState === 9">
@@ -79,9 +79,11 @@ import FifthStep from "./fifthStep.vue";
 import SixthStep from "./sixthStep.vue";
 import SeventhStep from "./seventhStep.vue";
 import EightStep from "./eightStep.vue";
+
 import Ready from "./readyStep.vue";
 
 import { mapState } from "vuex";
+import axios from "axios";
 
 export default {
   components: {
@@ -103,35 +105,34 @@ export default {
   //   },
   // },
   methods: {
-    //store in Vuex and return the whole data store and post to server
-    // getData(index)
-    // Bullet points state --> change background
-
     setState(sort) {
       if (sort === "next") {
         return (this.stepState += 1);
       } else if (sort === "prev") {
         return (this.stepState -= 1);
       }
-      // if (this.stepState == 9) {
-      // }
       return;
     },
-    // if this.stepState == 9 {
-    // change the onsubmit to real post submit
-    // change button text = "starten"
-    // vorige button remove
-    // }
 
     onSubmit(e) {
       e.preventDefault();
 
       if (this.stepState === 9) {
         // get data from vuex store
-        console.log("user data: ", this.$store.state.user);
+        console.log("user data, ", this.$store.state.user);
+
+        // POst submit to server
+        axios.post("/api/register", this.$store.state.user, {
+          headers: { "Content-type": "application/json" },
+        });
       }
 
-      if (this.stepState == 1) {
+      // redirect themes
+      if (this.stepState === 10) {
+        this.$router.push("/themes");
+      }
+
+      if (this.stepState == 1 || this.stepState == 9) {
         // button text = "starten"
         // vorige button remove
       }

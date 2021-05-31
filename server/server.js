@@ -26,11 +26,7 @@ db.mongoose
         process.exit();
     });
 
-// Get all users of db
-async function getAllUsers() {
-    const users = await Users.find().catch((err) => console.log(err));
-    console.log(users);
-}
+
 
 // Login
 app.post("/api/login", handleLogin);
@@ -47,21 +43,44 @@ app.get(/.*/, (req, res) =>
 
 // Login handler
 async function handleLogin(req, res) {
-    const user = await Users.findOne({ emailAddress: req.body.emailAddress });
-    if (user == null) {
-        // Account not found
-        console.log("No user found");
-        
-    } else {
-        // Account found
-        // Check password
-        if (req.body.password == user.password) {
-            // Logged in! - state at frontend/backend?
-            console.log("Logged in with account: ", user);
-            // send user data to the front
-            // return res.send(user)
-        }
-    }
+    // const user = findUser(req.body.emailAddress)
+    // const user = await Users.findOne({ emailAddress: req.body.emailAddress, password: req.body.password });
+
+    const user = await Users.findOne({
+        emailAddress: req.body.emailAddress,
+        password: req.body.password
+    }, (err, result) => {
+        if (err) return res.sendStatus(400);
+        return res.status(200).json(result)
+    })
+
+
+    // if (user === null) {
+    //     // Account not found
+    //     console.log("No user found");
+    //     return res.sendStatus(400)
+
+    // } else {
+    //     // Account found
+    //     // Check password
+    //     if (req.body.password == user.password) {
+    //         // Logged in! - state at frontend/backend?
+    //         console.log("Logged in with account: ", user);
+    //         // send user data to the front
+    //         // return res.sendStatus(200)
+    //         return {
+    //             status: 200,
+    //             data: user
+    //         }
+    //         // return res.status(200).json(user)
+    //     } else {
+    //         return {
+    //             status: 400,
+    //             data: null
+    //         }
+    //     }
+    // }
+    // return
     // if()
     // try {
     //   if (await bcrypt.compare(req.body.wachtwoord, user.wachtwoord)) {
@@ -82,6 +101,8 @@ async function handleLogin(req, res) {
     // }
 }
 
+
+// Put all functions in controllers/user.controller.js
 // Add user to db
 function handleRegister(req, res) {
     const userObject = {
@@ -97,38 +118,51 @@ function handleRegister(req, res) {
         about: req.body.about,
     };
 
-    console.log("User data: ", userObject);
-
+    console.log("User register data: ", userObject);
     createUser(userObject);
+    // getAllUsers();
+}
 
-    // adds user to DB
-    function createUser({
-        firstName,
-        surName,
-        emailAddress,
-        password,
-        birthDate,
-        town,
-        gender,
-        typeIllness,
-        profileAvatar,
-        about,
-    }) {
-        Users.create({
-            firstName: firstName,
-            surName: surName,
-            emailAddress: emailAddress,
-            password: password,
-            birthDate: birthDate,
-            town: town,
-            gender: gender,
-            typeIllness: typeIllness,
-            profileAvatar: profileAvatar,
-            about: about,
-        });
-    }
+// Add user to DB
+function createUser({
+    firstName,
+    surName,
+    emailAddress,
+    password,
+    birthDate,
+    town,
+    gender,
+    typeIllness,
+    profileAvatar,
+    about,
+}) {
+    Users.create({
+        firstName: firstName,
+        surName: surName,
+        emailAddress: emailAddress,
+        password: password,
+        birthDate: birthDate,
+        town: town,
+        gender: gender,
+        typeIllness: typeIllness,
+        profileAvatar: profileAvatar,
+        about: about,
+    });
+}
 
-    getAllUsers();
+// Find user in DB by email
+async function findUser(email) {
+    console.log(email)
+        // const userData = await Users.findOne({ emailAddress: email });
+        // return userData
+}
+
+
+
+// Get all users of DB
+async function getAllUsers() {
+    const users = await Users.find().catch((err) => console.log(err));
+    console.log(users);
 }
 
 // set port, listen for requests
