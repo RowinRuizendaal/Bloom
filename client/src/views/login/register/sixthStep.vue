@@ -1,26 +1,18 @@
 <template>
-  <!-- <label for="typeIllness"
-    ><h4>Wat is je geboortedatum?</h4>
-    <p>Dan weten...</p>
-
-    <input type="date" id="typeIllness" name="typeIllness" v-model="typeIllness" />
-  </label> -->
-
   <div class="checkChips">
     <h2>Welk type kanker heb je gehad?</h2>
 
     <ul class="chips">
       <li v-for="(item, index) in choices" :key="index">
-        <div class="checkChip">
-          <input
-            type="checkbox"
-            :id="item"
-            name="typeIllness"
-            :value="item"
-            @input="updateTypeIllness"
-          />
-          <label :for="item">{{ item }}</label>
-        </div>
+        <input
+          type="checkbox"
+          :id="item"
+          name="typeIllness"
+          :value="item"
+          @input="updateTypeIllness"
+          v-model="checked"
+        />
+        <label :for="item">{{ item }}</label>
       </li>
     </ul>
   </div>
@@ -38,10 +30,11 @@ export default {
   methods: {
     updateTypeIllness(e) {
       let checkedArray = this.checked;
+      console.log(checkedArray);
       // get all from data state
 
       // push selected value to array
-      checkedArray.push(e.target.value);
+      // checkedArray.push(e.target.value);
 
       // Check when checkbox isn't checked --> update state
 
@@ -63,8 +56,8 @@ export default {
         "Vrouwelijke geslachtsorganen",
         "Oogkanker",
         "Hematologische maligniteiten",
-        "Mannelijke geslachtsorganen",
         "Endocriene klieren",
+        "Mannelijke geslachtsorganen",
         "Centraal zenuwstelsel",
         "Overig",
         "Zeg ik liever niet",
@@ -75,34 +68,27 @@ export default {
 </script>
 
 <style lang="scss">
-ul.chips {
-  list-style: none;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  width: 100%;
+.checkChips {
+  ul.chips {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    width: 100%;
 
-  li {
-    display: inline;
-    margin: 0.8em;
+    li {
+      display: inline-block;
+      margin: 0.7em;
+      flex-shrink: 1;
+      /* padding: 1em; */
 
-    .checkChips {
-      display: flex;
-      flex-direction: row;
-
-      & > * {
-        margin-right: 1rem;
-      }
-    }
-
-    .checkChip {
       label {
         font-size: 0.73em;
         /* font-family: "Open Sans", sans-serif; */
         font-family: $font-family-primary;
         font-weight: 600;
 
-        padding: 0.625rem 0.75rem;
+        padding: 0.7em;
 
         // transparent border to prevent weird jumping
         border: solid 2px transparent;

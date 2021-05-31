@@ -2,28 +2,33 @@
   overflow-y: hidden;
   height: 100vh;
   background-image: url("../../../assets/svg/signup-background.svg");
+  background-position: center;
+  background-size: cover 100% 100%;
+  background-repeat: no-repeat;
+  @include q-lg-min {
+    background-size: cover;
+  }
 
   header {
-    // display: flex;
-    // justify-content: center;
-    // align-items: center;
+    h1 {
+      color: $orange;
+      // font-size: 1.7rem;
+      height: 16vh;
+      padding: 1em;
+      text-align: center;
+    }
 
     nav {
-      //   display: flex;
-      //   justify-content: space-evenly;
-      //   align-items: center;
-      position: relative;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
       width: 100%;
-      // margin-top: 4rem;
-      margin: 4em 0 1em 0;
+      position: relative;
 
       button {
-        font-weight: bold;
-        font-family: Silka, Helvetica, sans-serif;
         &:nth-of-type(1) {
-          position: absolute;
-          left: 2em;
-          top: 0.4em;
+          // position: absolute;
           background-image: url("../../../assets/icons/arrow.svg");
           background-color: transparent;
           background-repeat: no-repeat;
@@ -71,14 +76,15 @@
     form {
       legend,
       fieldset {
+        width: inherit;
+        height: inherit;
         border: none;
       }
       div {
         &:not(:nth-last-of-type(1)) {
-          // color: red;
+          // background-color: red;
           height: 50vh;
         }
-
       }
     }
     div.footer {
@@ -89,6 +95,14 @@
       display: flex;
       justify-content: flex-end;
       align-items: center;
+
+      a {
+        width: 100%;
+        font-weight: bold;
+        color: $gray;
+        font-size: 0.7rem;
+        text-align: left;
+      }
 
       button {
         right: 0;

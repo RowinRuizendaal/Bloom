@@ -80,7 +80,7 @@ export default {
           if (response.status === 200) {
             // console.log(response);
             this.$store.commit("updateUser", response.data);
-            return this.$router.push("/profile"); // themes
+            return this.$router.push("/themes");
           }
         })
         .catch((err) => {

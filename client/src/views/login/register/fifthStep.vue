@@ -5,19 +5,17 @@
 
     <ul class="gender">
       <li v-for="(item, index) in choices" :key="index">
-        <div>
-          <input
-            type="radio"
-            :id="item.type"
-            name="gender"
-            :value="item.type"
-            @input="updateGender"
-          />
-          <label :for="item.type" :class="item.color">
-            {{ item.type.charAt(0).toUpperCase() }}</label
-          >
-          <p>{{ item.type }}</p>
-        </div>
+        <input
+          type="radio"
+          :id="item.type"
+          name="gender"
+          :value="item.type"
+          @input="updateGender"
+        />
+        <label :for="item.type" :class="item.color">
+          <p>{{ item.type.charAt(0).toUpperCase() }}</p></label
+        >
+        <p>{{ item.type }}</p>
       </li>
     </ul>
     <!-- </label> -->
@@ -51,11 +49,15 @@ ul.gender {
   list-style: none;
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-start;
+  justify-content: space-between;
   width: 80vw;
 
   li {
     display: inline;
+    width: 5em;
+    height: 5em;
+
+    /* padding: 2em; */
     /* margin: 1rem; */
 
     &:hover {
@@ -71,40 +73,41 @@ ul.gender {
       }
     }
 
-    div {
-      label {
-        font-size: 0.875rem;
-        font-size: 1.5rem;
-        font-family: "Open Sans", sans-serif;
-        font-weight: 500;
+    label {
+      border: solid 2px transparent;
+      border-radius: 5px;
+      background-color: #fee89e;
+      color: #726d61;
+      transition: all 0.1s ease;
 
+      p {
+        font-size: 2.5rem;
+        font-weight: 700;
         padding: 0.625rem 0.75rem;
-        padding: 1em;
-        // transparent border to prevent weird jumping
-        border: solid 2px transparent;
-        border-radius: 5px;
-        background-color: $lightYellow;
-        color: $gray;
+        text-align: center;
+      }
+    }
 
-        transition: all 0.1s ease;
+    input {
+      width: 0;
+      height: 0;
+      display: none;
+
+      &:hover {
+        cursor: pointer;
       }
 
-      input {
-        width: 0;
-        height: 0;
-        display: none;
+      &:checked + label {
+        // selected state
 
-        &:hover {
-          cursor: pointer;
-        }
-
-        &:checked + label {
-          // selected state
-
-          border: solid 2px $orange;
-          background-color: $lightOrange;
-        }
+        border: solid 2px $orange;
+        background-color: $lightOrange;
       }
+    }
+
+    p {
+      font-weight: 700;
+      text-align: center;
     }
   }
 }

@@ -1,20 +1,9 @@
 <template>
   <section class="register">
     <header>
-      <!-- <div>{{ myValue }}</div> -->
       <nav>
-        <button @click="setState('prev')"></button>
-        <li class="logo"><h2>bloom</h2></li>
-        <li>
-          <!-- <router-link
-            to="/register-index"
-            class="skip"
-            v-bind:isSlider="true"
-            @click="nextSlide(index)"
-          >
-            &larr; naar vorige question
-          </router-link> -->
-        </li>
+        <button v-if="stepState !== 1 && stepState !== 9" @click="setState('prev')"></button>
+        <h1>bloom</h1>
       </nav>
     </header>
 
@@ -58,7 +47,14 @@
               <Ready />
             </div>
             <div class="footer">
-              <button @click="setState('next')">Volgende</button>
+              <router-link v-if="stepState === 1" to="/login" active-class="login"
+                >Ik heb al een account</router-link
+              >
+
+              <button v-if="stepState !== 1 && stepState !== 9" @click="setState('next')">
+                Volgende
+              </button>
+              <button v-else @click="setState('next')">Starten</button>
             </div>
           </legend>
         </fieldset>
@@ -96,12 +92,7 @@ export default {
     EightStep,
     Ready,
   },
-  // computed: {
-  //   myValue() {
-  //     return this.$store.state.user;
-  //     // return this.$store.state.myValue;
-  //   },
-  // },
+
   methods: {
     setState(sort) {
       if (sort === "next") {
@@ -116,16 +107,16 @@ export default {
       e.preventDefault();
 
       if (this.stepState === 9) {
-        // get data from vuex store
+        // Get data from Vuex store
         console.log("user data, ", this.$store.state.user);
 
-        // POst submit to server
+        // Post submit to server
         axios.post("/api/register", this.$store.state.user, {
           headers: { "Content-type": "application/json" },
         });
       }
 
-      // redirect themes
+      // Redirect to /themes
       if (this.stepState === 10) {
         this.$router.push("/themes");
       }

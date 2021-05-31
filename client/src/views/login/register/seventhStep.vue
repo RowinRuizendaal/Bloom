@@ -1,7 +1,7 @@
 <template>
   <!-- <label for="profileAvatar"> -->
   <div>
-    <h2>Kies een profel pictogram</h2>
+    <h2>Kies een profiel pictogram</h2>
     <p>
       Je kunt kiezen voor je
       <span class="span">memoji</span>

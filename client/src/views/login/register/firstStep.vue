@@ -1,32 +1,32 @@
 <template>
-  <label for="emailAddress"
-    ><h2>Welkom</h2>
+  <div class="first">
+    <h2>Welkom</h2>
+    <label for="emailAddress">
+      <input
+        type="email"
+        class="loginInput"
+        id="emailAddress"
+        name="emailAddress"
+        :value="emailAddress"
+        @input="updateEmailAddress"
+        placeholder="E-mailadres"
+    /></label>
 
-    <input
-      type="email"
-      class="loginInput"
-      id="emailAddress"
-      name="emailAddress"
-      :value="emailAddress"
-      @input="updateEmailAddress"
-      placeholder="Emailadres"
-    />
-
-    <input
-      type="password"
-      class="loginInput"
-      id="password"
-      name="password"
-      :value="password"
-      @input="updatePassword"
-      placeholder="Wachtwoord"
-    />
+    <label for="password">
+      <input
+        type="password"
+        class="loginInput"
+        id="password"
+        name="password"
+        :value="password"
+        @input="updatePassword"
+        placeholder="Wachtwoord"
+    /></label>
 
     <router-link to="/register" active-class="hulpaanbieder-register"
       >Ik ben een hulpaanbieder</router-link
     >
-    <router-link to="/login" active-class="login">Ik heb al een account</router-link>
-  </label>
+  </div>
 </template>
 
 <script>
@@ -51,11 +51,22 @@ export default {
 </script>
 
 <style lang="scss">
-label {
+div.first {
+  width: 86vw;
+
   a {
     font-weight: bold;
-    color: rgb(114, 109, 97);
+    color: $gray;
     font-size: 0.7rem;
+    text-align: center;
+    display: block;
+  }
+
+  label {
+    display: block;
+    margin: 1em 0em;
+    text-align: left;
+    width: 100%;
   }
 }
 </style>

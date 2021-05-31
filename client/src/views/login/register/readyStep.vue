@@ -1,7 +1,7 @@
 <template>
   <div>
     <h2>Klaar om te starten</h2>
-    <p>Als je nog aanvullende informatie wil toevoegen kun je terecht in je profile.</p>
+    <p>Als je nog aanvullende informatie wil toevoegen kun je terecht in je profiel.</p>
 
     <img src="../../../assets/icons/check.svg" alt="" />
   </div>
