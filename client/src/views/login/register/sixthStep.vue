@@ -1,5 +1,5 @@
 <template>
-  <div class="checkChips">
+  <div class="stepSix">
     <h2>Welk type kanker heb je gehad?</h2>
 
     <ul class="chips">
@@ -68,7 +68,7 @@ export default {
 </script>
 
 <style lang="scss">
-.checkChips {
+.stepSix {
   ul.chips {
     list-style: none;
     display: flex;

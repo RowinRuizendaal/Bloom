@@ -1,5 +1,4 @@
 <template>
-  <!-- <label for="firstName"> -->
   <div>
     <h2>Wat is je volledige naam?</h2>
     <p>Dan weten gebruikers hoe ze je kunnen aanspreken. Het mag ook een verzonnen naam zijn.</p>
@@ -23,7 +22,6 @@
       placeholder="Achternaam"
     />
   </div>
-  <!-- </label> -->
 </template>
 
 <script>

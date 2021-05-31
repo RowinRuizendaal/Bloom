@@ -60,8 +60,6 @@
         </fieldset>
       </form>
     </main>
-    <!-- <Button message="terug" v-bind:isSlider="true" /> -->
-    <!-- <Button message="starten" v-bind:isSlider="false" /> -->
   </section>
 </template>
 

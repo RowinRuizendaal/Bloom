@@ -1,29 +1,3 @@
-<!--# bloom
-
- ## Project setup
-```
-yarn install
-```
-
-### Compiles and hot-reloads for development
-```
-yarn serve
-```
-
-### Compiles and minifies for production
-```
-yarn build
-```
-
-### Lints and fixes files
-```
-yarn lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/). -->
-
-
 ##### Meesterproef @cmda-minor-web 2020 - 2021
 
 ![Badge stating project is licensed under MIT license](https://img.shields.io/github/license/ralfz123/browser-technologies-2021) ![Badge stating amount of issues open](https://img.shields.io/github/issues/ralfz123/browser-technologies-2021) [![](https://img.shields.io/badge/site--status-up-success)](https://ralfz123.github.io/browser-technologies-2021) [![Badges via shields.io](https://img.shields.io/badge/badges%20via-shields.io-brightgreen)](shields.io)
@@ -87,7 +61,7 @@ This app is built, using:
 - [Express router](https://expressjs.com/)
 - [Vue frontend framework](https://vuejs.org/)
 - [Mongoose](https://mongoosejs.com/)
-- [Vercel deployment](https://www.heroku.com/nodejs)
+- [Heroku deployment](https://www.heroku.com/nodejs)
 
 
 ## :gear: Installation
@@ -95,7 +69,7 @@ This app is built, using:
 
 1. Clone the repository:  
 ```
-git clone https://github.com/ralfz123/iPic-BT-2021.git
+git clone https://github.com/RowinRuizendaal/Bloom
 ```
 
 2. Install dependencies   
@@ -114,7 +88,7 @@ http://localhost:8080/
 ```
 
 ## :file_folder: Sources
-Credits to [Eva Valkenburg]() for giving us this awesome exercise.
+Credits to [Eva Valkenburg](https://www.evavalkenburg.nl/) for giving us this awesome exercise.
 
 ### Code sources
 - Stackoverflow (n.d.). Searching for answers on dev questions - Stackoverflow. Retrieved 18 May 2021 from https://www.stackoverflow.com

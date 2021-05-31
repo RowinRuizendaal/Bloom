@@ -1,5 +1,4 @@
 <template>
-  <!-- <label for="profileAvatar"> -->
   <div>
     <h2>Kies een profiel pictogram</h2>
     <p>
@@ -30,7 +29,6 @@
       </li>
     </ul>
   </div>
-  <!-- </label> -->
 </template>
 
 <script>
@@ -112,6 +110,12 @@ export default {
       color: $gray;
 
       transition: all 0.1s ease;
+
+      p {
+        font-weight: 700;
+        color: #726d61;
+        font-size: 2rem;
+      }
     }
 
     label.yellow {

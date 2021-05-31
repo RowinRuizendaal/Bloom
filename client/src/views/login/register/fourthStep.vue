@@ -1,6 +1,6 @@
 <template>
-  <label for="town"
-    ><h2>Wat is je woonplaats?</h2>
+  <div class="four">
+    <h2>Wat is je woonplaats?</h2>
     <p>
       Dan kunnen we je suggesties geven voor hulpaanbieders bij jou in de buurt. Dit is niet
       zichtbaar voor andere gebruikers.
@@ -14,7 +14,7 @@
       <option value="Rotterdam">Rotterdam</option>
       <option value="Leeuwarden">Leeuwarden</option>
     </select>
-  </label>
+  </div>
 </template>
 
 <script>

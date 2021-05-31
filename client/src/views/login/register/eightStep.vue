@@ -1,10 +1,10 @@
 <template>
-  <label for="about"
-    ><h2>Vertel iets over jezelf</h2>
+  <div class="eight">
+    <h2>Vertel iets over jezelf</h2>
     <p>Is er nog iets wat je zou willen delen? Dat kun je kwijt in je biografie.</p>
     <textarea id="about" name="about" v-model="about" placeholder="Vertel iets over jezelf" />
     <p>{{ about }}</p>
-  </label>
+  </div>
 </template>
 
 <script>

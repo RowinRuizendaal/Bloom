@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="ready">
     <h2>Klaar om te starten</h2>
     <p>Als je nog aanvullende informatie wil toevoegen kun je terecht in je profiel.</p>
 
@@ -18,8 +18,12 @@ export default {
 </script>
 
 <style>
-img {
-  display: block;
-  margin: 0 auto;
+.ready {
+  color: red;
+
+  img {
+    display: block;
+    margin: 0 auto;
+  }
 }
 </style>

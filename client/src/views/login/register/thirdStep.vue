@@ -1,6 +1,6 @@
 <template>
-  <label for="birthDate"
-    ><h2>Wat is je geboortedatum?</h2>
+  <div class="three">
+    <h2>Wat is je geboortedatum?</h2>
     <p>
       Dan weten kunnen we je koppelen aan leeftijdsgenoten. Je bent niet verplicht om je leeftijd te
       delen!
@@ -14,7 +14,7 @@
       :value="birthDate"
       @input="updateBirthDate"
     />
-  </label>
+  </div>
 </template>
 
 <script>
@@ -34,4 +34,7 @@ export default {
 };
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+.three {
+}
+</style>
