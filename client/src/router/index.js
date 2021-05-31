@@ -5,6 +5,9 @@ import Login from "../views/login/Login.vue";
 import RegisterIndex from "../views/login/register/index.vue";
 import ForgotPassword from "../views/login/ForgotPassword.vue";
 
+import Profile from "../views/profile/Profile.vue";
+import ProfileEdit from "../views/profile/ProfileEdit.vue";
+
 import Home from "../views/Home.vue";
 import Onboarding from "../views/Onboarding.vue";
 
@@ -25,6 +28,16 @@ const routes = [
     path: "/forgot-password",
     name: "Forgot password",
     component: ForgotPassword,
+  },
+  {
+    path: "/profile",
+    name: "Profile",
+    component: Profile,
+  },
+  {
+    path: "/profile-edit",
+    name: "ProfileEdit",
+    component: ProfileEdit,
   },
   {
     path: "/",

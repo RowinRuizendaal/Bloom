@@ -78,14 +78,14 @@ export default {
         .post("/api/login", data, { headers: { "Content-type": "application/json" } })
         .then((response) => {
           if (response.status === 200) {
-            console.log(response);
+            // console.log(response);
             this.$store.commit("updateUser", response.data);
-            return this.$router.push("/themes");
+            return this.$router.push("/profile"); // themes
           }
         })
         .catch((err) => {
           this.errors.push("Er is helaas geen account gevonden");
-          console.log(err);
+          // console.log(err);
         });
     },
     onSubmit(e) {

@@ -2,6 +2,8 @@
   <div>
     <h2>Klaar om te starten</h2>
     <p>Als je nog aanvullende informatie wil toevoegen kun je terecht in je profile.</p>
+
+    <img src="../../../assets/icons/check.svg" alt="" />
   </div>
 </template>
 
@@ -15,4 +17,9 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style>
+img {
+  display: block;
+  margin: 0 auto;
+}
+</style>

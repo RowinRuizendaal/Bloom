@@ -79,10 +79,8 @@ import FifthStep from "./fifthStep.vue";
 import SixthStep from "./sixthStep.vue";
 import SeventhStep from "./seventhStep.vue";
 import EightStep from "./eightStep.vue";
-
 import Ready from "./readyStep.vue";
 
-import { mapState } from "vuex";
 import axios from "axios";
 
 export default {
