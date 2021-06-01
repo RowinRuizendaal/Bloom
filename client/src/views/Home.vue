@@ -23,7 +23,7 @@ export default {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  background-image: url("../assets/svg/achtergrond.svg");
+  background-image: url("../assets/svg/background.svg");
   background-position: center;
   background-size: cover 100% 100%;
   background-repeat: no-repeat;

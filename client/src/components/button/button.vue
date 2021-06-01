@@ -40,7 +40,12 @@ export default {
       type: String,
       default: "/",
     },
+    isSubmit: {
+      type: Boolean,
+      default: true,
+    },
   },
+
   methods: {
     nextSlide() {
       return this.$store.commit("nextSlide");

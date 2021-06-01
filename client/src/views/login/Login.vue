@@ -1,136 +1,100 @@
 <template>
   <section class="login">
-    <h1>Bloom</h1>
-    <h2>Welkom</h2>
-    <form v-if="!submitted" action="/" method="POST" enctype="application/x-www-form-urlencoded">
-      <fieldset>
-        <legend>
-          <label for="emailAddress">
-            <input
-              type="text"
-              placeholder="E-mailadres"
-              id="emailAddress"
-              v-model="user.emailAddress"
-              name="emailAddress"
-            />
-          </label>
+    <header>
+      <h1>bloom</h1>
+    </header>
 
-          <label for="password">
-            <input
-              type="password"
-              placeholder="Wachtwoord"
-              id="password"
-              v-model="user.password"
-              name="password"
-            />
-          </label>
-          <button @click="login">Inloggen</button>
-          <router-link to="/forgot-password" active-class="forgot-password"
-            >Wachtwoord vergeten</router-link
-          >
-          <router-link to="/register" active-class="register">Ik heb nog geen account</router-link>
-        </legend>
-      </fieldset>
-    </form>
+    <main>
+      <h2>Welkom terug</h2>
+      <ul v-if="errors.length">
+        <li v-for="(error, index) in errors" :key="index">{{ error }}</li>
+      </ul>
+      <form v-on:submit="onSubmit" method="POST" enctype="application/x-www-form-urlencoded">
+        <fieldset>
+          <legend>
+            <label for="emailAddress">
+              <input
+                type="email"
+                class="loginInput"
+                placeholder="E-mailadres"
+                id="emailAddress"
+                v-model="emailAddress"
+                name="emailAddress"
+                required
+              />
+            </label>
+
+            <label for="password">
+              <input
+                type="password"
+                class="loginInput"
+                placeholder="Wachtwoord"
+                id="password"
+                v-model="password"
+                name="password"
+                required
+              />
+            </label>
+            <router-link to="/forgot-password" active-class="forgot-password"
+              >Wachtwoord vergeten</router-link
+            >
+
+            <div>
+              <router-link to="/register" active-class="register"
+                >Ik heb nog geen account</router-link
+              >
+              <Button message="inloggen" v-bind:isSlider="false" />
+            </div>
+          </legend>
+        </fieldset>
+      </form>
+    </main>
   </section>
 </template>
 
 <script>
-import DataService from "../../services/DataService.js";
+import Button from "../../components/button/button.vue";
+import axios from "axios";
 
 export default {
   name: "Login",
+  components: {
+    Button,
+  },
   data() {
     return {
-      user: {
-        // remove?
-        id: null,
-        title: "",
-        description: "",
-        published: false,
-      },
-      submitted: false,
+      emailAddress: "",
+      password: "",
+      errors: [],
     };
   },
   methods: {
-    login() {
+    async login(e) {
       let data = {
-        emailAddress: this.user.emailAddress,
-        password: this.user.password,
+        emailAddress: this.emailAddress.toLowerCase(),
+        password: this.password,
       };
 
-      DataService.loginUser(data)
+      axios
+        .post("/api/login", data, { headers: { "Content-type": "application/json" } })
         .then((response) => {
-          console.log(response);
-          // this.tutorial.id = response.data.id;
-          // console.log(response.data);
-          // this.submitted = true;
+          if (response.status === 200) {
+            this.$store.commit("updateUser", response.data);
+            return this.$router.push("/buddies");
+          }
         })
         .catch((err) => {
-          console.log(err);
+          this.errors.push("Er is helaas geen account gevonden");
         });
     },
-
-    // newTutorial() {
-    //   this.submitted = false;
-    //   this.tutorial = {};
-    // },
+    onSubmit(e) {
+      e.preventDefault();
+      this.login();
+    },
   },
 };
 </script>
 
-<style lang="scss">
-.login {
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  background-image: url("../../assets/svg/achtergrond.svg");
-  background-position: center;
-  background-size: cover 100% 100%;
-  background-repeat: no-repeat;
-  @include q-lg-min {
-    background-size: cover;
-  }
-
-  h1 {
-    color: $orange;
-    font-size: 48px;
-    margin-bottom: 5rem;
-  }
-  form {
-    width: 90vw;
-    height: 40vh;
-    display: block;
-
-    fieldset,
-    legend {
-      width: inherit;
-      height: inherit;
-      border: none;
-    }
-
-    label {
-      display: block;
-      margin: 1em auto;
-
-      text-align: center;
-    }
-
-    input {
-      width: 20em;
-      padding: 0.6em 1em;
-      /* font-size: 10px; */
-      border-radius: 20px;
-      border: none;
-      border: 1px solid $gray;
-    }
-
-    a {
-      font-weight: bold;
-      color: rgb(114, 109, 97);
-    }
-  }
-}
+<style lang="scss" scoped>
+@import "@/components/login/login.scss";
 </style>

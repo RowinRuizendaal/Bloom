@@ -1,0 +1,135 @@
+<template>
+  <section class="profile">
+    <header>
+      <router-link to="/buddies">Terug</router-link>
+    </header>
+
+    <!-- <main>
+      <article>
+        <div class="profile-img" :class="data.profileAvatar">
+          <p>
+            {{ data.firstName.charAt(0).toUpperCase() }}
+            {{ data.surName.charAt(0).toUpperCase() }}
+          </p>
+        </div>
+        <div class="profile-headInfo">
+          <h2>{{ data.firstName }} {{ data.surName }}</h2>
+          <p>
+            <span
+              ><svg
+                id="Calendar"
+                xmlns="http://www.w3.org/2000/svg"
+                width="9"
+                height="10"
+                viewBox="0 0 9 10"
+              >
+                <path
+                  id="Fill_1"
+                  data-name="Fill 1"
+                  d="M2.564,6.372A2.388,2.388,0,0,1,0,3.807V0H9V3.837A2.366,2.366,0,0,1,6.431,6.372Z"
+                  transform="translate(0 3.629)"
+                  fill="#f07904"
+                />
+                <path
+                  id="Fill_4"
+                  data-name="Fill 4"
+                  d="M0,2.884A7.928,7.928,0,0,1,.078,1.82,2.3,2.3,0,0,1,2.271,0H6.726A2.32,2.32,0,0,1,8.919,1.82,7.946,7.946,0,0,1,9,2.884Z"
+                  transform="translate(0.002 0.745)"
+                  fill="#f07904"
+                  opacity="0.4"
+                />
+                <path
+                  id="Fill_6"
+                  data-name="Fill 6"
+                  d="M.38,2.3a.373.373,0,0,0,.38-.385V.386A.374.374,0,0,0,.38,0,.374.374,0,0,0,0,.386V1.91A.373.373,0,0,0,.38,2.3"
+                  transform="translate(2.272 0)"
+                  fill="#f07904"
+                />
+                <path
+                  id="Fill_9"
+                  data-name="Fill 9"
+                  d="M.38,2.3a.376.376,0,0,0,.38-.385V.386A.377.377,0,0,0,.38,0,.374.374,0,0,0,0,.386V1.91A.373.373,0,0,0,.38,2.3"
+                  transform="translate(5.967 0)"
+                  fill="#f07904"
+                /></svg
+            ></span>
+            {{ data.birthDate }}
+          </p>
+          <p><span>icon</span> {{ data.typeIllness[0] }}</p>
+        </div>
+      </article>
+
+      <article>
+        <h3>Biografie</h3>
+        <p>{{ data.about }}</p>
+      </article>
+
+      <article>
+        <h3>Oncospecifiek - data pas invullen wnr user op profiel komt</h3>
+        <ul>
+          <li>
+            <p>Type kanker</p>
+            <p>{{ data.typeIllness[0] }}</p>
+          </li>
+          <li>
+            <p>Fase</p>
+            <p></p>
+          </li>
+          <li>
+            <p>Ziekenhuis</p>
+            <p></p>
+          </li>
+          <li>
+            <p>Diagnosejaar</p>
+            <p></p>
+          </li>
+        </ul>
+      </article>
+
+      <article>
+        <h3>Profielvragen</h3>
+        <div :class="data.profileAvatar">
+          <h4>vraag</h4>
+          <p>antwoord</p>
+        </div>
+      </article>
+    </main> -->
+    <button @click="getUser">get user data</button>
+  </section>
+</template>
+
+<script>
+import axios from "axios";
+
+export default {
+  name: "BuddyDetail",
+  data() {
+    return {
+      data: [],
+    };
+  },
+  methods: {
+    // get data from params. server GET request
+    async getUser() {
+      let userID = this.$route.params.id;
+      let url = `${window.location.origin}/api/user/${userID}`;
+
+      axios
+        .get(url)
+        .then((response) => {
+          //   console.log(response.data);
+          let userDataObject = this.data;
+          userDataObject.push(response.data);
+          console.log(userDataObject);
+        })
+        .catch((err) => {
+          this.errors.push("Er is helaas geen account gevonden");
+        });
+    },
+  },
+};
+</script>
+
+<style lang="scss" scoped>
+/* @import "@/components/profile/profile.scss"; */
+</style>

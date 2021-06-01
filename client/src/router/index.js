@@ -1,11 +1,23 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
+
 import Login from "../views/login/Login.vue";
-import Register from "../views/login/Register.vue";
+import RegisterIndex from "../views/login/register/index.vue";
 import ForgotPassword from "../views/login/ForgotPassword.vue";
+
+import Profile from "../views/profile/Profile.vue";
+import ProfileEdit from "../views/profile/ProfileEdit.vue";
+
+import Buddies from "../views/buddies/buddies.vue";
+import BuddyDetail from "../views/buddies/buddyDetail.vue";
+
+import ChatOverview from "../views/chat/chatOverview.vue";
+import ChatDetail from "../views/chat/chatDetail.vue";
+import ChatRequest from "../views/chat/chatRequest.vue";
+
 import Home from "../views/Home.vue";
 import Onboarding from "../views/onboarding.vue";
-import Intro from "../views/Intro.vue";
+
 import Theme from "../views/themes/theme.vue";
 import Themeslug from "../views/themes/slug.vue";
 
@@ -19,28 +31,32 @@ const routes = [
   },
   {
     path: "/register",
-    name: "Register",
-    component: Register,
+    name: "RegisterIndex",
+    component: RegisterIndex,
   },
   {
     path: "/forgot-password",
-    name: "Forgot password",
+    name: "ForgotPassword",
     component: ForgotPassword,
   },
-
+  {
+    path: "/profile",
+    name: "Profile",
+    component: Profile,
+  },
+  {
+    path: "/profile-edit",
+    name: "ProfileEdit",
+    component: ProfileEdit,
+  },
   {
     path: "/",
     name: "Home",
     component: Home,
   },
   {
-    path: "/intro",
-    name: "Intro",
-    component: Intro,
-  },
-  {
     path: "/onboarding",
-    name: "onboarding",
+    name: "Onboarding",
     component: Onboarding,
   },
   {
@@ -52,6 +68,29 @@ const routes = [
     path: "/article/:id",
     component: Themeslug,
     name: "article",
+    path: "/buddies",
+    name: "Buddies",
+    component: Buddies,
+  },
+  {
+    path: "/buddies/:id",
+    name: "BuddieDetail",
+    component: BuddyDetail,
+  },
+  {
+    path: "/chats",
+    name: "ChatOverview",
+    component: ChatOverview,
+  },
+  {
+    path: "/chat/1",
+    name: "ChatDetail",
+    component: ChatDetail,
+  },
+  {
+    path: "/chat-requests",
+    name: "ChatRequest",
+    component: ChatRequest,
   },
 ];
 
