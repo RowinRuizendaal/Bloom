@@ -3,7 +3,7 @@
     <header>
       <nav>
         <li class="logo"><h2>bloom</h2></li>
-        <li><router-link to="/login" class="skip">skip</router-link></li>
+        <li><router-link to="/register" class="skip">skip</router-link></li>
       </nav>
     </header>
     <article

@@ -71,21 +71,20 @@ export default {
   methods: {
     async login(e) {
       let data = {
-        emailAddress: this.emailAddress,
+        emailAddress: this.emailAddress.toLowerCase(),
         password: this.password,
       };
+
       axios
         .post("/api/login", data, { headers: { "Content-type": "application/json" } })
         .then((response) => {
           if (response.status === 200) {
-            // console.log(response);
             this.$store.commit("updateUser", response.data);
-            return this.$router.push("/themes");
+            return this.$router.push("/buddies");
           }
         })
         .catch((err) => {
           this.errors.push("Er is helaas geen account gevonden");
-          // console.log(err);
         });
     },
     onSubmit(e) {

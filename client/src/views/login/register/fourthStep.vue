@@ -37,6 +37,7 @@ export default {
 .four {
   select {
     appearance: none;
+    background: $white;
     background-image: url("../../../assets/icons/arrow-down.svg");
     background-repeat: no-repeat;
     background-position: right;

@@ -22,7 +22,6 @@
           name="profileAvatar"
           :value="item.color"
           @input="updateProfileAvatar"
-          required
         />
         <label :for="item.color" :class="item.color">
           <p>{{ item.firstName }} {{ item.surName }}</p>

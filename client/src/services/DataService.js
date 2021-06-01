@@ -14,7 +14,6 @@ class DataService {
   }
 
   loginUser(data) {
-    console.log(data);
     return http.post("/api/login", data);
   }
 
