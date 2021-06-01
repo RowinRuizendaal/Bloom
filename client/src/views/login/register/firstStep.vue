@@ -10,6 +10,7 @@
         :value="emailAddress"
         @input="updateEmailAddress"
         placeholder="E-mailadres"
+        required
     /></label>
 
     <label for="password">
@@ -21,6 +22,7 @@
         :value="password"
         @input="updatePassword"
         placeholder="Wachtwoord"
+        required
     /></label>
 
     <router-link to="/register" active-class="hulpaanbieder-register"
@@ -64,7 +66,7 @@ div.first {
 
   label {
     display: block;
-    margin: 1em 0em;
+    margin: 0.6em 0em;
     text-align: left;
     width: 100%;
   }

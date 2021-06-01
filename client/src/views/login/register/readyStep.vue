@@ -18,12 +18,8 @@ export default {
 </script>
 
 <style>
-.ready {
-  color: red;
-
-  img {
-    display: block;
-    margin: 0 auto;
-  }
+img {
+  display: block;
+  margin: 0 auto;
 }
 </style>

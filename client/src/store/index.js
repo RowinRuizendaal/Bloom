@@ -61,7 +61,6 @@ export default new Vuex.Store({
 
     // Step 7
     updateStateAbout(state, value) {
-      console.log("yo");
       state.user.about = value;
     },
 

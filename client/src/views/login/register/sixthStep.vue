@@ -9,7 +9,7 @@
           :id="item"
           name="typeIllness"
           :value="item"
-          @input="updateTypeIllness"
+          @change="updateTypeIllness"
           v-model="checked"
         />
         <label :for="item">{{ item }}</label>
@@ -28,18 +28,9 @@ export default {
     }),
   },
   methods: {
-    updateTypeIllness(e) {
-      let checkedArray = this.checked;
-      console.log(checkedArray);
-      // get all from data state
-
-      // push selected value to array
-      // checkedArray.push(e.target.value);
-
-      // Check when checkbox isn't checked --> update state
-
+    updateTypeIllness() {
       // Commit array to the Vuex store
-      this.$store.commit("updateStateTypeIllness", checkedArray);
+      this.$store.commit("updateStateTypeIllness", this.checked);
     },
   },
   data() {
@@ -80,11 +71,9 @@ export default {
       display: inline-block;
       margin: 0.7em;
       flex-shrink: 1;
-      /* padding: 1em; */
 
       label {
         font-size: 0.73em;
-        /* font-family: "Open Sans", sans-serif; */
         font-family: $font-family-primary;
         font-weight: 600;
 
@@ -104,9 +93,8 @@ export default {
         height: 0;
         display: none;
 
+        // selected state
         &:checked + label {
-          // selected state
-
           border: solid 2px $orange;
           background-color: $lightOrange;
         }

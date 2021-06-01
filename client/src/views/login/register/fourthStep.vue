@@ -6,9 +6,8 @@
       zichtbaar voor andere gebruikers.
     </p>
 
-    <label for="town">Selecteer jouw woonplaats</label>
-
-    <select id="town" name="town" :value="town" @input="updateTown">
+    <select id="town" name="town" :value="town" @input="updateTown" required>
+      <option value="" disabled selected>Selecteer jouw woonplaats</option>
       <option value="Amsterdam">Amsterdam</option>
       <option value="Den Haag">Den Haag</option>
       <option value="Rotterdam">Rotterdam</option>
@@ -34,4 +33,22 @@ export default {
 };
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+.four {
+  select {
+    appearance: none;
+    background-image: url("../../../assets/icons/arrow-down.svg");
+    background-repeat: no-repeat;
+    background-position: right;
+    background-size: 15% 30%;
+    width: 100%;
+    height: 3em;
+    padding: 0.6em 1em;
+    border-radius: 20px;
+    border: none;
+    border: 1px solid $lightgray;
+    font-family: $font-family-primary;
+    font-weight: 100;
+  }
+}
+</style>

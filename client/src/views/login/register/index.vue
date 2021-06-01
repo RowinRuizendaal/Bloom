@@ -54,6 +54,7 @@
               <button v-if="stepState !== 1 && stepState !== 9" @click="setState('next')">
                 Volgende
               </button>
+
               <button v-else @click="setState('next')">Starten</button>
             </div>
           </legend>
@@ -117,11 +118,6 @@ export default {
       // Redirect to /themes
       if (this.stepState === 10) {
         this.$router.push("/themes");
-      }
-
-      if (this.stepState == 1 || this.stepState == 9) {
-        // button text = "starten"
-        // vorige button remove
       }
     },
   },

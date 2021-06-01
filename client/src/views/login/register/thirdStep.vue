@@ -13,6 +13,7 @@
       name="birthDate"
       :value="birthDate"
       @input="updateBirthDate"
+      required
     />
   </div>
 </template>
