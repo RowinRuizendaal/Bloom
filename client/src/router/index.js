@@ -18,6 +18,9 @@ import ChatRequest from "../views/chat/chatRequest.vue";
 import Home from "../views/Home.vue";
 import Onboarding from "../views/onboarding.vue";
 
+import Theme from "../views/themes/theme.vue";
+import Themeslug from "../views/themes/slug.vue";
+
 Vue.use(VueRouter);
 
 const routes = [
@@ -57,6 +60,14 @@ const routes = [
     component: Onboarding,
   },
   {
+    path: "/themes",
+    name: "themes",
+    component: Theme,
+  },
+  {
+    path: "/article/:id",
+    component: Themeslug,
+    name: "article",
     path: "/buddies",
     name: "Buddies",
     component: Buddies,
