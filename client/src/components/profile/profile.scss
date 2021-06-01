@@ -1,0 +1,61 @@
+.profile {
+  width: 86vw;
+  height: 80vh;
+  margin: 0 auto;
+  margin-top: 1vh;
+  header {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: center;
+
+    a {
+      display: block;
+      width: 3em;
+      height: 3em;
+      background-image: url("../../assets/icons/settings.svg");
+      background-color: transparent;
+      background-repeat: no-repeat;
+      background-size: 100% 100%;
+      border: none;
+      width: 1.5em;
+      height: 1.5em;
+      //   margin-right: 1.5em;
+      //   margin-top: 1em;
+    }
+  }
+
+  main {
+    article {
+    //   padding: 0.3em;
+
+      &:not(:nth-of-type(1)) {
+        border-bottom: 0.13px solid $lighterGray;
+      }
+
+      &:nth-child(1) {
+        display: flex;
+        justify-content: flex-start;
+        flex-direction: row;
+        div {
+          &:nth-child(1) {
+            width: 8em;
+            height: 8em;
+            text-align: center;
+            border-radius: 5px;
+            box-shadow: 0 3px 8px $gray;
+          }
+        }
+      }
+
+      &:nth-child(2) {
+      }
+
+      &:nth-child(3) {
+      }
+
+      &:nth-child(4) {
+      }
+    }
+  }
+}

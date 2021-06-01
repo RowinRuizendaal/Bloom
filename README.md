@@ -77,7 +77,11 @@ This app is built, using:
 
 1. Clone the repository:  
 ```
+<<<<<<< HEAD
+git clone https://github.com/RowinRuizendaal/Bloom
+=======
 git clone https://github.com/RowinRuizendaal/Bloom.git
+>>>>>>> master
 ```
 
 2. Install dependencies client & server   
@@ -115,7 +119,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 
 ## :file_folder: Sources
-Credits to [Eva Valkenburg]() for giving us this awesome exercise.
+Credits to [Eva Valkenburg](https://www.evavalkenburg.nl/) for giving us this awesome exercise.
 
 ### Code sources
 - Stackoverflow (n.d.). Searching for answers on dev questions - Stackoverflow. Retrieved 18 May 2021 from https://www.stackoverflow.com

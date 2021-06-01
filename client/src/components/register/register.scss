@@ -1,0 +1,114 @@
+.register {
+  overflow-y: hidden;
+  height: 100vh;
+  background-image: url("../../../assets/svg/signup-background.svg");
+  background-position: center;
+  background-size: cover 100% 100%;
+  background-repeat: no-repeat;
+  @include q-lg-min {
+    background-size: cover;
+  }
+
+  header {
+    h1 {
+      color: $orange;
+      // font-size: 1.7rem;
+      height: 16vh;
+      padding: 1em;
+      text-align: center;
+    }
+
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      position: relative;
+
+      button {
+        &:nth-of-type(1) {
+          // position: absolute;
+          background-image: url("../../../assets/icons/arrow.svg");
+          background-color: transparent;
+          background-repeat: no-repeat;
+          background-size: 100% 100%;
+          border: none;
+          width: 15px;
+          height: 15px;
+          display: block;
+          border-radius: 5px;
+        }
+      }
+
+      li {
+        list-style: none;
+        text-align: center;
+
+        &:nth-child(2) {
+          //   margin-right: 4rem;
+        }
+      }
+
+      .logo {
+        color: $orange;
+        font-size: 1.167rem;
+        // margin: auto;
+        // max-width: 0rem;
+      }
+
+      .skip {
+        font-size: 1rem;
+        color: $gray;
+        text-decoration: none;
+      }
+    }
+  }
+
+  main {
+    width: 86vw;
+    height: 80vh;
+    // background:blue;
+
+    margin: 0 auto;
+    position: relative;
+
+    form {
+      legend,
+      fieldset {
+        width: inherit;
+        height: inherit;
+        border: none;
+      }
+      div {
+        &:not(:nth-last-of-type(1)) {
+          // background-color: red;
+          height: 50vh;
+        }
+      }
+    }
+    div.footer {
+      position: absolute;
+      z-index: 2;
+      bottom: 0;
+      width: 100%;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+
+      a {
+        width: 100%;
+        font-weight: bold;
+        color: $gray;
+        font-size: 0.7rem;
+        text-align: left;
+      }
+
+      button {
+        right: 0;
+        font-weight: bold;
+        font-family: Silka, Helvetica, sans-serif;
+      }
+    }
+  }
+}

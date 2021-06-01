@@ -10,7 +10,7 @@ const userSchema = new Schema({
   birthDate: String,
   town: String,
   gender: String,
-  typeIllness: String,
+  typeIllness: [],
   profileAvatar: String,
   about: String,
 });

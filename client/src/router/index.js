@@ -1,11 +1,15 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
+
 import Login from "../views/login/Login.vue";
-import Register from "../views/login/Register.vue";
+import RegisterIndex from "../views/login/register/index.vue";
 import ForgotPassword from "../views/login/ForgotPassword.vue";
+
+import Profile from "../views/profile/Profile.vue";
+import ProfileEdit from "../views/profile/ProfileEdit.vue";
+
 import Home from "../views/Home.vue";
-import Onboarding from "../views/onboarding.vue";
-import Intro from "../views/Intro.vue";
+import Onboarding from "../views/Onboarding.vue";
 
 Vue.use(VueRouter);
 
@@ -17,28 +21,32 @@ const routes = [
   },
   {
     path: "/register",
-    name: "Register",
-    component: Register,
+    name: "RegisterIndex",
+    component: RegisterIndex,
   },
   {
     path: "/forgot-password",
-    name: "Forgot password",
+    name: "ForgotPassword",
     component: ForgotPassword,
   },
-
+  {
+    path: "/profile",
+    name: "Profile",
+    component: Profile,
+  },
+  {
+    path: "/profile-edit",
+    name: "ProfileEdit",
+    component: ProfileEdit,
+  },
   {
     path: "/",
     name: "Home",
     component: Home,
   },
   {
-    path: "/intro",
-    name: "Intro",
-    component: Intro,
-  },
-  {
     path: "/onboarding",
-    name: "onboarding",
+    name: "Onboarding",
     component: Onboarding,
   },
 ];

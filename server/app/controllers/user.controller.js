@@ -1,5 +1,5 @@
 // const db = require('../models/index.js');
-// const Tutorial = db.tutorials;
+// const Users = db.users;
 
 // Create and Save a new Tutorial
 exports.create = (req, res) => {};
@@ -8,7 +8,11 @@ exports.create = (req, res) => {};
 exports.findAll = (req, res) => {};
 
 // Find a single Tutorial with an id
-exports.findOne = (req, res) => {};
+exports.findOne = async(email) => {
+    console.log(email);
+    // const userData = await Users.findOne({ emailAddress: email });
+    // return userData};
+};
 
 // Update a Tutorial by the id in the request
 exports.update = (req, res) => {};
