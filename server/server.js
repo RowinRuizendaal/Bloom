@@ -174,7 +174,6 @@ async function handleUsers(req, res) {
   // get user data
   const userData = await findOneUser(req.params.id);
 
-
   // return data
   return res.json(userData);
 }
@@ -187,18 +186,9 @@ async function findOneUser(userID) {
   return user;
 }
 
-// Find user in DB by email
-async function findUser(email) {
-  console.log(email);
-  // const userData = await Users.findOne({ emailAddress: email });
-  // return userData
-}
-
 // Get all users of DB
 async function getAllUsers() {
   const users = await Users.find().catch((err) => console.log(err));
-  // console.log(users);
-  console.log('get the data')
   return users;
 }
 
