@@ -5,6 +5,8 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    //Register user
+    user: {},
     themelist: [
       {
         // Klachten
@@ -399,7 +401,6 @@ export default new Vuex.Store({
       return state.themelist;
     },
     theme: (state) => (id) => {
-      console.log(id);
       return state.themelist.find((theme) => theme.id === id);
     },
   },

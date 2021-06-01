@@ -68,6 +68,8 @@ const routes = [
     path: "/article/:id",
     component: Themeslug,
     name: "article",
+  },
+  {
     path: "/buddies",
     name: "Buddies",
     component: Buddies,
