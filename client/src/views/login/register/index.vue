@@ -106,9 +106,6 @@ export default {
       e.preventDefault();
 
       if (this.stepState === 9) {
-        // Get data from Vuex store
-        console.log("user data, ", this.$store.state.user);
-
         // Post submit to server
         axios.post("/api/register", this.$store.state.user, {
           headers: { "Content-type": "application/json" },

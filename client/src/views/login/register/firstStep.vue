@@ -43,7 +43,7 @@ export default {
   },
   methods: {
     updateEmailAddress(e) {
-      this.$store.commit("updateStateEmailAddress", e.target.value);
+      this.$store.commit("updateStateEmailAddress", e.target.value.toLowerCase());
     },
     updatePassword(e) {
       this.$store.commit("updateStatePassword", e.target.value);

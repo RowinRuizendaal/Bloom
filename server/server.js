@@ -32,6 +32,12 @@ app.post('/api/login', handleLogin);
 // Register
 app.post('/api/register', handleRegister);
 
+// Users
+app.get('/api/users', handleUsers);
+
+// User
+app.get('/api/user/:id', handleUser);
+
 app.use(express.static(__dirname + '/public/'));
 
 // Handle SPA
@@ -41,14 +47,10 @@ app.get(/.*/, (req, res) =>
 
 // Login handler
 async function handleLogin(req, res) {
-  // const user = findUser(req.body.emailAddress)
-  // const user = await Users.findOne({ emailAddress: req.body.emailAddress, password: req.body.password });
-
   const user = await Users.findOne({
     emailAddress: req.body.emailAddress,
     password: req.body.password,
   });
-
 
   if (user == null) {
     return res.sendStatus(400);
@@ -157,17 +159,37 @@ function createUser({
   });
 }
 
-// Find user in DB by email
-async function findUser(email) {
-  console.log(email);
-  // const userData = await Users.findOne({ emailAddress: email });
-  // return userData
+// Get all users
+async function handleUsers(req, res) {
+  // get all users
+  const usersData = await getAllUsers();
+
+  // return data
+  return res.json(usersData);
+  
+}
+
+// Get one specific user by userID
+ async function handleUser(req, res) {  
+  // get user data
+  const userData = await findOneUser(req.params.id);
+
+  // return data
+  return res.json(userData);
+}
+
+
+// Get data of one specific user by userID
+async function findOneUser(userID) {
+  const user = await Users.findOne({_id: userID}).catch((err) => console.log(err));
+
+  return user;
 }
 
 // Get all users of DB
 async function getAllUsers() {
   const users = await Users.find().catch((err) => console.log(err));
-  console.log(users);
+  return users;
 }
 
 // set port, listen for requests

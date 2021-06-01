@@ -1,11 +1,10 @@
 <template>
   <section class="profile">
     <header>
-      <h1>Profiel</h1>
-      <router-link to="/profile-edit"></router-link>
+      <router-link to="/buddies">Terug</router-link>
     </header>
 
-    <main>
+    <!-- <main>
       <article>
         <div class="profile-img" :class="data.profileAvatar">
           <p>
@@ -94,22 +93,43 @@
           <p>antwoord</p>
         </div>
       </article>
-    </main>
+    </main> -->
+    <button @click="getUser">get user data</button>
   </section>
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
-  name: "Profile",
+  name: "BuddyDetail",
   data() {
-    let dataUser = this.$store.state.user;
     return {
-      data: dataUser,
+      data: [],
     };
+  },
+  methods: {
+    // get data from params. server GET request
+    async getUser() {
+      let userID = this.$route.params.id;
+      let url = `${window.location.origin}/api/user/${userID}`;
+
+      axios
+        .get(url)
+        .then((response) => {
+          //   console.log(response.data);
+          let userDataObject = this.data;
+          userDataObject.push(response.data);
+          console.log(userDataObject);
+        })
+        .catch((err) => {
+          this.errors.push("Er is helaas geen account gevonden");
+        });
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
-@import "@/components/profile/profile.scss";
+/* @import "@/components/profile/profile.scss"; */
 </style>
