@@ -43,7 +43,8 @@
               <router-link to="/register" active-class="register"
                 >Ik heb nog geen account</router-link
               >
-              <Button message="inloggen" v-bind:isSlider="false" />
+              <!-- <Button message="inloggen" v-bind:isSlider="false" /> -->
+              <button type="submit">Inloggen</button>
             </div>
           </legend>
         </fieldset>
@@ -59,7 +60,7 @@ import axios from "axios";
 export default {
   name: "Login",
   components: {
-    Button,
+    // Button,
   },
   data() {
     return {
