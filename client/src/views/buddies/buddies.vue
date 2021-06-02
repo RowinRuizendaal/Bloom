@@ -165,7 +165,7 @@ export default {
       axios
         .get("/api/users")
         .then((response) => {
-          // iterate over each obj and put
+          // iterate over each obj and put in array
           let arrayUsers = this.users;
           arrayUsers.push(response.data);
         })
@@ -217,6 +217,7 @@ export default {
           &:not(:nth-of-type(1)) {
             color: $black;
             font-size: 0.8rem;
+            word-break: break-word;
           }
         }
 
