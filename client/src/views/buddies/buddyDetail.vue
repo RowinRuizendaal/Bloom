@@ -147,11 +147,8 @@ export default {
       axios
         .get(url)
         .then((response) => {
-          //   console.log(response.data);
           let userDataObject = this.data;
           userDataObject.push(response.data);
-          //   console.log(userDataObject);
-          console.log(this.data[0].about);
         })
         .catch((err) => {
           this.errors.push("Er is helaas geen account gevonden");
