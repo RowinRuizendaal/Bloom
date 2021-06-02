@@ -25,7 +25,7 @@
     </span>
   </button>
 
-  <router-link v-else :to="slug" class="nextButton">
+  <a v-else :href="slug" class="nextButton" target="_blank">
     {{ message }}
     <span>
       <!-- arrow icon -->
@@ -36,7 +36,7 @@
         />
       </svg>
     </span>
-  </router-link>
+  </a>
 </template>
 
 <script>

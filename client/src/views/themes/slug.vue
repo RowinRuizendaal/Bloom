@@ -75,26 +75,30 @@
           <h2 class="heading">{{ article.heading3 }}</h2>
           <p>{{ article.p2 }}</p>
 
-          <ul class="listeditem">
+          <ul class="listeditem links">
             <li v-for="(theme, index) in article.links" :key="index">
               <Button
+                :isSlider="false"
+                :isSubmit="false"
                 :message="article.links[index].website"
                 :slug="article.links[index].url"
-                :isSlider="false"
               />
             </li>
           </ul>
         </div>
       </div>
     </article>
+    <Nav />
   </main>
 </template>
 
 <script>
 import Button from "@/components/button/button";
+import Nav from "@/components/nav/nav";
 export default {
   components: {
     Button,
+    Nav,
   },
   methods: {
     checkindex(index) {

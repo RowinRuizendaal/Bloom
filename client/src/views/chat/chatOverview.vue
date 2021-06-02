@@ -6,7 +6,8 @@
     </header>
 
     <main>
-      <article v-for="(item, index) in chats[0]" :key="index">
+      <article>
+        <!-- <article v-for="(item, index) in chats[0]" :key="index">
         <div :class="item.profileAvatar">
           <p>
             {{ createInitials(item.firstName, item.surName) }}
@@ -16,7 +17,8 @@
         <div>
           <p>{{ item.firstName }} {{ item.surName }}</p>
           <p>laatste chats obj van message</p>
-        </div>
+        </div> -->
+
         <!--  <div class="profile-headInfo">
           <h2>{{ data.firstName }} {{ data.surName }}</h2>
           <p>
@@ -64,14 +66,19 @@
         </div> -->
       </article>
     </main>
+    <Nav active="chats" />
   </section>
 </template>
 
 <script>
+import Nav from "@/components/nav/nav";
 import axios from "axios";
 
 export default {
   name: "ChatOverview",
+  components: {
+    Nav,
+  },
   mounted() {
     this.getChats();
   },

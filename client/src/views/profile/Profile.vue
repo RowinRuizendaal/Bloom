@@ -116,12 +116,18 @@
         </div>
       </article>
     </main>
+    <Nav active="profile" />
   </section>
 </template>
 
 <script>
+import Nav from "@/components/nav/nav";
+
 export default {
   name: "Profile",
+  components: {
+    Nav,
+  },
   data() {
     let dataUser = this.$store.state.user;
 

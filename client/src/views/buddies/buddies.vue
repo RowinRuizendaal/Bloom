@@ -144,14 +144,19 @@
         </a>
       </article>
     </main>
+    <Nav active="buddies" />
   </section>
 </template>
 
 <script>
+import Nav from "@/components/nav/nav";
 import axios from "axios";
 
 export default {
   name: "Buddies",
+  components: {
+    Nav,
+  },
   mounted() {
     this.getAllUsers();
   },

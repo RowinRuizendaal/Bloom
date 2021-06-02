@@ -80,7 +80,7 @@ export default {
         .then((response) => {
           if (response.status === 200) {
             this.$store.commit("updateUser", response.data);
-            return this.$router.push("/themes");
+            return this.$router.push("/profile");
           }
         })
         .catch((err) => {
