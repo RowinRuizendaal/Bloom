@@ -4,16 +4,16 @@
       <router-link to="/buddies">Terug</router-link>
     </header>
 
-    <!-- <main>
+    <main>
       <article>
-        <div class="profile-img" :class="data.profileAvatar">
+        <div class="profile-img" :class="this.data[0].profileAvatar">
           <p>
-            {{ data.firstName.charAt(0).toUpperCase() }}
-            {{ data.surName.charAt(0).toUpperCase() }}
+            {{ this.data[0].firstName.charAt(0).toUpperCase() }}
+            {{ this.data[0].surName.charAt(0).toUpperCase() }}
           </p>
         </div>
         <div class="profile-headInfo">
-          <h2>{{ data.firstName }} {{ data.surName }}</h2>
+          <h2>{{ this.data[0].firstName }} {{ this.data[0].surName }}</h2>
           <p>
             <span
               ><svg
@@ -53,15 +53,43 @@
                   fill="#f07904"
                 /></svg
             ></span>
-            {{ data.birthDate }}
+            {{ this.data[0].birthDate }}
           </p>
-          <p><span>icon</span> {{ data.typeIllness[0] }}</p>
+          <p>
+            <span
+              ><svg
+                id="Folder"
+                xmlns="http://www.w3.org/2000/svg"
+                width="10.001"
+                height="10"
+                viewBox="0 0 10.001 10"
+              >
+                <path
+                  id="Folder_2"
+                  data-name="Folder 2"
+                  d="M7.442,1.557H5.971a1.215,1.215,0,0,1-.947-.444L4.539.444A1.184,1.184,0,0,0,3.6,0H2.556C.689,0,0,1.1,0,2.959V4.974a75.348,75.348,0,0,0,10,0V4.388C10.007,2.525,9.336,1.557,7.442,1.557Z"
+                  transform="translate(0 0)"
+                  fill="#f07904"
+                  opacity="0.4"
+                />
+                <path
+                  id="Folder-2"
+                  data-name="Folder"
+                  d="M7.183,8.451h0c-.051,0-.1,0-.155,0H2.966c-.051,0-.1,0-.153,0A3.009,3.009,0,0,1,.778,7.661a2.244,2.244,0,0,1-.333-.444A2.9,2.9,0,0,1,.054,6.126,4.074,4.074,0,0,1,0,5.465V2.839a6.072,6.072,0,0,1,.036-.657c.005-.038.013-.075.02-.112A.947.947,0,0,0,.08,1.885a2.809,2.809,0,0,1,.244-.759A2.18,2.18,0,0,1,2.547.008h4.89C7.5,0,7.572,0,7.639,0A2.621,2.621,0,0,1,9.252.558a1.39,1.39,0,0,1,.165.164,1.967,1.967,0,0,1,.365.635A4.255,4.255,0,0,1,10,2.839V5.465a4.721,4.721,0,0,1-.049.661,2.981,2.981,0,0,1-.4,1.092,2.223,2.223,0,0,1-.338.444A2.992,2.992,0,0,1,7.183,8.451ZM2.485,4.4a.413.413,0,1,0,0,.825h5.06a.413.413,0,0,0,.413-.4.371.371,0,0,0-.089-.266.394.394,0,0,0-.311-.16Z"
+                  transform="translate(0 1.55)"
+                  fill="#f07904"
+                />
+              </svg>
+            </span>
+            {{ this.data[0].typeIllness[0] }}
+          </p>
         </div>
+        <button>bericht</button>
       </article>
 
       <article>
         <h3>Biografie</h3>
-        <p>{{ data.about }}</p>
+        <p>{{ this.data[0].about }}</p>
       </article>
 
       <article>
@@ -69,7 +97,7 @@
         <ul>
           <li>
             <p>Type kanker</p>
-            <p>{{ data.typeIllness[0] }}</p>
+            <p>{{ this.data[0].typeIllness[0] }}</p>
           </li>
           <li>
             <p>Fase</p>
@@ -88,13 +116,12 @@
 
       <article>
         <h3>Profielvragen</h3>
-        <div :class="data.profileAvatar">
+        <div :class="this.data[0].profileAvatar">
           <h4>vraag</h4>
           <p>antwoord</p>
         </div>
       </article>
-    </main> -->
-    <button @click="getUser">get user data</button>
+    </main>
   </section>
 </template>
 
@@ -103,6 +130,9 @@ import axios from "axios";
 
 export default {
   name: "BuddyDetail",
+  mounted() {
+    this.getUser();
+  },
   data() {
     return {
       data: [],
@@ -117,10 +147,8 @@ export default {
       axios
         .get(url)
         .then((response) => {
-          //   console.log(response.data);
           let userDataObject = this.data;
           userDataObject.push(response.data);
-          console.log(userDataObject);
         })
         .catch((err) => {
           this.errors.push("Er is helaas geen account gevonden");
@@ -131,5 +159,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-/* @import "@/components/profile/profile.scss"; */
+@import "@/components/profile/profile.scss";
+.profile {
+  article {
+    position: relative;
+
+    button {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+    }
+  }
+}
 </style>

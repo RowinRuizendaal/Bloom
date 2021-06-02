@@ -52,7 +52,7 @@ We used Mongoose data schemas to create schemas before we insert the data.
   birthDate: String,
   town: String,
   gender: String,
-  typeIllness: String,
+  typeIllness: Array,
   profileAvatar: String,
   about: String,
 }

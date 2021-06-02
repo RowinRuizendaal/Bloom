@@ -143,7 +143,6 @@
           </svg>
         </a>
       </article>
-      <button @click="getAllUsers">Get users</button>
     </main>
   </section>
 </template>
@@ -153,8 +152,13 @@ import axios from "axios";
 
 export default {
   name: "Buddies",
+  mounted() {
+    this.getAllUsers();
+  },
   data() {
-    return { users: [] };
+    return {
+      users: [],
+    };
   },
   methods: {
     async getAllUsers() {
@@ -175,12 +179,22 @@ export default {
 
 <style lang="scss">
 .buddies {
+  width: 86vw;
+  margin: 0 auto;
   header {
-    height: 10vh;
+    height: 13vh;
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between;
+    align-items: center;
     width: 100%;
-    border-bottom: 0.5px solid grey;
+    border-bottom: 0.5px solid #8080803d;
+    color: $orange;
+    margin-bottom: 1em;
+
+    h2 {
+      font-family: $font-family-secondary;
+      font-weight: $font-weight-bold;
+    }
   }
 
   main {
@@ -193,7 +207,7 @@ export default {
       position: relative;
       background: white;
       border-radius: 10px;
-      width: 10em;
+      width: 9em;
       height: fit-content;
       margin: 0.5em;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.06);

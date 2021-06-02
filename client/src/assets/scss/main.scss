@@ -2,6 +2,7 @@
 @import "variables/colors";
 @import "variables/responsive";
 @import "variables/typography";
+
 * {
   margin: 0;
   padding: 0;
@@ -59,7 +60,7 @@ input.loginInput {
 }
 
 .gray {
-  background-color: $gray;
+  background-color: $lightgray;
 }
 
 .pinkTwo {
