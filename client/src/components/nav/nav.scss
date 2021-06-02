@@ -1,0 +1,48 @@
+.navigation {
+    z-index: 5;
+    padding: 0em 1em;
+    background-color: #fff;
+    height: 4.3rem;
+    border-radius: 1.25rem 1.25rem 0 0;
+    box-shadow: 0px -3px 10px 0px rgba(0, 0, 0, 0.06);
+    width: 100vw;
+    position: fixed;
+    bottom: 0;
+    a {
+        text-decoration: none;
+    }
+    .list {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        span {
+            font-size: 0.6rem;
+            color: $gray;
+            margin-top: 0.3rem;
+            font-family: Nunito;
+            font-weight: bolder;
+        }
+    }
+    .items {
+        display: flex;
+        padding: 0;
+        justify-content: space-around;
+        align-items: center;
+        height: 70px;
+    }
+    .link {
+        list-style: none;
+        svg {
+            fill: #726d61;
+        }
+    }
+    .fill-active {
+        span {
+            color: $orange;
+        }
+        svg {
+            fill: $orange;
+        }
+    }
+}

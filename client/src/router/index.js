@@ -17,7 +17,6 @@ import ChatRequest from "../views/chat/chatRequest.vue";
 
 import Home from "../views/Home.vue";
 import Onboarding from "../views/onboarding.vue";
-
 import Theme from "../views/themes/theme.vue";
 import Themeslug from "../views/themes/slug.vue";
 

@@ -27,11 +27,16 @@
         </div>
       </div>
     </section>
+    <Nav />
   </main>
 </template>
 
 <script>
+import Nav from "@/components/nav/nav";
 export default {
+  components: {
+    Nav,
+  },
   computed: {
     themelist() {
       return this.$store.getters.themelist;
@@ -67,7 +72,7 @@ export default {
   .theme {
     h3 {
       margin-top: 2rem;
-      margin-left: 2rem;
+      margin-left: 1rem;
       font-family: silka;
       font-weight: bold;
       font-size: 1.0000007559056rem;
@@ -81,7 +86,7 @@ export default {
       flex-wrap: wrap;
       flex-direction: row;
       margin-top: 2rem;
-
+      padding-bottom: 5rem;
       a {
         text-decoration: none;
         color: #f07904;
@@ -92,10 +97,10 @@ export default {
         position: relative;
         display: flex;
         align-items: center;
-        min-width: 13rem;
+        min-width: 11.5rem;
         height: 10rem;
         background-color: #fef1c5;
-        margin-right: 1rem;
+        margin: 0.5rem;
         margin-bottom: 1rem;
         cursor: pointer;
         justify-content: center;
