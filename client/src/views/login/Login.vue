@@ -59,7 +59,7 @@ import axios from "axios";
 export default {
   name: "Login",
   components: {
-    // Button,
+    Button,
   },
   data() {
     return {
