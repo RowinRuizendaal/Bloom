@@ -31,8 +31,7 @@
       <article>
         <div class="profile-img" :class="data.profileAvatar">
           <p>
-            {{ data.firstName.charAt(0).toUpperCase() }}
-            {{ data.surName.charAt(0).toUpperCase() }}
+            {{ createInitials(data.firstName, data.surName) }}
           </p>
         </div>
         <div class="profile-headInfo">
@@ -125,9 +124,21 @@ export default {
   name: "Profile",
   data() {
     let dataUser = this.$store.state.user;
+
     return {
       data: dataUser,
     };
+  },
+
+  methods: {
+    createInitials(firstName, surName) {
+      let fullName = `${firstName} ${surName}`;
+      // Logic for getting the name initials
+      let rgx = new RegExp(/(\p{L}{1})\p{L}+/, "gu");
+      let initials = [...fullName.matchAll(rgx)] || [];
+      initials = ((initials.shift()?.[1] || "") + (initials.pop()?.[1] || "")).toUpperCase();
+      return initials;
+    },
   },
 };
 </script>
