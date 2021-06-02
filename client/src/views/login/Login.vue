@@ -43,8 +43,7 @@
               <router-link to="/register" active-class="register"
                 >Ik heb nog geen account</router-link
               >
-              <!-- <Button message="inloggen" v-bind:isSlider="false" /> -->
-              <button type="submit">Inloggen</button>
+              <Button message="inloggen" v-bind:isSlider="false" />
             </div>
           </legend>
         </fieldset>
