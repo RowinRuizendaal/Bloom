@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/precache-manifest.9c19d84ce566f361c9ec57daa0381d4f.js"
+  "/precache-manifest.b2d9da062f7ad2b6f1d1f17161798ebc.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "bloom"});
