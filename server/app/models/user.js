@@ -15,7 +15,11 @@ const userSchema = new Schema({
   about: String,
   chats: [
     {
-      participant: Schema.Types.ObjectID,
+      participant: {
+        id: Schema.Types.ObjectID,
+        firstName: String,
+        surName: String,
+      },
       messages: [
         {
           sender: Schema.Types.ObjectID,

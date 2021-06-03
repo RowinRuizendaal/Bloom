@@ -9,5 +9,6 @@ router
   .get('/api/user/:id', controllers.handleUser) // User
   .get('/api/chatsItems/:id', controllers.handleChats) // Chats
   .get('/api/chatsParticipants/:id', controllers.handleChatParticipants); // Chats participants
+  // .post("/api/c")
 
 module.exports = router;
