@@ -64,6 +64,11 @@ async function handleChats(req, res) {
   return res.json(chatsData);
 }
 
+// get chat data of one user with another person
+async function handleChatDetail(req, res) {
+  console.log(req.params.id);
+}
+
 // Get all participant data per chat
 async function handleChatParticipants(req, res) {
   // get user data
@@ -84,5 +89,6 @@ module.exports = {
   handleUsers,
   handleUser,
   handleChats,
+  handleChatDetail,
   handleChatParticipants,
 };

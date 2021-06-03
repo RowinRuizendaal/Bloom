@@ -46,10 +46,7 @@
       <a v-for="(item, index) in users[0]" :key="index" :href="'/buddies/' + item._id">
         <article>
           <div :class="item.profileAvatar">
-            <p>
-              {{ item.firstName.charAt(0).toUpperCase() }}
-              {{ item.surName.charAt(0).toUpperCase() }}
-            </p>
+            <p>{{ createInitials(item.firstName, item.surName) }}</p>
           </div>
           <div>
             <p>
@@ -179,6 +176,17 @@ export default {
         .catch((err) => {
           this.errors.push("Er is helaas geen account gevonden");
         });
+    },
+
+    // Get the initials of the name
+    createInitials(firstName, surName) {
+      let fullName = `${firstName} ${surName}`;
+
+      // Logic for getting the name initials
+      let rgx = new RegExp(/(\p{L}{1})\p{L}+/, "gu");
+      let initials = [...fullName.matchAll(rgx)] || [];
+      initials = ((initials.shift()?.[1] || "") + (initials.pop()?.[1] || "")).toUpperCase();
+      return initials;
     },
   },
 };

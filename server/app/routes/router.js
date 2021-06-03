@@ -8,7 +8,8 @@ router
   .get('/api/users', controllers.handleUsers) // Users
   .get('/api/user/:id', controllers.handleUser) // User
   .get('/api/chatsItems/:id', controllers.handleChats) // Chats
-  .get('/api/chatsParticipants/:id', controllers.handleChatParticipants); // Chats participants
-  // .post("/api/c")
+  .get('/api/chat/:id', controllers.handleChatDetail) // Chat detail
+  // .get('/api/chatsParticipants/:id', controllers.handleChatParticipants); // Chats participants
+  
 
 module.exports = router;

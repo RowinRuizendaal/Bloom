@@ -19,6 +19,7 @@ const userSchema = new Schema({
         id: Schema.Types.ObjectID,
         firstName: String,
         surName: String,
+        profileAvatar: String,
       },
       messages: [
         {

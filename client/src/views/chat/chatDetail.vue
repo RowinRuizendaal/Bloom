@@ -16,7 +16,8 @@
           <div class="card bg-info" v-if="ready">
             <div class="card-header text-white">
               <h4>
-                My Chat App <span class="float-right">{{ connections }} connections</span>
+                My Chat App
+                <span class="float-right">{{ connections }} connections</span>
               </h4>
             </div>
             <ul class="list-group list-group-flush text-right">
@@ -51,65 +52,70 @@
 <script>
 // import axios from "axios";
 
-// var socket = io.connect();
+var socket = io.connect();
 
 export default {
   name: "ChatDetail",
-  created() {
-    window.onbeforeunload = () => {
-      socket.emit("leave", this.username);
-    };
 
-    socket.on("chat-message", (data) => {
-      this.messages.push({
-        message: data.message,
-        type: 1,
-        user: data.user,
-      });
-    });
-
-    socket.on("typing", (data) => {
-      this.typing = data;
-    });
-
-    socket.on("stopTyping", () => {
-      this.typing = false;
-    });
-
-    socket.on("joined", (data) => {
-      this.info.push({
-        username: data,
-        type: "joined",
-      });
-
-      setTimeout(() => {
-        this.info = [];
-      }, 5000);
-    });
-
-    socket.on("leave", (data) => {
-      this.info.push({
-        username: data,
-        type: "left",
-      });
-
-      setTimeout(() => {
-        this.info = [];
-      }, 5000);
-    });
-
-    socket.on("connections", (data) => {
-      this.connections = data;
-    });
+  mounted() {
+    this.getChatData();
   },
 
-  watch: {
-    newMessage(value) {
-      value ? socket.emit("typing", this.username) : socket.emit("stopTyping");
-    },
-  },
+  // created() {
+  //   window.onbeforeunload = () => {
+  //     socket.emit("leave", this.username);
+  //   };
 
-  data: function () {
+  //   socket.on("chat-message", (data) => {
+  //     this.messages.push({
+  //       message: data.message,
+  //       type: 1,
+  //       user: data.user,
+  //     });
+  //   });
+
+  //   socket.on("typing", (data) => {
+  //     this.typing = data;
+  //   });
+
+  //   socket.on("stopTyping", () => {
+  //     this.typing = false;
+  //   });
+
+  //   socket.on("joined", (data) => {
+  //     this.info.push({
+  //       username: data,
+  //       type: "joined",
+  //     });
+
+  //     setTimeout(() => {
+  //       this.info = [];
+  //     }, 5000);
+  //   });
+
+  //   socket.on("leave", (data) => {
+  //     this.info.push({
+  //       username: data,
+  //       type: "left",
+  //     });
+
+  //     setTimeout(() => {
+  //       this.info = [];
+  //     }, 5000);
+  //   });
+
+  //   socket.on("connections", (data) => {
+  //     this.connections = data;
+  //   });
+  // },
+
+  // watch: {
+  //   newMessage(value) {
+  //     value ? socket.emit("typing", this.username) : socket.emit("stopTyping");
+  //   },
+  // },
+
+  data() {
     return {
       newMessage: null,
       messages: [],
@@ -118,28 +124,45 @@ export default {
       ready: false,
       info: [],
       connections: 0,
+      data: [],
     };
   },
 
   methods: {
-    send() {
-      this.messages.push({
-        message: this.newMessage,
-        type: 0,
-        user: "Me",
-      });
+    // get data from params. server GET request
+    async getChatData() {
+      let userID = this.$route.params.id;
+      let url = `${window.location.origin}/api/chat/${userID}`;
 
-      socket.emit("chat-message", {
-        message: this.newMessage,
-        user: this.username,
-      });
-      this.newMessage = null;
+      axios
+        .get(url)
+        .then((response) => {
+          let userDataObject = this.data;
+          userDataObject.push(response.data);
+        })
+        .catch((err) => {
+          this.errors.push("Er is helaas geen account gevonden");
+        });
     },
 
-    addUser() {
-      this.ready = true;
-      socket.emit("joined", this.username);
-    },
+    // send() {
+    //   this.messages.push({
+    //     message: this.newMessage,
+    //     type: 0,
+    //     user: "Me",
+    //   });
+
+    //   socket.emit("chat-message", {
+    //     message: this.newMessage,
+    //     user: this.username,
+    //   });
+    //   this.newMessage = null;
+    // },
+
+    // addUser() {
+    //   this.ready = true;
+    //   socket.emit("joined", this.username);
+    // },
   },
 };
 </script>
