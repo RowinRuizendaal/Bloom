@@ -1,7 +1,7 @@
 <template>
   <section class="profile">
     <header>
-      <h1>Profiel</h1>
+      <h2>Profiel</h2>
       <router-link to="/profile-edit"
         ><svg
           id="Setting"
@@ -31,8 +31,7 @@
       <article>
         <div class="profile-img" :class="data.profileAvatar">
           <p>
-            {{ data.firstName.charAt(0).toUpperCase() }}
-            {{ data.surName.charAt(0).toUpperCase() }}
+            {{ createInitials(data.firstName, data.surName) }}
           </p>
         </div>
         <div class="profile-headInfo">
@@ -117,17 +116,35 @@
         </div>
       </article>
     </main>
+    <Nav active="profile" />
   </section>
 </template>
 
 <script>
+import Nav from "@/components/nav/nav";
+
 export default {
   name: "Profile",
+  components: {
+    Nav,
+  },
   data() {
     let dataUser = this.$store.state.user;
+
     return {
       data: dataUser,
     };
+  },
+
+  methods: {
+    createInitials(firstName, surName) {
+      let fullName = `${firstName} ${surName}`;
+      // Logic for getting the name initials
+      let rgx = new RegExp(/(\p{L}{1})\p{L}+/, "gu");
+      let initials = [...fullName.matchAll(rgx)] || [];
+      initials = ((initials.shift()?.[1] || "") + (initials.pop()?.[1] || "")).toUpperCase();
+      return initials;
+    },
   },
 };
 </script>

@@ -24,7 +24,7 @@
           @input="updateProfileAvatar"
         />
         <label :for="item.color" :class="item.color">
-          <p>{{ item.firstName }} {{ item.surName }}</p>
+          <p>{{ item.initials }}</p>
         </label>
       </li>
     </ul>
@@ -44,21 +44,31 @@ export default {
     updateProfileAvatar(e) {
       this.$store.commit("updateStateProfileAvatar", e.target.value);
     },
+    createInitials(fullName) {
+      // Logic for getting the name initials - source: https://stackoverflow.com/a/33076482
+      let rgx = new RegExp(/(\p{L}{1})\p{L}+/, "gu");
+      let initials = [...fullName.matchAll(rgx)] || [];
+      initials = ((initials.shift()?.[1] || "") + (initials.pop()?.[1] || "")).toUpperCase();
+      return initials;
+    },
   },
   data() {
-    let firstName = this.$store.state.user.firstName.charAt(0).toUpperCase();
-    let surName = this.$store.state.user.surName.charAt(0).toUpperCase();
+    let firstName = this.$store.state.user.firstName;
+    let surName = this.$store.state.user.surName;
+    let fullName = `${firstName} ${surName}`;
+    let initials = this.createInitials(fullName);
+
     return {
       avatars: [
-        { firstName: firstName, surName: surName, color: "yellow" },
-        { firstName: firstName, surName: surName, color: "orange" },
-        { firstName: firstName, surName: surName, color: "pink" },
-        { firstName: firstName, surName: surName, color: "green" },
-        { firstName: firstName, surName: surName, color: "blue" },
-        { firstName: firstName, surName: surName, color: "purple" },
-        { firstName: firstName, surName: surName, color: "gray" },
-        { firstName: firstName, surName: surName, color: "pinkTwo" },
-        { firstName: firstName, surName: surName, color: "yellowTwo" },
+        { initials: initials, color: "yellow" },
+        { initials: initials, color: "orange" },
+        { initials: initials, color: "pink" },
+        { initials: initials, color: "green" },
+        { initials: initials, color: "blue" },
+        { initials: initials, color: "purple" },
+        { initials: initials, color: "gray" },
+        { initials: initials, color: "pinkTwo" },
+        { initials: initials, color: "yellowTwo" },
       ],
     };
   },

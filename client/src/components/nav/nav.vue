@@ -68,8 +68,8 @@
           </div>
         </router-link>
       </li>
-      <li class="link" :class="{ 'fill-active': active === 'messages' }">
-        <router-link to="/messages">
+      <li class="link" :class="{ 'fill-active': active === 'chats' }">
+        <router-link to="/chats">
           <div class="list">
             <svg xmlns="http://www.w3.org/2000/svg" width="25" height="24.962">
               <path

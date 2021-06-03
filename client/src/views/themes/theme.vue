@@ -1,34 +1,34 @@
 <template>
-  <main class="themes">
-    <header class="topnav">
-      <nav>
-        <li><h2>Thema's</h2></li>
-        <li>
-          <svg xmlns="http://www.w3.org/2000/svg" width="17.5" height="17.5">
-            <ellipse cx="7.524" cy="7.572" rx="7.524" ry="7.572" fill="#f07904" />
-            <path
-              d="M16.34 17.456a1.156 1.156 0 01-.778-.337l-1.782-2.078a.952.952 0 01-.07-1.331.852.852 0 011.214 0l2.241 1.793a1.18 1.18 0 01.254 1.253 1.168 1.168 0 01-1.032.744z"
-              fill="#f07904"
-              opacity=".4"
-            />
-          </svg>
-        </li>
-      </nav>
+  <section class="themes">
+    <header>
+      <h2>Thema's</h2>
+
+      <svg xmlns="http://www.w3.org/2000/svg" width="17.5" height="17.5">
+        <ellipse cx="7.524" cy="7.572" rx="7.524" ry="7.572" fill="#f07904" />
+        <path
+          d="M16.34 17.456a1.156 1.156 0 01-.778-.337l-1.782-2.078a.952.952 0 01-.07-1.331.852.852 0 011.214 0l2.241 1.793a1.18 1.18 0 01.254 1.253 1.168 1.168 0 01-1.032.744z"
+          fill="#f07904"
+          opacity=".4"
+        />
+      </svg>
     </header>
-    <section class="theme">
-      <h3>Hoe ga ik om met...</h3>
-      <div class="container">
-        <div v-for="(theme, index) in themelist" :key="index">
-          <router-link :to="{ name: 'article', params: { id: theme.id } }">
-            <article>
-              <h3>{{ theme.name }}</h3>
-            </article>
-          </router-link>
+
+    <main>
+      <section class="theme">
+        <h3>Hoe ga ik om met...</h3>
+        <div class="container">
+          <div v-for="(theme, index) in themelist" :key="index">
+            <router-link :to="{ name: 'article', params: { id: theme.id } }">
+              <article>
+                <h3>{{ theme.name }}</h3>
+              </article>
+            </router-link>
+          </div>
         </div>
-      </div>
-    </section>
-    <Nav />
-  </main>
+      </section>
+      <Nav />
+    </main>
+  </section>
 </template>
 
 <script>
@@ -47,28 +47,26 @@ export default {
 
 <style lang="scss">
 .themes {
+  width: 86vw;
+  margin: 0 auto;
   height: 100vh;
-  .topnav {
-    list-style-type: none;
+
+  header {
+    height: 13vh;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    flex-direction: row;
-    nav {
-      width: 100%;
-      margin-top: 2rem;
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      margin-left: -7rem;
-      h2 {
-        color: $orange;
-        font-family: silka;
-        font-weight: bold;
-        font-size: 2.16rem;
-      }
+    width: 100%;
+    border-bottom: 0.5px solid #8080803d;
+    color: $orange;
+    margin-bottom: 1em;
+
+    h2 {
+      font-family: $font-family-secondary;
+      font-weight: $font-weight-bold;
     }
   }
+
   .theme {
     h3 {
       margin-top: 2rem;
@@ -97,15 +95,17 @@ export default {
         position: relative;
         display: flex;
         align-items: center;
-        min-width: 11.5rem;
-        height: 10rem;
+        justify-content: center;
+        text-align: center;
+        width: 9rem;
+        height: 8rem;
         background-color: #fef1c5;
         margin: 0.5rem;
         margin-bottom: 1rem;
         cursor: pointer;
-        justify-content: center;
         border-radius: 5px;
         box-shadow: 0 15px 15px -14px rgb(114, 109, 97 / 25%);
+
         &:after {
           content: "";
           position: absolute;
@@ -123,7 +123,7 @@ export default {
         h3 {
           color: $orange;
           text-transform: none;
-          font-size: 1.5rem;
+          font-size: 1.2rem;
           max-width: 10rem;
           font-family: Nunito;
           font-weight: bold;

@@ -56,7 +56,7 @@ export default {
     },
     isSubmit: {
       type: Boolean,
-      default: false,
+      default: true,
     },
   },
 

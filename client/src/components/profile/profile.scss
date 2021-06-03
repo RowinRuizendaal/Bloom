@@ -1,13 +1,22 @@
 .profile {
   width: 86vw;
-  height: 80vh;
+  // height: 80vh;
   margin: 0 auto;
-  margin-top: 1vh;
+  // margin-top: 1vh;
   header {
+    height: 13vh;
     display: flex;
     justify-content: space-between;
-    flex-direction: row;
     align-items: center;
+    width: 100%;
+    border-bottom: 0.5px solid #8080803d;
+    color: $orange;
+    margin-bottom: 1em;
+
+    h2 {
+      font-family: $font-family-secondary;
+      font-weight: $font-weight-bold;
+    }
 
     a {
       display: block;
@@ -27,7 +36,7 @@
 
   main {
     article {
-    //   padding: 0.3em;
+      //   padding: 0.3em;
 
       &:not(:nth-of-type(1)) {
         border-bottom: 0.13px solid $lighterGray;

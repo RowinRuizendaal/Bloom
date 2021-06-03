@@ -3,8 +3,11 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const Users = require('./app/models/user.js');
 const path = require('path');
+const dbConnection = require('./app/helpers/db.js');
 
 const app = express();
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
 
 app.use(cors());
 
@@ -12,19 +15,15 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-const db = require('./app/models/index.js');
-db.mongoose
-  .connect(db.url, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .then(() => {
-    console.log('Connected to the database!');
-  })
-  .catch((err) => {
-    console.log('Cannot connect to the database!', err);
-    process.exit();
-  });
+// Sockets
+io.on('connection', (socket) => {
+  socket.on('disconnect'),
+    () => {
+      console.log('user has disconnected');
+    };
+});
+
+// Client requests
 
 // Login
 app.post('/api/login', handleLogin);
@@ -38,12 +37,22 @@ app.get('/api/users', handleUsers);
 // User
 app.get('/api/user/:id', handleUser);
 
+// Chats
+app.get('/api/chatsItems/:id', handleChats);
+
+// Chats participants
+app.get('/api/chatsParticipants/:id', handleChatParticipants);
+
+// Chat messages
+
 app.use(express.static(__dirname + '/public/'));
 
 // Handle SPA
 app.get(/.*/, (req, res) =>
   res.sendFile(path.resolve(__dirname, 'public/index.html'))
 );
+
+// Export these functions to a router folder
 
 // Login handler
 async function handleLogin(req, res) {
@@ -59,57 +68,6 @@ async function handleLogin(req, res) {
   }
   return;
 }
-
-// (err, result) => {
-//     if (err) return res.status(400);
-//     return res.status(200).json(result)
-// })
-
-// if (user === null) {
-//     // Account not found
-//     console.log("No user found");
-//     return res.sendStatus(400)
-
-// } else {
-//     // Account found
-//     // Check password
-//     if (req.body.password == user.password) {
-//         // Logged in! - state at frontend/backend?
-//         console.log("Logged in with account: ", user);
-//         // send user data to the front
-//         // return res.sendStatus(200)
-//         return {
-//             status: 200,
-//             data: user
-//         }
-//         // return res.status(200).json(user)
-//     } else {
-//         return {
-//             status: 400,
-//             data: null
-//         }
-//     }
-// }
-// return
-// if()
-// try {
-//   if (await bcrypt.compare(req.body.wachtwoord, user.wachtwoord)) {
-//     req.session.loggedIN = true;
-//     req.session.user = user;
-//     console.log('Succesvol ingelogd');
-//     req.flash('succes', 'Hoi ' + req.session.user.voornaam);
-//     res.render('readytostart');
-//   } else {
-//     req.flash('error', 'Wachtwoord is incorrect');
-//     res.render('index');
-//     console.log('Wachtwoord is incorrect');
-//   }
-// } catch (err) {
-//   console.log(err);
-//   req.flash('error', 'Er ging iets mis. Probeer opnieuw');
-//   res.render('index');
-// }
-// }
 
 // Put all functions in controllers/user.controller.js
 // Add user to db
@@ -166,11 +124,10 @@ async function handleUsers(req, res) {
 
   // return data
   return res.json(usersData);
-  
 }
 
 // Get one specific user by userID
- async function handleUser(req, res) {  
+async function handleUser(req, res) {
   // get user data
   const userData = await findOneUser(req.params.id);
 
@@ -178,11 +135,39 @@ async function handleUsers(req, res) {
   return res.json(userData);
 }
 
+// Get all chats from user by userID
+async function handleChats(req, res) {
+  // get user data
+  const userData = await findOneUser(req.params.id);
+
+  const chatsData = userData.chats;
+  console.log(chatsData);
+
+  // return data
+  return res.json(chatsData);
+}
+
+// Get all participant data per chat
+async function handleChatParticipants(req, res) {
+  // get user data
+  const userData = await findOneUser(req.params.id);
+
+  const userName = {
+    firstName: userData.firstName,
+    surName: userData.surName,
+  };
+
+  // return data --> name
+  return res.json(userName);
+}
 
 // Get data of one specific user by userID
 async function findOneUser(userID) {
-  const user = await Users.findOne({_id: userID}).catch((err) => console.log(err));
+  const user = await Users.findOne({ _id: userID }).catch((err) =>
+    console.log(err)
+  );
 
+  // return user data
   return user;
 }
 
