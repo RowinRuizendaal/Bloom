@@ -84,6 +84,7 @@ export default {
           }
         })
         .catch((err) => {
+          console.log(err);
           this.errors.push("Er is helaas geen account gevonden");
         });
     },
