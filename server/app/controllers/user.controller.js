@@ -3,13 +3,11 @@ const {
   createUser,
   findOneUser,
   getAllUsers,
-} = require('../helper/helpers.js');
+} = require('../helpers/db.helpers.js');
 
 // Login handler
 async function handleLogin(req, res) {
   const user = await checkValidUser(req.body.emailAddress, req.body.password);
-
-  console.log(user)
 
   if (user == null) {
     return res.sendStatus(400);
@@ -18,7 +16,7 @@ async function handleLogin(req, res) {
   }
 }
 
-// Add user to db
+// Register handler
 function handleRegister(req, res) {
   const userObject = {
     firstName: req.body.firstName,
