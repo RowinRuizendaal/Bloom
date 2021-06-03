@@ -121,6 +121,8 @@
           <p>antwoord</p>
         </div>
       </article>
+
+      <button @click="opened = visible = true">Open Popup</button>
     </main>
   </section>
 </template>
@@ -130,6 +132,7 @@ import axios from "axios";
 
 export default {
   name: "BuddyDetail",
+
   mounted() {
     this.getUser();
   },
