@@ -1,7 +1,7 @@
 <template>
   <section class="profile">
     <header>
-      <h1>Profiel</h1>
+      <h2>Profiel</h2>
       <router-link to="/profile-edit"
         ><svg
           id="Setting"

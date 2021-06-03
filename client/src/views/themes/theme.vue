@@ -95,15 +95,17 @@ export default {
         position: relative;
         display: flex;
         align-items: center;
-        min-width: 11.5rem;
-        height: 10rem;
+        justify-content: center;
+        text-align: center;
+        width: 9rem;
+        height: 8rem;
         background-color: #fef1c5;
         margin: 0.5rem;
         margin-bottom: 1rem;
         cursor: pointer;
-        justify-content: center;
         border-radius: 5px;
         box-shadow: 0 15px 15px -14px rgb(114, 109, 97 / 25%);
+
         &:after {
           content: "";
           position: absolute;
@@ -121,7 +123,7 @@ export default {
         h3 {
           color: $orange;
           text-transform: none;
-          font-size: 1.5rem;
+          font-size: 1.2rem;
           max-width: 10rem;
           font-family: Nunito;
           font-weight: bold;
