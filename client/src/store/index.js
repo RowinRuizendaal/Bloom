@@ -100,7 +100,15 @@ export default new Vuex.Store({
             url: "https://google.com",
           },
           {
-            website: "Kenniscentrum Chronische Vermoeidheid",
+            website: "Module Angst en paniek",
+            url: "https://google.com",
+          },
+          {
+            website: "Stichting Kanker in Beeld",
+            url: "https://google.com",
+          },
+          {
+            website: "Zelfhulptraining Minder angst na kanker",
             url: "https://google.com",
           },
           {
@@ -156,7 +164,15 @@ export default new Vuex.Store({
             url: "https://google.com",
           },
           {
-            website: "Kenniscentrum Chronische Vermoeidheid",
+            website: "Cursus In de put uit de put",
+            url: "https://google.com",
+          },
+          {
+            website: "Module Depressie",
+            url: "https://google.com",
+          },
+          {
+            website: "Stichting Kanker in Beeld",
             url: "https://google.com",
           },
           {
@@ -210,15 +226,19 @@ export default new Vuex.Store({
             url: "https://google.com",
           },
           {
-            website: "Kenniscentrum Chronische Vermoeidheid",
+            website: "Nederlandse Vereniging voor Relatietherapie",
             url: "https://google.com",
           },
           {
-            website: "Psychologenpraktijk M. Kalogridi",
+            website: "Module Relatieproblemen",
             url: "https://google.com",
           },
           {
-            website: "Eerstelijnspsychologiepraktijk Vosmeer",
+            website: "Seksuologiepraktijk Den Haag",
+            url: "https://google.com",
+          },
+          {
+            website: "CenSeRe",
             url: "https://google.com",
           },
         ],
@@ -260,15 +280,19 @@ export default new Vuex.Store({
             url: "https://google.com",
           },
           {
-            website: "Kenniscentrum Chronische Vermoeidheid",
+            website: "Kans Tegen Kanker",
             url: "https://google.com",
           },
           {
-            website: "Psychologenpraktijk M. Kalogridi",
+            website: "Module Geldzorgen",
             url: "https://google.com",
           },
           {
-            website: "Eerstelijnspsychologiepraktijk Vosmeer",
+            website: "Zelfjeschuldenregelen",
+            url: "https://google.com",
+          },
+          {
+            website: "Nibud",
             url: "https://google.com",
           },
         ],

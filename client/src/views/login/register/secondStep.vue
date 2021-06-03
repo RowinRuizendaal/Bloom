@@ -53,10 +53,5 @@ export default {
 </script>
 
 <style lang="scss">
-label.textLabel {
-  display: block;
-  margin: 0.6em 0em;
-  text-align: left;
-  width: 100%;
-}
+@import "@/components/register/register.scss";
 </style>

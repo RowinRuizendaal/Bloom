@@ -144,51 +144,5 @@ export default {
 </script>
 
 <style lang="scss">
-.chat-overview {
-  width: 86vw;
-  margin: 0 auto;
-  header {
-    height: 13vh;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    border-bottom: 0.5px solid #8080803d;
-    color: $orange;
-    margin-bottom: 1em;
-
-    h2 {
-      font-family: $font-family-secondary;
-      font-weight: $font-weight-bold;
-    }
-  }
-
-  main {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    flex-direction: row;
-
-    article {
-      &:not(:nth-of-type(1)) {
-        border-bottom: 0.13px solid $lighterGray;
-      }
-
-      &:nth-child(1) {
-        display: flex;
-        justify-content: flex-start;
-        flex-direction: row;
-        div {
-          &:nth-child(1) {
-            width: 8em;
-            height: 8em;
-            text-align: center;
-            border-radius: 5px;
-            box-shadow: 0 3px 8px $gray;
-          }
-        }
-      }
-    }
-  }
-}
+@import "@/components/chat/overview.scss";
 </style>

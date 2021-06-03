@@ -35,7 +35,4 @@ export default {
 };
 </script>
 
-<style lang="scss">
-.three {
-}
-</style>
+<style lang="scss"></style>
