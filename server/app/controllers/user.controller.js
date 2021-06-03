@@ -5,6 +5,11 @@ const {
   getAllUsers,
 } = require('../helpers/db.helpers.js');
 
+const { findObject } = require('../helpers/helpers.js');
+
+// Store userID globally for easier use
+let globalUserID;
+
 // Login handler
 async function handleLogin(req, res) {
   const user = await checkValidUser(req.body.emailAddress, req.body.password);
@@ -12,6 +17,8 @@ async function handleLogin(req, res) {
   if (user == null) {
     return res.sendStatus(400);
   } else {
+    globalUserID = user._id;
+    console.log('global: ', globalUserID);
     return res.status(200).json(user);
   }
 }
@@ -66,7 +73,13 @@ async function handleChats(req, res) {
 
 // get chat data of one user with another person
 async function handleChatDetail(req, res) {
-  console.log(req.params.id);
+  const userData = await findOneUser(globalUserID);
+  const chatUserData = userData.chats;
+
+  // Search the enemy in users chat data:
+  const messagesData = findObject(req.params.id, chatUserData);
+  // console.log(messagesData)
+  return res.json(messagesData);
 }
 
 // Get all participant data per chat

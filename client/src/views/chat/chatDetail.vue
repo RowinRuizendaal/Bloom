@@ -1,16 +1,83 @@
 <template>
   <section class="chat-detail">
     <header>
-      <p>terugknopje</p>
+      <router-link to="/chats" class="start">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="7.246"
+          height="11.941"
+          viewBox="0 0 7.246 11.941"
+          style="display: block; transform: scale(-1, 1)"
+        >
+          <path
+            id="Path_13"
+            data-name="Path 13"
+            d="M3.431-4.786a.656.656,0,0,0,0-.928l-5.314-5.314a.656.656,0,0,0-.928,0l-.62.62a.656.656,0,0,0,0,.927L.779-5.25-3.432-1.019a.656.656,0,0,0,0,.927l.62.62a.656.656,0,0,0,.928,0Z"
+            transform="translate(3.623 11.22)"
+            fill="#f07904"
+          />
+        </svg>
+      </router-link>
       <div>
-        <p>profileAvatar</p>
-        <h2>naam van participant</h2>
+        <div :class="messagesData[0].participant.profileAvatar">
+          <p>
+            {{
+              createInitials(
+                messagesData[0].participant.firstName,
+                messagesData[0].participant.surName
+              )
+            }}
+          </p>
+        </div>
+        <h2>
+          {{ messagesData[0].participant.firstName }}
+          {{ messagesData[0].participant.surName }}
+        </h2>
       </div>
-      <p>svg settings</p>
+
+      <svg
+        id="Iconly_Bulk_More_Circle"
+        data-name="Iconly/Bulk/More Circle"
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+      >
+        <path
+          id="Fill_1"
+          data-name="Fill 1"
+          d="M20,10A10,10,0,1,1,10,0,10,10,0,0,1,20,10"
+          transform="translate(2 2)"
+          fill="#f07904"
+          opacity="0.4"
+        />
+        <path
+          id="Combined_Shape"
+          data-name="Combined Shape"
+          d="M8.959,1.2a1.2,1.2,0,1,1,1.2,1.2A1.2,1.2,0,0,1,8.959,1.2Zm-4.479,0a1.2,1.2,0,1,1,1.2,1.2A1.2,1.2,0,0,1,4.479,1.2ZM0,1.2a1.2,1.2,0,1,1,1.2,1.2A1.2,1.2,0,0,1,0,1.2Z"
+          transform="translate(6.323 10.804)"
+          fill="#f07904"
+        />
+      </svg>
     </header>
 
     <main>
-      <div class="container">
+      <ul>
+        <li v-for="(item, index) in messagesData[0].messages" :key="index">
+          <div
+            v-if="item.sender == messagesData[0].participant.id"
+            :class="messagesData[0].participant.profileAvatar"
+          >
+            <p>andere{{ item.content }}:</p>
+          </div>
+
+          <div v-else>
+            <p>{{ item.content }}</p>
+          </div>
+        </li>
+      </ul>
+
+      <!-- <div class="container">
         <div class="col-lg-6 offset-lg-3">
           <h2>{{ username }}</h2>
           <div class="card bg-info" v-if="ready">
@@ -44,15 +111,15 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
     </main>
   </section>
 </template>
 
 <script>
-// import axios from "axios";
+import axios from "axios";
 
-var socket = io.connect();
+// var socket = io.connect();
 
 export default {
   name: "ChatDetail",
@@ -118,13 +185,13 @@ export default {
   data() {
     return {
       newMessage: null,
-      messages: [],
+      messagesss: [],
       typing: false,
       username: null,
       ready: false,
       info: [],
       connections: 0,
-      data: [],
+      messagesData: [],
     };
   },
 
@@ -137,12 +204,24 @@ export default {
       axios
         .get(url)
         .then((response) => {
-          let userDataObject = this.data;
-          userDataObject.push(response.data);
+          console.log("chat object: ", response.data);
+          let userMessagesObject = this.messagesData;
+          userMessagesObject.push(response.data);
         })
         .catch((err) => {
           this.errors.push("Er is helaas geen account gevonden");
         });
+    },
+
+    // Get the initials of the name
+    createInitials(firstName, surName) {
+      let fullName = `${firstName} ${surName}`;
+
+      // Logic for getting the name initials
+      let rgx = new RegExp(/(\p{L}{1})\p{L}+/, "gu");
+      let initials = [...fullName.matchAll(rgx)] || [];
+      initials = ((initials.shift()?.[1] || "") + (initials.pop()?.[1] || "")).toUpperCase();
+      return initials;
     },
 
     // send() {
@@ -168,53 +247,5 @@ export default {
 </script>
 
 <style lang="scss">
-/* .chat-overview {
-  width: 86vw;
-  margin: 0 auto;
-  header {
-    height: 13vh;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    border-bottom: 0.5px solid #8080803d;
-    color: $orange;
-    margin-bottom: 1em;
-
-    h2 {
-      font-family: $font-family-secondary;
-      font-weight: $font-weight-bold;
-    }
-  }
-
-  main {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    flex-direction: row;
-
-    article {
-      //   padding: 0.3em;
-
-      &:not(:nth-of-type(1)) {
-        border-bottom: 0.13px solid $lighterGray;
-      }
-
-      &:nth-child(1) {
-        display: flex;
-        justify-content: flex-start;
-        flex-direction: row;
-        div {
-          &:nth-child(1) {
-            width: 8em;
-            height: 8em;
-            text-align: center;
-            border-radius: 5px;
-            box-shadow: 0 3px 8px $gray;
-          }
-        }
-      }
-    }
-  }
-} */
+@import "@/components/chat/chatDetail.scss";
 </style>
