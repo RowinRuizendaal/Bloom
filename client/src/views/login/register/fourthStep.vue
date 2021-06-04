@@ -34,22 +34,5 @@ export default {
 </script>
 
 <style lang="scss">
-.four {
-  select {
-    appearance: none;
-    background: $white;
-    background-image: url("../../../assets/icons/arrow-down.svg");
-    background-repeat: no-repeat;
-    background-position: right;
-    background-size: 15% 30%;
-    width: 100%;
-    height: 3em;
-    padding: 0.6em 1em;
-    border-radius: 20px;
-    border: none;
-    border: 1px solid $lightgray;
-    font-family: $font-family-primary;
-    font-weight: 100;
-  }
-}
+@import "@/components/register/register.scss";
 </style>

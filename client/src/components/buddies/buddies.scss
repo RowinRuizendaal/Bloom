@@ -1,0 +1,74 @@
+.buddies {
+    width: 86vw;
+    margin: 0 auto;
+    header {
+        height: 13vh;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        border-bottom: 0.5px solid #8080803d;
+        color: $orange;
+        margin-bottom: 1em;
+        h2 {
+            font-family: $font-family-secondary;
+            font-weight: $font-weight-bold;
+        }
+    }
+    main {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        flex-direction: row;
+        article {
+            position: relative;
+            background: white;
+            border-radius: 10px;
+            width: 9em;
+            height: fit-content;
+            margin: 0.5em;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.06);
+            div {
+                p {
+                    &:not(:nth-of-type(1)) {
+                        color: $black;
+                        font-size: 0.8rem;
+                        word-break: break-word;
+                    }
+                }
+                &:nth-of-type(1) {
+                    border-radius: 10px 10px 0 0;
+                    text-align: center;
+                    padding: 1em;
+                    p {
+                        font-size: 2.5rem;
+                        font-weight: 600;
+                    }
+                }
+                &:nth-of-type(2) {
+                    padding: 1em;
+                    font-size: 0.8rem;
+                    p {
+                        &:nth-of-type(1) {
+                            font-weight: $font-weight-bold;
+                            color: $black;
+                        }
+                        &:nth-of-type(2) {}
+                        &:nth-of-type(3) {}
+                    }
+                }
+            }
+            a {
+                background: $yellow;
+                position: absolute;
+                bottom: 0;
+                right: 0;
+                text-align: center;
+                width: 2em;
+                height: 2em;
+                padding: 0.5em;
+                border-radius: 10px 0 10px 0;
+            }
+        }
+    }
+}

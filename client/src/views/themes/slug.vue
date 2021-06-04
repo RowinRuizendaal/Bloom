@@ -130,5 +130,5 @@ export default {
 </script>
 
 <style lang="scss">
-@import "@/components/themes/theme.scss";
+@import "@/components/themes/slug.scss";
 </style>

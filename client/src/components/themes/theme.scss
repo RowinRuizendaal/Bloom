@@ -1,183 +1,84 @@
-.slug {
+.themes {
+    width: 86vw;
+    margin: 0 auto;
     height: 100vh;
-    overflow-x: hidden;
     header {
+        height: 13vh;
         display: flex;
-        justify-content: center;
-        align-items: center;
-        nav {
-            display: flex;
-            justify-content: space-evenly;
-            align-items: center;
-            margin-top: 4rem;
-            li {
-                list-style: none;
-                &:nth-child(1) {
-                    transform: rotate(180deg);
-                    margin-right: 4rem;
-                }
-            }
-            .logo {
-                color: $orange;
-                font-size: 1.167rem;
-                margin: auto;
-                min-width: 8rem;
-            }
-        }
-    }
-    .toggle {
-        display: flex;
-        flex-direction: row;
         justify-content: space-between;
-        border-radius: 5px;
         align-items: center;
-        text-align: center;
-        .active-class {
-            background-color: $lightYellow;
-        }
-        span {
-            color: $orange;
-            background-color: $lighterYellow;
-            width: 10rem;
-            cursor: pointer;
-            height: 3rem;
-            &:first-child {
-                border-top-left-radius: 5px;
-                border-bottom-left-radius: 5px;
-            }
-            &:last-child {
-                border-top-right-radius: 5px;
-                border-bottom-right-radius: 5px;
-            }
-            p {
-                color: $orange;
-            }
-        }
-    }
-    article {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        margin-top: 2rem;
-    }
-    .image {
-        margin-bottom: 1.5rem;
-        max-width: 100%;
-        width: 90%;
-        filter: opacity(90%);
-        border-top-left-radius: 20px;
-        border-top-right-radius: 20px;
-        height: 12rem;
-        object-fit: cover;
-        @include q-lg-min {
-            max-width: 30rem;
-        }
-    }
-    .heading {
+        width: 100%;
+        border-bottom: 0.5px solid #8080803d;
         color: $orange;
-        line-height: 1.5rem;
-        font-size: 1.5rem;
-        margin: 1rem 0rem 1rem 0rem;
-        margin-top: 5rem;
-    }
-    .text {
-        line-height: 1.6rem;
-        max-width: 30rem;
-        font-size: 1rem;
-        padding: 0 50px;
-        .intro {
-            color: $gray;
-        }
-        p {
-            &:nth-child(1) {
-                font-family: Nunito;
-                font-weight: bold;
-            }
-            font-family: Nunito;
-            font-weight: lighter;
-            margin-top: 1rem;
-            margin-bottom: 1rem;
+        margin-bottom: 1em;
+        h2 {
+            font-family: $font-family-secondary;
+            font-weight: $font-weight-bold;
         }
     }
-    .listeditem {
-        list-style: none;
-        font-family: Nunito;
-        font-weight: lighter;
-        li {
-            padding: 1rem;
-        }
-        li::before {
-            content: "\2022";
-            color: $orange;
+    .theme {
+        h3 {
+            margin-top: 2rem;
+            margin-left: 1rem;
+            font-family: silka;
             font-weight: bold;
-            display: inline-block;
-            width: 1em;
-            margin-left: -1em;
+            font-size: 1.0000007559056rem;
+            color: $gray;
+            text-transform: uppercase;
         }
-    }
-    .links {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-    blockquote {
-        margin-top: 1.5rem;
-        color: $orange;
-        font-family: Nunito;
-        font-weight: bolder;
-        font-size: 1.5rem;
-        position: relative;
-        border-radius: 5px;
-        line-height: 1.6rem;
-        margin-bottom: 2rem;
-    }
-    .header {
-        display: flex;
-        align-items: center;
-        width: 30rem;
-        h1 {
-            margin-left: 3.2rem;
-            font-size: 1.6rem;
-            @include q-lg-min {
-                margin-left: 0px;
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            flex-direction: row;
+            margin-top: 2rem;
+            padding-bottom: 5rem;
+            a {
+                text-decoration: none;
+                color: #f07904;
+                font-weight: bold;
+                font-size: 1.5rem;
             }
-        }
-        p {
-            margin-left: auto;
-            margin-right: 3.2rem;
-            color: $orange;
-            font-weight: bolder;
-            @include q-lg-min {
-                margin-right: 0px;
-            }
-        }
-    }
-    .klachten {
-        p {
-            &:nth-child(1) {
-                font-family: Nunito;
-                font-weight: lighter;
-            }
-        }
-    }
-    .tips,
-    .hulp {
-        .heading {
-            margin-top: 5rem;
-        }
-    }
-    .hulp {
-        .listeditem {
-            li {
-                &:before {
+            article {
+                position: relative;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+                width: 9rem;
+                height: 8rem;
+                background-color: #fef1c5;
+                margin: 0.5rem;
+                margin-bottom: 1rem;
+                cursor: pointer;
+                border-radius: 5px;
+                box-shadow: 0 15px 15px -14px rgb(114, 109, 97 / 25%);
+                &:after {
                     content: "";
+                    position: absolute;
+                    background-color: #fee89e;
+                    height: 2rem;
+                    width: 2rem;
+                    bottom: 0;
+                    right: 0;
+                    border-radius: 5px;
+                    background-image: url("data:image/svg+xml, %3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 7.246 11.941'%3E%3Cpath fill='%23f07904' d='M7.054 6.434a.656.656 0 000-.928L1.74.192a.656.656 0 00-.928 0l-.62.62a.656.656 0 000 .927l4.21 4.231-4.211 4.231a.656.656 0 000 .927l.62.62a.656.656 0 00.928 0z' /%3E%3C/svg%3E");
+                    background-repeat: no-repeat;
+                    background-size: 20px 20px;
+                    background-position: center;
+                }
+                h3 {
+                    color: $orange;
+                    text-transform: none;
+                    font-size: 1.2rem;
+                    max-width: 10rem;
+                    font-family: Nunito;
+                    font-weight: bold;
+                    margin-right: auto;
+                    margin-left: auto;
                 }
             }
-        }
-        .nextButton {
-            margin-left: 0rem;
-            margin-right: 0rem;
         }
     }
 }
