@@ -175,15 +175,5 @@ export default {
 
 <style lang="scss" scoped>
 @import "@/components/profile/profile.scss";
-.profile {
-  article {
-    position: relative;
-
-    button {
-      position: absolute;
-      bottom: 0;
-      right: 0;
-    }
-  }
-}
+@import "@/components/buddies/buddyDetail.scss";
 </style>

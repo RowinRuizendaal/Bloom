@@ -31,20 +31,5 @@ export default {
 </script>
 
 <style lang="scss">
-.eight {
-  input[type="text"] {
-    font-size: 0.875rem;
-    font-family: $font-family-primary;
-    font-weight: $font-weight-light;
-
-    /* padding: 0.625rem 1.125rem; */
-    padding: 0 0 6em 0.5em;
-    resize: none;
-    width: 100%;
-    height: 20vh;
-
-    border: solid 1px $lightgray;
-    border-radius: 1.25rem;
-  }
-}
+@import "@/components/register/register.scss";
 </style>

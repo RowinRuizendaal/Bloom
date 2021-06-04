@@ -53,22 +53,5 @@ export default {
 </script>
 
 <style lang="scss">
-div.first {
-  width: 86vw;
-
-  a {
-    font-weight: bold;
-    color: $gray;
-    font-size: 0.7rem;
-    text-align: center;
-    display: block;
-  }
-
-  label {
-    display: block;
-    margin: 0.6em 0em;
-    text-align: left;
-    width: 100%;
-  }
-}
+@import "@/components/register/register.scss";
 </style>
