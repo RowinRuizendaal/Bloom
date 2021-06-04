@@ -83,10 +83,13 @@ git clone https://github.com/RowinRuizendaal/Bloom.git
 2. Install dependencies client & server   
 ``` 
 cd client && npm install
+
+cd server && npm install
 ```
 
 3. To run the app   
 ```
+cd client && npm run serve
 
 cd server && npm run dev
 ```

@@ -20,6 +20,10 @@
         flex-wrap: wrap;
         justify-content: space-around;
         flex-direction: row;
+
+        a{
+            text-decoration: none;
+        
         article {
             position: relative;
             background: white;
@@ -69,6 +73,6 @@
                 padding: 0.5em;
                 border-radius: 10px 0 10px 0;
             }
-        }
+        }}
     }
 }

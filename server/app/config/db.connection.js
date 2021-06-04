@@ -1,6 +1,6 @@
 // Connection to the db
 
-const db = require('../models/index.js');
+const db = require('./db.index.js');
 
 db.mongoose
   .connect(db.url, {

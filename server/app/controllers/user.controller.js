@@ -1,27 +1,107 @@
-// const db = require('../models/index.js');
-// const Users = db.users;
+const {
+  checkValidUser,
+  createUser,
+  findOneUser,
+  getAllUsers,
+} = require('../helpers/db.helpers.js');
 
-// Create and Save a new Tutorial
-exports.create = (req, res) => {};
+const { findObject } = require('../helpers/helpers.js');
 
-// Retrieve all Tutorials from the database.
-exports.findAll = (req, res) => {};
+// Store userID globally for easier use
+let globalUserID;
 
-// Find a single Tutorial with an id
-exports.findOne = async(email) => {
-    console.log(email);
-    // const userData = await Users.findOne({ emailAddress: email });
-    // return userData};
+// Login handler
+async function handleLogin(req, res) {
+  const user = await checkValidUser(req.body.emailAddress, req.body.password);
+
+  if (user == null) {
+    return res.sendStatus(400);
+  } else {
+    globalUserID = user._id;
+    console.log('global: ', globalUserID);
+    return res.status(200).json(user);
+  }
+}
+
+// Register handler
+function handleRegister(req, res) {
+  const userObject = {
+    firstName: req.body.firstName,
+    surName: req.body.surName,
+    emailAddress: req.body.emailAddress,
+    password: req.body.password,
+    birthDate: req.body.birthDate,
+    town: req.body.town,
+    gender: req.body.gender,
+    typeIllness: req.body.typeIllness,
+    profileAvatar: req.body.profileAvatar,
+    about: req.body.about,
+  };
+
+  console.log('User register data: ', userObject);
+  createUser(userObject);
+}
+
+// Get all users
+async function handleUsers(req, res) {
+  // get all users
+  const usersData = await getAllUsers();
+
+  // return data
+  return res.json(usersData);
+}
+
+// Get one specific user by userID
+async function handleUser(req, res) {
+  // get user data
+  const userData = await findOneUser(req.params.id);
+
+  // return data
+  return res.json(userData);
+}
+
+// Get all chats from user by userID
+async function handleChats(req, res) {
+  // get user data
+  const userData = await findOneUser(req.params.id);
+
+  const chatsData = userData.chats;
+
+  // return data
+  return res.json(chatsData);
+}
+
+// get chat data of one user with another person
+async function handleChatDetail(req, res) {
+  const userData = await findOneUser(globalUserID);
+  const chatUserData = userData.chats;
+
+  // Search the enemy in users chat data:
+  const messagesData = findObject(req.params.id, chatUserData);
+  // console.log(messagesData)
+  return res.json(messagesData);
+}
+
+// Get all participant data per chat
+async function handleChatParticipants(req, res) {
+  // get user data
+  const userData = await findOneUser(req.params.id);
+
+  const userName = {
+    firstName: userData.firstName,
+    surName: userData.surName,
+  };
+
+  // return data
+  return res.json(userName);
+}
+
+module.exports = {
+  handleLogin,
+  handleRegister,
+  handleUsers,
+  handleUser,
+  handleChats,
+  handleChatDetail,
+  handleChatParticipants,
 };
-
-// Update a Tutorial by the id in the request
-exports.update = (req, res) => {};
-
-// Delete a Tutorial with the specified id in the request
-exports.delete = (req, res) => {};
-
-// Delete all Tutorials from the database.
-exports.deleteAll = (req, res) => {};
-
-// Find all published Tutorials
-exports.findAllPublished = (req, res) => {};

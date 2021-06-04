@@ -8,8 +8,7 @@
       <article>
         <div class="profile-img" :class="this.data[0].profileAvatar">
           <p>
-            {{ this.data[0].firstName.charAt(0).toUpperCase() }}
-            {{ this.data[0].surName.charAt(0).toUpperCase() }}
+            {{ createInitials(this.data[0].firstName, this.data[0].surName) }}
           </p>
         </div>
         <div class="profile-headInfo">
@@ -121,6 +120,10 @@
           <p>antwoord</p>
         </div>
       </article>
+
+      <form action=""></form>
+
+      <button @click="opened = visible = true">Open Popup</button>
     </main>
   </section>
 </template>
@@ -130,6 +133,7 @@ import axios from "axios";
 
 export default {
   name: "BuddyDetail",
+
   mounted() {
     this.getUser();
   },
@@ -153,6 +157,17 @@ export default {
         .catch((err) => {
           this.errors.push("Er is helaas geen account gevonden");
         });
+    },
+
+    // Get the initials of the name
+    createInitials(firstName, surName) {
+      let fullName = `${firstName} ${surName}`;
+
+      // Logic for getting the name initials
+      let rgx = new RegExp(/(\p{L}{1})\p{L}+/, "gu");
+      let initials = [...fullName.matchAll(rgx)] || [];
+      initials = ((initials.shift()?.[1] || "") + (initials.pop()?.[1] || "")).toUpperCase();
+      return initials;
     },
   },
 };
