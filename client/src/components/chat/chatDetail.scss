@@ -12,27 +12,33 @@
     color: $orange;
     margin-bottom: 1em;
 
-    div {
-      display: flex;
-      justify-content: space-between;
-      flex-direction: row;
-
-      div {
-        width: 3em;
-        height: 3em;
-        text-align: center;
-        margin: 0 auto;
-        display: block;
-        padding: 0em;
+    a {
+      &:nth-of-type(2) {
+        text-decoration: none;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
         align-items: center;
-        align-self: center;
-        align-content: center;
-        border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.06);
+        width: 11em;
 
-        p {
-          //   color:blue;
-          font-weight: 600;
+        div {
+          width: 2em;
+          height: 2em;
+          text-align: center;
+          margin: 0 auto;
+          display: block;
+          padding: 0em;
+          align-items: center;
+          align-self: center;
+          align-content: center;
+          border-radius: 10px;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.06);
+
+          p {
+            font-weight: 600;
+            text-align: center;
+            line-height: 35px;
+          }
         }
       }
       h2 {
@@ -48,7 +54,63 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
-    flex-direction: row;
+    flex-direction: column;
+
+    ul {
+      li {
+        list-style: none;
+        margin: 1em 0;
+
+        div {
+          width: fit-content;
+          padding: 1em;
+          height: auto;
+
+          position: relative;
+
+          border-radius: 0.4em;
+
+          &:after {
+            content: "";
+            position: absolute;
+            top: 60%;
+
+            width: 0;
+            height: 0;
+            border: 20px solid transparent;
+            border-bottom: 0;
+            border-left: 0;
+          }
+
+          p {
+            font-size: 0.8rem;
+            font-weight: 500;
+          }
+        }
+
+        .other {
+          background: $lighterYellow;
+
+          &:after {
+            border-top-color: $lighterYellow;
+            left: -6%;
+            transform: rotate(180deg);
+          }
+        }
+
+        .me {
+          background-color: $lightererOrange;
+          margin-left: 5em;
+
+          &:after {
+            border-top-color: $lightererOrange;
+            left: 98%;
+            transform: rotate(-180deg);
+            transform: rotateY(3rad) rotate(180deg);
+          }
+        }
+      }
+    }
 
     article {
       //   padding: 0.3em;

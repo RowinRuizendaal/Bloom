@@ -63,7 +63,7 @@ export default {
           // this.errors.push("Er is helaas geen account gevonden");
         });
     },
-
+    //  Get the initials of a fullname
     createInitials(firstName, surName) {
       let fullName = `${firstName} ${surName}`;
 

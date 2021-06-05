@@ -18,7 +18,7 @@
           />
         </svg>
       </router-link>
-      <div>
+      <router-link :to="'/buddies/' + messagesData[0].participant.id">
         <div :class="messagesData[0].participant.profileAvatar">
           <p>
             {{
@@ -29,12 +29,12 @@
             }}
           </p>
         </div>
+
         <h2>
           {{ messagesData[0].participant.firstName }}
           {{ messagesData[0].participant.surName }}
         </h2>
-      </div>
-
+      </router-link>
       <svg
         id="Iconly_Bulk_More_Circle"
         data-name="Iconly/Bulk/More Circle"
@@ -64,14 +64,11 @@
     <main>
       <ul>
         <li v-for="(item, index) in messagesData[0].messages" :key="index">
-          <div
-            v-if="item.sender == messagesData[0].participant.id"
-            :class="messagesData[0].participant.profileAvatar"
-          >
-            <p>andere{{ item.content }}:</p>
+          <div v-if="item.sender == messagesData[0].participant.id" class="other">
+            <p>{{ item.content }}</p>
           </div>
 
-          <div v-else>
+          <div v-else class="me">
             <p>{{ item.content }}</p>
           </div>
         </li>
