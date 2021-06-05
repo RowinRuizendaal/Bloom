@@ -6,7 +6,7 @@ const dbConnection = require('./app/config/db.connection.js');
 const router = require('./app/routes/router.js');
 
 const app = express();
-const http = require('http').Server(app);
+const http = require('http').createServer(app);
 const io = require('socket.io')(http);
 
 app.use(cors());
@@ -20,6 +20,7 @@ app.use(router);
 // Sockets
 
 io.on('connection', (socket) => {
+  console.log("A user connected");
 
   socket.emit('connections', Object.keys(io.sockets.connected).length);
 
@@ -28,6 +29,7 @@ io.on('connection', (socket) => {
   });
 
   socket.on('chat-message', (data) => {
+    console.log(data)
       socket.broadcast.emit('chat-message', (data));
   });
 

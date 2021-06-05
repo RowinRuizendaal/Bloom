@@ -73,10 +73,6 @@ export default {
       initials = ((initials.shift()?.[1] || "") + (initials.pop()?.[1] || "")).toUpperCase();
       return initials;
     },
-
-    klikLink(e) {
-      console.log(e.target);
-    },
   },
 };
 </script>
