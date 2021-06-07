@@ -119,29 +119,37 @@
 
 <script>
 import axios from "axios";
-
-let url = window.location.origin;
-// var socket = io(url);
+import io from "socket.io-client";
 
 export default {
   name: "ChatDetail",
 
   mounted() {
-    this.getChatData();
+    this.context = this.$refs.game.getContext("2d");
+    this.socket.on("chat-message", (data) => {
+      console.log(data);
+      this.newMsg = data;
+    });
+
+    // this.getChatData();
   },
 
   created() {
-    window.onbeforeunload = () => {
-      socket.emit("leave", this.username);
-    };
+    let url = "http://localhost:5000";
+    console.log(url);
+    this.socket = io(url);
 
-    socket.on("chat-message", (data) => {
-      this.messages.push({
-        message: data.message,
-        type: 1,
-        user: data.user,
-      });
-    });
+    // window.onbeforeunload = () => {
+    //   socket.emit("leave", this.username);
+    // };
+
+    // socket.on("chat-message", (data) => {
+    //   this.messages.push({
+    //     message: data.message,
+    //     type: 1,
+    //     user: data.user,
+    //   });
+    // });
 
     // socket.on("typing", (data) => {
     //   this.typing = data;
@@ -151,31 +159,31 @@ export default {
     //   this.typing = false;
     // });
 
-    socket.on("joined", (data) => {
-      this.info.push({
-        username: data,
-        type: "joined",
-      });
+    // socket.on("joined", (data) => {
+    //   this.info.push({
+    //     username: data,
+    //     type: "joined",
+    //   });
 
-      setTimeout(() => {
-        this.info = [];
-      }, 5000);
-    });
+    //   setTimeout(() => {
+    //     this.info = [];
+    //   }, 5000);
+    // });
 
-    socket.on("leave", (data) => {
-      this.info.push({
-        username: data,
-        type: "left",
-      });
+    // socket.on("leave", (data) => {
+    //   this.info.push({
+    //     username: data,
+    //     type: "left",
+    //   });
 
-      setTimeout(() => {
-        this.info = [];
-      }, 5000);
-    });
+    //   setTimeout(() => {
+    //     this.info = [];
+    //   }, 5000);
+    // });
 
-    socket.on("connections", (data) => {
-      this.connections = data;
-    });
+    // socket.on("connections", (data) => {
+    //   this.connections = data;
+    // });
   },
 
   watch: {
@@ -187,12 +195,12 @@ export default {
   data() {
     return {
       newMessage: null,
-      messagesss: [],
+      // messagesss: [],
       // typing: false,
-      username: null,
-      ready: false,
-      info: [],
-      connections: 0,
+      // username: null,
+      // ready: false,
+      // info: [],
+      // connections: 0,
       messagesData: [],
     };
   },

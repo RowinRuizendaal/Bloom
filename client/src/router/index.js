@@ -5,7 +5,7 @@ import Login from "../views/login/Login.vue";
 import RegisterIndex from "../views/login/register/index.vue";
 import ForgotPassword from "../views/login/forgotPassword.vue";
 
-import Profile from "../views/profile/profile.vue";
+import Profile from "../views/profile/Profile.vue";
 import ProfileEdit from "../views/profile/profileEdit.vue";
 
 import Buddies from "../views/buddies/buddies.vue";
