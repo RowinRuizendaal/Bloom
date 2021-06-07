@@ -72,47 +72,50 @@
             <p>{{ item.content }}</p>
           </div>
         </li>
+
+        <div v-if="messages.length">
+          <li v-for="(item, index) in messages" :key="index">
+            <div v-if="item.sender == $route.params.id" class="other">
+              <p>{{ item.content }}</p>
+            </div>
+
+            <div v-else class="me">
+              <p>{{ item.content }}</p>
+            </div>
+          </li>
+        </div>
       </ul>
 
       <form @submit.prevent="send">
-        <div class="form-group">
-          <input
-            type="text"
-            class="form-control"
-            v-model="newMessage"
-            placeholder="Enter message here"
-          />
+        <div>
+          <input type="text" v-model="newMessage" placeholder="Typ een chatbericht..." required />
+          <svg
+            id="Voice"
+            xmlns="http://www.w3.org/2000/svg"
+            width="17"
+            height="20"
+            viewBox="0 0 17 20"
+          >
+            <path
+              id="Fill_1"
+              data-name="Fill 1"
+              d="M16.031,0a.962.962,0,0,0-.969.957,6.563,6.563,0,0,1-13.125,0A.962.962,0,0,0,.969,0,.962.962,0,0,0,0,.957,8.443,8.443,0,0,0,7.532,9.293v1.925a.969.969,0,0,0,1.937,0V9.293A8.443,8.443,0,0,0,17,.957.962.962,0,0,0,16.031,0"
+              transform="translate(0 7.826)"
+              fill="#726d61"
+              opacity="0.4"
+            />
+            <path
+              id="Fill_4"
+              data-name="Fill 4"
+              d="M4.351,13.217H4.7a4.325,4.325,0,0,0,4.351-4.3V4.3A4.324,4.324,0,0,0,4.7,0H4.351A4.324,4.324,0,0,0,0,4.3V8.921a4.325,4.325,0,0,0,4.351,4.3"
+              transform="translate(3.973 0)"
+              fill="#726d61"
+            />
+          </svg>
         </div>
 
-        <button>send</button>
+        <button type="submit">send</button>
       </form>
-
-      <!-- <div class="container">
-        <div class="col-lg-6 offset-lg-3">
-          <h2>{{ username }}</h2>
-          <div class="card bg-info" v-if="ready">
-            <div class="card-header text-white">
-              <h4>
-                My Chat App
-                <span class="float-right">{{ connections }} connections</span>
-              </h4>
-            </div>
-            <ul class="list-group list-group-flush text-right">
-              <small v-if="typing" class="text-white">{{ typing }} is typing</small>
-              <li class="list-group-item" v-for="(message, index) in messages" :key="index">
-                <span :class="{ 'float-left': message.type === 1 }">
-                  {{ message.message }}
-                  <small>:{{ message.user }}</small>
-                </span>
-              </li>
-            </ul>
-
-            <div class="card-body">
-              
-            </div>
-          </div>
-        </div>
-      </div> -->
     </main>
   </section>
 </template>
@@ -127,10 +130,32 @@ export default {
   data() {
     return {
       socket: null,
+      messagesHistory: [],
+      newMessage: null,
+      messages: [],
     };
   },
 
-  mounted() {},
+  created() {
+    this.socket = io("http://localhost:5000");
+  },
+
+  mounted() {
+    this.getChatData();
+    this.socket.emit("joinRoom", {
+      userID: this.$store.state.user._id,
+      enemyID: this.$route.params.id,
+    });
+
+    this.socket.on("chatHistory", ({ chatHistory }) => {
+      console.log("history via socket event: ", chatHistory);
+    });
+
+    this.socket.on("msgResponse", (chatObject) => {
+      console.log("New Message: ", chatObject);
+      this.messages.push(chatObject);
+    });
+  },
 
   methods: {
     // get data from params. server GET request
@@ -160,19 +185,26 @@ export default {
       return initials;
     },
 
-    // send() {
-    //   this.messagesss.push({
-    //     message: this.newMessage,
-    //     type: 0,
-    //     user: "Me",
-    //   });
+    send() {
+      // this.messagesss.push({
+      //   message: this.newMessage,
+      //   type: 0,
+      //   user: "Me",
+      // });
 
-    //   socket.emit("chat-message", {
-    //     message: this.newMessage,
-    //     // user: this.username,
-    //   });
-    //   this.newMessage = null;
-    // },
+      let date = new Date();
+      let time = date.toString();
+
+      let chatObject = {
+        participant: this.messagesHistory[0].participant.id,
+        sender: this.$store.state.user._id,
+        content: this.newMessage,
+        time: time,
+      };
+
+      this.socket.emit("chat-message", chatObject);
+      this.newMessage = null;
+    },
 
     // addUser() {
     //   this.ready = true;

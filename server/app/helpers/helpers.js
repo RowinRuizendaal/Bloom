@@ -6,4 +6,12 @@ function findObject(id, array) {
   return correctObject;
 }
 
-module.exports = { findObject };
+function findObjectTwo(id, array){
+  const correctObject = array.find((object) => {
+    return object.participant.id == id;
+  });
+  let index  = array.indexOf(correctObject)
+  return index
+}
+
+module.exports = { findObject,findObjectTwo };

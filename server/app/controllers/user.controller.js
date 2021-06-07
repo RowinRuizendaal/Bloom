@@ -21,7 +21,7 @@ async function handleLogin(req, res) {
         return res.sendStatus(400);
     } else {
         globalUserID = user._id;
-        console.log("global: ", globalUserID);
+        // console.log("global: ", globalUserID);
         return res.status(200).json(user);
     }
 }

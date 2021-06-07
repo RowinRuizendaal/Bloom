@@ -57,12 +57,18 @@
     flex-direction: column;
 
     ul {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      flex-direction: row-reverse;
+      align-content: center;
+      align-items: flex-start;
       li {
         list-style: none;
         margin: 1em 0;
 
         div {
-          width: fit-content;
+          // width: fit-content;
           padding: 1em;
           height: auto;
 
@@ -100,7 +106,14 @@
 
         .me {
           background-color: $lightererOrange;
+          margin-right: 0em;
           margin-left: 5em;
+          // margin-right: 4em;
+          margin-left: 12em;
+          width: fit-content;
+          max-width: 13em;
+          word-break: break-word;
+          align-items: flex-end;
 
           &:after {
             border-top-color: $lightererOrange;
@@ -109,6 +122,41 @@
             transform: rotateY(3rad) rotate(180deg);
           }
         }
+      }
+    }
+
+    form {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 1em;
+      text-align: center;
+
+      div {
+        display: flex;
+        input {
+          width: 100%;
+          height: 3em;
+          padding: 0.6em 1em;
+          border-radius: 20px;
+          border: none;
+          border: 1px solid $lightgray;
+          background: $white;
+          position: relative;
+        }
+        svg {
+          position: absolute;
+          right: 1.5em;
+          width: 2.5em;
+          height: 2.5em;
+          padding: 10px;
+          min-width: 50px;
+        }
+      }
+
+      button{
+        display: none;
       }
     }
 
