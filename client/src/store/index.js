@@ -5,6 +5,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    loggedIn: false,
     //Register user
     user: {},
     themelist: [
@@ -416,6 +417,7 @@ export default new Vuex.Store({
     // store user data when logged in
     updateUser(state, value) {
       state.user = value;
+      state.loggedIn = true;
     },
   },
   actions: {},
