@@ -18,21 +18,21 @@
           />
         </svg>
       </router-link>
-      <router-link :to="'/buddies/' + messagesData[0].participant.id">
-        <div :class="messagesData[0].participant.profileAvatar">
+      <router-link :to="'/buddies/' + messagesHistory[0].participant.id">
+        <div :class="messagesHistory[0].participant.profileAvatar">
           <p>
             {{
               createInitials(
-                messagesData[0].participant.firstName,
-                messagesData[0].participant.surName
+                messagesHistory[0].participant.firstName,
+                messagesHistory[0].participant.surName
               )
             }}
           </p>
         </div>
 
         <h2>
-          {{ messagesData[0].participant.firstName }}
-          {{ messagesData[0].participant.surName }}
+          {{ messagesHistory[0].participant.firstName }}
+          {{ messagesHistory[0].participant.surName }}
         </h2>
       </router-link>
       <svg
@@ -63,8 +63,8 @@
 
     <main>
       <ul>
-        <li v-for="(item, index) in messagesData[0].messages" :key="index">
-          <div v-if="item.sender == messagesData[0].participant.id" class="other">
+        <li v-for="(item, index) in messagesHistory[0].messages" :key="index">
+          <div v-if="item.sender == messagesHistory[0].participant.id" class="other">
             <p>{{ item.content }}</p>
           </div>
 
@@ -124,86 +124,13 @@ import io from "socket.io-client";
 export default {
   name: "ChatDetail",
 
-  mounted() {
-    this.context = this.$refs.game.getContext("2d");
-    this.socket.on("chat-message", (data) => {
-      console.log(data);
-      this.newMsg = data;
-    });
-
-    // this.getChatData();
-  },
-
-  created() {
-    let url = "http://localhost:5000";
-    console.log(url);
-    this.socket = io(url);
-
-    // window.onbeforeunload = () => {
-    //   socket.emit("leave", this.username);
-    // };
-
-    // socket.on("chat-message", (data) => {
-    //   this.messages.push({
-    //     message: data.message,
-    //     type: 1,
-    //     user: data.user,
-    //   });
-    // });
-
-    // socket.on("typing", (data) => {
-    //   this.typing = data;
-    // });
-
-    // socket.on("stopTyping", () => {
-    //   this.typing = false;
-    // });
-
-    // socket.on("joined", (data) => {
-    //   this.info.push({
-    //     username: data,
-    //     type: "joined",
-    //   });
-
-    //   setTimeout(() => {
-    //     this.info = [];
-    //   }, 5000);
-    // });
-
-    // socket.on("leave", (data) => {
-    //   this.info.push({
-    //     username: data,
-    //     type: "left",
-    //   });
-
-    //   setTimeout(() => {
-    //     this.info = [];
-    //   }, 5000);
-    // });
-
-    // socket.on("connections", (data) => {
-    //   this.connections = data;
-    // });
-  },
-
-  watch: {
-    // newMessage(value) {
-    //   value ? socket.emit("typing", this.username) : socket.emit("stopTyping");
-    // },
-  },
-
   data() {
     return {
-      newMessage: null,
-      // messagesss: [],
-      // typing: false,
-      // username: null,
-      // ready: false,
-      // info: [],
-      // connections: 0,
-      messagesData: [],
+      socket: null,
     };
   },
+
+  mounted() {},
 
   methods: {
     // get data from params. server GET request
@@ -214,7 +141,7 @@ export default {
       axios
         .get(url)
         .then((response) => {
-          let userMessagesObject = this.messagesData;
+          let userMessagesObject = this.messagesHistory;
           userMessagesObject.push(response.data);
         })
         .catch((err) => {
@@ -233,24 +160,24 @@ export default {
       return initials;
     },
 
-    send() {
-      this.messagesss.push({
-        message: this.newMessage,
-        type: 0,
-        user: "Me",
-      });
+    // send() {
+    //   this.messagesss.push({
+    //     message: this.newMessage,
+    //     type: 0,
+    //     user: "Me",
+    //   });
 
-      socket.emit("chat-message", {
-        message: this.newMessage,
-        // user: this.username,
-      });
-      this.newMessage = null;
-    },
+    //   socket.emit("chat-message", {
+    //     message: this.newMessage,
+    //     // user: this.username,
+    //   });
+    //   this.newMessage = null;
+    // },
 
-    addUser() {
-      this.ready = true;
-      socket.emit("joined", this.username);
-    },
+    // addUser() {
+    //   this.ready = true;
+    //   socket.emit("joined", this.username);
+    // },
   },
 };
 </script>

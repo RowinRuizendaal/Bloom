@@ -2,7 +2,7 @@
   <section class="chat-overview">
     <header>
       <h2>Chat</h2>
-      <p><span>(v-if newMsg)</span>verzoek</p>
+      <p><span>(v-if newChat)</span>verzoek</p>
     </header>
 
     <main>
