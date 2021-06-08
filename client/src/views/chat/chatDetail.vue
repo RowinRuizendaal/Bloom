@@ -63,7 +63,7 @@
 
     <main>
       <ul>
-        <li v-for="(item, index) in messagesHistory[0].messages" :key="index">
+        <li v-for="(item, index) in messagesHistory[0]" :key="index">
           <div v-if="item.sender == messagesHistory[0].participant.id" class="other">
             <p>{{ item.content }}</p>
           </div>
@@ -159,7 +159,7 @@ export default {
 
   methods: {
     // get data from params. server GET request
-    async getChatData() {
+    getChatData() {
       let userID = this.$route.params.id;
       let url = `${window.location.origin}/api/chat/${userID}`;
 
@@ -167,6 +167,7 @@ export default {
         .get(url)
         .then((response) => {
           let userMessagesObject = this.messagesHistory;
+          console.log("response data: ", response.data);
           userMessagesObject.push(response.data);
         })
         .catch((err) => {
@@ -185,13 +186,13 @@ export default {
       return initials;
     },
 
-    send() {
+    send(e) {
       // this.messagesss.push({
       //   message: this.newMessage,
       //   type: 0,
       //   user: "Me",
       // });
-
+      e.preventDefault();
       let date = new Date();
       let time = date.toString();
 

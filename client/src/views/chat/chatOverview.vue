@@ -6,7 +6,11 @@
     </header>
 
     <main>
-      <a v-for="(item, index) in chats[0]" :key="index" :href="'/chat/' + item.participant.id">
+      <router-link
+        v-for="(item, index) in chats[0]"
+        :key="index"
+        :to="'/chat/' + item.participants[0]"
+      >
         <article>
           <div :class="item.participant.profileAvatar">
             <p>
@@ -20,7 +24,7 @@
             <p>{{ item.messages[item.messages.length - 1].time }}</p>
           </div>
         </article>
-      </a>
+      </router-link>
     </main>
     <Nav active="chats" />
   </section>
@@ -56,6 +60,7 @@ export default {
           // else --> empty state
           // iterate over each obj and put in array
           let arrayChats = this.chats;
+          console.log(response.data);
           arrayChats.push(response.data);
         })
         .catch((err) => {

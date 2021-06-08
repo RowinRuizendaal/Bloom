@@ -1,4 +1,4 @@
-const bcrypt = require("bcrypt");
+const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
 const {
@@ -6,12 +6,16 @@ const {
     createUser,
     findOneUser,
     getAllUsers,
-} = require("../helpers/db.helpers.js");
+    getAllChats,
+    getChatsById,
+    findOneChat,
+} = require('../helpers/db.helpers.js');
 
-const { findObject } = require("../helpers/helpers.js");
+const { findObject } = require('../helpers/helpers.js');
 
 // Store userID globally for easier use
 let globalUserID;
+console.log(globalUserID);
 
 // Login handler
 async function handleLogin(req, res) {
@@ -21,7 +25,7 @@ async function handleLogin(req, res) {
         return res.sendStatus(400);
     } else {
         globalUserID = user._id;
-        // console.log("global: ", globalUserID);
+
         return res.status(200).json(user);
     }
 }
@@ -44,7 +48,7 @@ function handleRegister(req, res) {
         about: req.body.about,
     };
 
-    console.log("User register data: ", userObject);
+    console.log('User register data: ', userObject);
     createUser(userObject);
 }
 
@@ -68,24 +72,82 @@ async function handleUser(req, res) {
 
 // Get all chats from user by userID
 async function handleChats(req, res) {
-    // get user data
-    const userData = await findOneUser(req.params.id);
+    // Get chats from collection
+    // 1. search in collection to the userID
+    // 2. get all objects with userID
 
-    const chatsData = userData.chats;
+    const userChats = await getChatsById(req.params.id);
+    // console.log('user chats:', userChats);
 
-    // return data
-    return res.json(chatsData);
+    let arr = [];
+
+    for (i = 0; i < userChats.length; i++) {
+        // get data of users
+
+        // participant ID van elk object
+        const participantUserID = await userChats[i].participants[0];
+
+        const participantUser = await findOneUser(participantUserID);
+        // console.log('object: ', participantUser);
+
+        // participant data object for front use
+        participantUserObject = {
+            participants: [userChats[i].participants],
+            _id: userChats[i]._id,
+            messages: userChats[i].messages,
+            participant: {
+                firstName: participantUser.firstName,
+                surName: participantUser.surName,
+                profileAvatar: participantUser.profileAvatar,
+            },
+        };
+
+        arr.push(participantUserObject);
+    }
+
+    return res.json(arr);
 }
 
 // get chat data of one user with another person
 async function handleChatDetail(req, res) {
-    const userData = await findOneUser(globalUserID);
-    const chatUserData = userData.chats;
+    // const userData = await findOneUser(req.params.id);
 
-    // Search the enemy in users chat data:
-    const messagesData = findObject(req.params.id, chatUserData);
-    // console.log(messagesData)
-    return res.json(messagesData);
+    // 1. search data object with id
+
+    const chatObj = await findOneChat(req.params.id);
+
+    console.log(chatObj);
+
+    let arr = [];
+
+    // 2. get participant data
+    const participantUser = await findOneUser(req.params.id);
+    console.log('object: ', participantUser);
+
+    // participant data object for front use
+    participantUserObject = {
+        participants: chatObj.participants,
+        _id: chatObj._id,
+        messages: chatObj.messages,
+        participant: {
+            firstName: participantUser.firstName,
+            surName: participantUser.surName,
+            profileAvatar: participantUser.profileAvatar,
+        },
+    };
+
+    arr.push(participantUserObject);
+
+    // return
+    return res.json(arr);
+
+    // const chatUserData = userData.chats;
+    // console.log(chatUserData);
+
+    // // Search the enemy in users chat data:
+    // const messagesData = findObject(req.params.id, chatUserData);
+
+    // return res.json(messagesData);
 }
 
 // Get all participant data per chat

@@ -1,5 +1,7 @@
-const Users = require("../models/user.js");
-const bcrypt = require("bcrypt");
+const Users = require('../models/user.js');
+const Chats = require('../models/chat.js');
+const bcrypt = require('bcrypt');
+const ObjectId = require('mongoose').Types.ObjectId;
 
 // Get data of one specific user by userID
 async function checkValidUser(email, password) {
@@ -63,9 +65,47 @@ async function getAllUsers() {
     return users;
 }
 
+// export to chats folder
+async function getAllChats() {
+    const chats = await Chats.find().catch((err) => console.log(err));
+    return chats;
+}
+
+async function getChatsById(userID) {
+
+    // const test = await Chats.find({
+    //     participants: {
+    //         $in: [ObjectId(userID)],
+    //     },
+    // }).forEach(function(myDoc) { print("chat: " + myDoc._id); });
+    // console.log(test)
+
+    const userChats = await Chats.find({
+        participants: {
+            $in: [ObjectId(userID)],
+        },
+    });
+
+    return userChats;
+}
+
+
+// Get data of one specific user by userID
+async function findOneChat(chatID) {
+    const chat = await Chats.findOne({ _id: chatID }).catch((err) =>
+        console.log(err)
+    );
+
+    // return user data
+    return chat;
+}
+
 module.exports = {
     checkValidUser,
     createUser,
     findOneUser,
     getAllUsers,
+    getAllChats,
+    getChatsById,
+    findOneChat
 };
