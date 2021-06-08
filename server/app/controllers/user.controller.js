@@ -80,42 +80,51 @@ async function handleChats(req, res) {
   // 3. Return data chat + participent data
 
   const userChats = await getChatsById(req.params.id);
-  //   console.log('user chats:', userChats);
+  console.log('user chats:', userChats);
 
-  let arr = [];
+  let userParti;
 
   for (i = 0; i < userChats.length; i++) {
     // get data of users
 
     // participant ID van elk object
     let participantUserIDs = await userChats[i].participants;
-    console.table(participantUserIDs[0]);
+    // console.table(participantUserIDs[0]);
+    let participantOne = participantUserIDs[0];
+    let participantTwo = participantUserIDs[1];
 
-    // let id = user._id;
-    // let string = JSON.stringify(id);
-    // globalUserID = string;
+    const userDataOne = await findOneUser(participantOne);
+    console.log('user1: ', userDataOne);
 
-    // var result = Object.values(participantUserIDs);
-    // .map((key) => [Number(key), participantUserIDs[key]]);
+    const userDataTwo = await findOneUser(participantTwo);
+    console.log('user2: ', userDataTwo);
 
-    // console.log('result: ', result);
-    // console.log('result type: ', typeof result);
-    // console.log('global user: ', globalUserID);
+    let idOne = userDataOne._id;
+    console.log(idOne);
+    let idTwo = userDataTwo._id;
+    console.log(idTwo);
 
-    //     if (globalUserID == '60bde5a6fedeac4da052be24') {
-    //         console.log('hardcode test');
-    //     }
-    // }
+    console.log(globalUserID);
 
-    // filterIDs(result, globalUserID);
-
-    // function filterIDs(ids, globalID) {
-    //   let filteredNames = ids.filter((id) => {
-    //     return id !== globalID;
-    //   });
-    //   return console.log('filtered: ',filteredNames);
-    // }
+    if (idOne == globalUserID) {
+      console.log('zelfde 1: ', idOne);
+      userParti = userDataOne;
+    } else if ((idTwo = globalUserID)) {
+      userParti = userDataTwo;
+      console.log('zelfde 2: ', idTwo);
+    }
   }
+
+  let object = {
+    participant: {
+      firstName: userParti.firstName,
+      surName: userParti.surName,
+      id: userParti._id,
+      profileAvatar: userParti.profileAvatar,
+    },
+    userChats,
+  };
+  return res.json(object);
 }
 
 // const participantUser = await findOneUser(participantUserID);

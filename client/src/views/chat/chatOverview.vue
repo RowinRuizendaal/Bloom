@@ -6,7 +6,11 @@
     </header>
 
     <main>
-      <router-link v-for="(item, index) in chats[0]" :key="index" :to="'/chat/' + item._id">
+      <router-link
+        v-for="(item, index) in chats"
+        :key="index"
+        :to="'/chat/' + item.userChats[0]._id"
+      >
         <article>
           <div :class="item.participant.profileAvatar">
             <p>
@@ -16,8 +20,8 @@
 
           <div>
             <p>{{ item.participant.firstName }} {{ item.participant.surName }}</p>
-            <p>{{ item.messages[item.messages.length - 1].content }}</p>
-            <p>{{ item.messages[item.messages.length - 1].time }}</p>
+            <p>{{ item.userChats[0].messages[item.userChats[0].messages.length - 1].content }}</p>
+            <p>{{ item.userChats[0].messages[item.userChats[0].messages.length - 1].time }}</p>
           </div>
         </article>
       </router-link>
