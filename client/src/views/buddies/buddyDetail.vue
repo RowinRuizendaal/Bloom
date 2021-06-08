@@ -83,7 +83,7 @@
             {{ this.data[0].typeIllness[0] }}
           </p>
         </div>
-        <button>bericht</button>
+        <button @click="createChat">bericht</button>
       </article>
 
       <article>
@@ -181,6 +181,28 @@ export default {
       let initials = [...fullName.matchAll(rgx)] || [];
       initials = ((initials.shift()?.[1] || "") + (initials.pop()?.[1] || "")).toUpperCase();
       return initials;
+    },
+
+    // create chat and go to chat
+    async createChat() {
+      let partID = this.$route.params.id;
+      let url = `${window.location.origin}/api/createChat/${partID}`;
+
+      // 1. Make post request to make new db object in chats - axios
+      // 2. returns chatRoomID
+      // 3. Route.push roomID
+
+      axios
+        .get(url)
+        .then((response) => {
+          // let arrayChats = this.chats;
+          console.log("response: ", response.data);
+          this.$router.push(`/chat/${response.data}`);
+        })
+        .catch((err) => {
+          console.log(err);
+          // this.errors.push("Er is helaas geen account gevonden");
+        });
     },
   },
 };

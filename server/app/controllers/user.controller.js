@@ -9,6 +9,7 @@ const {
   getAllChats,
   getChatsById,
   findOneChat,
+  createChat,
 } = require('../helpers/db.helpers.js');
 
 const { findObject } = require('../helpers/helpers.js');
@@ -82,7 +83,7 @@ async function handleChats(req, res) {
   const userChats = await getChatsById(req.params.id);
   console.log('user chats:', userChats);
 
-  let arr =[];
+  let arr = [];
 
   for (i = 0; i < userChats.length; i++) {
     let userParti;
@@ -124,9 +125,8 @@ async function handleChats(req, res) {
       },
       userChats,
     };
-console.log(arr)
-    arr.push(wholeObject)
-
+    console.log(arr);
+    arr.push(wholeObject);
   }
 
   // let object = {
@@ -236,6 +236,24 @@ async function handleChatParticipants(req, res) {
   return res.json(userName);
 }
 
+async function handleCreateChat(req, res) {
+  // 1. partiicpants
+  const userID = globalUserID;
+  const partID = req.params.id;
+
+  // 2. Make room
+  const chatObject = {
+    participants: [partID, userID],
+    messages: [],
+  };
+
+  // 3. Create chatRoom and returns roomID
+  const newRoomID = await createChat(chatObject);
+
+  // 4. return roomID
+  return res.json(newRoomID);
+}
+
 module.exports = {
   handleLogin,
   handleRegister,
@@ -243,5 +261,6 @@ module.exports = {
   handleUser,
   handleChats,
   // handleChatDetail,
+  handleCreateChat,
   handleChatParticipants,
 };
