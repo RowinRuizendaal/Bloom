@@ -2,13 +2,13 @@ const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
 const {
-    checkValidUser,
-    createUser,
-    findOneUser,
-    getAllUsers,
-    getAllChats,
-    getChatsById,
-    findOneChat,
+  checkValidUser,
+  createUser,
+  findOneUser,
+  getAllUsers,
+  getAllChats,
+  getChatsById,
+  findOneChat,
 } = require('../helpers/db.helpers.js');
 
 const { findObject } = require('../helpers/helpers.js');
@@ -18,101 +18,104 @@ let globalUserID;
 
 // Login handler
 async function handleLogin(req, res) {
-    const user = await checkValidUser(req.body.emailAddress, req.body.password);
+  const user = await checkValidUser(req.body.emailAddress, req.body.password);
 
-    if (user == null || user === false) {
-        return res.sendStatus(400);
-    } else {
-        console.log(user);
-        let id = user._id;
-        let string = JSON.stringify(id);
-        globalUserID = string;
+  if (user == null || user === false) {
+    return res.sendStatus(400);
+  } else {
+    console.log('logged in by', user._id);
+    let id = user._id;
+    let string = JSON.stringify(id);
+    globalUserID = string;
 
-        return res.status(200).json(user);
-    }
+    return res.status(200).json(user);
+  }
 }
 
 // Register handler
 function handleRegister(req, res) {
-    // Salt the plain password
-    const passwordHash = bcrypt.hashSync(req.body.password, saltRounds);
+  // Salt the plain password
+  const passwordHash = bcrypt.hashSync(req.body.password, saltRounds);
 
-    const userObject = {
-        firstName: req.body.firstName,
-        surName: req.body.surName,
-        emailAddress: req.body.emailAddress,
-        password: passwordHash,
-        birthDate: req.body.birthDate,
-        town: req.body.town,
-        gender: req.body.gender,
-        typeIllness: req.body.typeIllness,
-        profileAvatar: req.body.profileAvatar,
-        about: req.body.about,
-    };
+  const userObject = {
+    firstName: req.body.firstName,
+    surName: req.body.surName,
+    emailAddress: req.body.emailAddress,
+    password: passwordHash,
+    birthDate: req.body.birthDate,
+    town: req.body.town,
+    gender: req.body.gender,
+    typeIllness: req.body.typeIllness,
+    profileAvatar: req.body.profileAvatar,
+    about: req.body.about,
+  };
 
-    console.log('User register data: ', userObject);
-    createUser(userObject);
+  console.log('User register data: ', userObject);
+  createUser(userObject);
 }
 
 // Get all users
 async function handleUsers(req, res) {
-    // get all users
-    const usersData = await getAllUsers();
+  // get all users
+  const usersData = await getAllUsers();
 
-    // return data
-    return res.json(usersData);
+  // return data
+  return res.json(usersData);
 }
 
 // Get one specific user by userID
 async function handleUser(req, res) {
-    // get user data
-    const userData = await findOneUser(req.params.id);
+  // get user data
+  const userData = await findOneUser(req.params.id);
 
-    // return data
-    return res.json(userData);
+  // return data
+  return res.json(userData);
 }
 
 // Get all chats from user by userID
 async function handleChats(req, res) {
-    // Get chats from collection
-    // 1. search in collection to the userID
-    // 2. get all objects with userID
-    // 3. Return data chat + participent data
+  // Get chats from collection
+  // 1. search in collection to the userID
+  // 2. get all objects with userID
+  // 3. Return data chat + participent data
 
-    const userChats = await getChatsById(req.params.id);
-    // console.log('user chats:', userChats);
+  const userChats = await getChatsById(req.params.id);
+  //   console.log('user chats:', userChats);
 
-    let arr = [];
+  let arr = [];
 
-    for (i = 0; i < userChats.length; i++) {
-        // get data of users
+  for (i = 0; i < userChats.length; i++) {
+    // get data of users
 
-        // participant ID van elk object
-        let participantUserIDs = await userChats[i].participants;
+    // participant ID van elk object
+    let participantUserIDs = await userChats[i].participants;
+    console.table(participantUserIDs[0]);
 
+    // let id = user._id;
+    // let string = JSON.stringify(id);
+    // globalUserID = string;
 
-        var result = Object.values(participantUserIDs)
-            // .map((key) => [Number(key), participantUserIDs[key]]);
+    // var result = Object.values(participantUserIDs);
+    // .map((key) => [Number(key), participantUserIDs[key]]);
 
-        console.log('result: ', result);
-        console.log('result type: ', typeof result);
+    // console.log('result: ', result);
+    // console.log('result type: ', typeof result);
+    // console.log('global user: ', globalUserID);
 
-        console.log('global user: ', globalUserID);
+    //     if (globalUserID == '60bde5a6fedeac4da052be24') {
+    //         console.log('hardcode test');
+    //     }
+    // }
 
-        //     if (globalUserID == '60bde5a6fedeac4da052be24') {
-        //         console.log('hardcode test');
-        //     }
-        // }
+    // filterIDs(result, globalUserID);
 
-        filterIDs(result, globalUserID)
-
-        function filterIDs(ids, globalID) {
-            let filteredNames = ids.filter((id) => {
-                return id !== globalID;
-            });
-            return console.log(filteredNames)
-        }
-    }
+    // function filterIDs(ids, globalID) {
+    //   let filteredNames = ids.filter((id) => {
+    //     return id !== globalID;
+    //   });
+    //   return console.log('filtered: ',filteredNames);
+    // }
+  }
 }
 
 // const participantUser = await findOneUser(participantUserID);
@@ -197,24 +200,24 @@ async function handleChats(req, res) {
 
 // Get all participant data per chat
 async function handleChatParticipants(req, res) {
-    // get user data
-    const userData = await findOneUser(req.params.id);
+  // get user data
+  const userData = await findOneUser(req.params.id);
 
-    const userName = {
-        firstName: userData.firstName,
-        surName: userData.surName,
-    };
+  const userName = {
+    firstName: userData.firstName,
+    surName: userData.surName,
+  };
 
-    // return data
-    return res.json(userName);
+  // return data
+  return res.json(userName);
 }
 
 module.exports = {
-    handleLogin,
-    handleRegister,
-    handleUsers,
-    handleUser,
-    handleChats,
-    // handleChatDetail,
-    handleChatParticipants,
+  handleLogin,
+  handleRegister,
+  handleUsers,
+  handleUser,
+  handleChats,
+  // handleChatDetail,
+  handleChatParticipants,
 };
