@@ -82,9 +82,10 @@ async function handleChats(req, res) {
   const userChats = await getChatsById(req.params.id);
   console.log('user chats:', userChats);
 
-  let userParti;
+  let arr =[];
 
   for (i = 0; i < userChats.length; i++) {
+    let userParti;
     // get data of users
 
     // participant ID van elk object
@@ -94,37 +95,51 @@ async function handleChats(req, res) {
     let participantTwo = participantUserIDs[1];
 
     const userDataOne = await findOneUser(participantOne);
-    console.log('user1: ', userDataOne);
+    console.log('user1: ', userDataOne.firstName);
 
     const userDataTwo = await findOneUser(participantTwo);
-    console.log('user2: ', userDataTwo);
+    console.log('user2: ', userDataTwo.firstName);
 
     let idOne = userDataOne._id;
-    console.log(idOne);
+    console.log('user 1: ', idOne);
     let idTwo = userDataTwo._id;
-    console.log(idTwo);
+    console.log('user 2: ', idTwo);
 
     console.log(globalUserID);
 
     if (idOne !== globalUserID) {
       console.log('zelfde 1: ', idOne);
       userParti = userDataOne;
-    } else if ((idTwo !== globalUserID)) {
+    } else if (idTwo !== globalUserID) {
       userParti = userDataTwo;
       console.log('zelfde 2: ', idTwo);
     }
+
+    let wholeObject = {
+      participant: {
+        firstName: userParti.firstName,
+        surName: userParti.surName,
+        id: userParti._id,
+        profileAvatar: userParti.profileAvatar,
+      },
+      userChats,
+    };
+console.log(arr)
+    arr.push(wholeObject)
+
   }
 
-  let object = {
-    participant: {
-      firstName: userParti.firstName,
-      surName: userParti.surName,
-      id: userParti._id,
-      profileAvatar: userParti.profileAvatar,
-    },
-    userChats,
-  };
-  return res.json(object);
+  // let object = {
+  //   participant: {
+  //     firstName: userParti.firstName,
+  //     surName: userParti.surName,
+  //     id: userParti._id,
+  //     profileAvatar: userParti.profileAvatar,
+  //   },
+  //   userChats,
+  // };
+  console.table(arr);
+  return res.json(arr);
 }
 
 // const participantUser = await findOneUser(participantUserID);
