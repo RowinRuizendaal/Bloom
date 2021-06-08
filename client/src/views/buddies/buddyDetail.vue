@@ -93,31 +93,44 @@
 
       <article>
         <h3>Oncospecifiek - data pas invullen wnr user op profiel komt</h3>
-        <ul>
-          <li>
-            <p>Type kanker</p>
-            <p>{{ this.data[0].typeIllness[0] }}</p>
-          </li>
-          <li>
-            <p>Fase</p>
-            <p></p>
-          </li>
-          <li>
-            <p>Ziekenhuis</p>
-            <p></p>
-          </li>
-          <li>
-            <p>Diagnosejaar</p>
-            <p></p>
-          </li>
-        </ul>
+        <div>
+          <ul>
+            <li>
+              <p>Type kanker</p>
+            </li>
+            <li>
+              <p>Fase</p>
+            </li>
+            <li>
+              <p>Ziekenhuis</p>
+            </li>
+            <li>
+              <p>Diagnosejaar</p>
+            </li>
+          </ul>
+
+          <ul>
+            <li>
+              <p>{{ this.data[0].typeIllness[0] }}</p>
+            </li>
+            <li>
+              <p>lorem</p>
+            </li>
+            <li>
+              <p>lorem</p>
+            </li>
+            <li>
+              <p>lorem</p>
+            </li>
+          </ul>
+        </div>
       </article>
 
       <article>
         <h3>Profielvragen</h3>
         <div :class="this.data[0].profileAvatar">
-          <h4>vraag</h4>
-          <p>antwoord</p>
+          <h4>Wat is de vraag?</h4>
+          <p>Dit is het antwoord.</p>
         </div>
       </article>
 

@@ -56,7 +56,7 @@ export default {
           // else --> empty state
           // iterate over each obj and put in array
           let arrayChats = this.chats;
-          console.log(response.data);
+          console.log("response: ", response.data);
           arrayChats.push(response.data);
         })
         .catch((err) => {
