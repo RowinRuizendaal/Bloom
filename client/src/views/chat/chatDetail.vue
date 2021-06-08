@@ -151,9 +151,6 @@ export default {
       // Store messages history
       let messages = room.messages;
       this.messagesHistory.push(messages);
-
-      // let userMessagesObject = this.messagesHistory;
-      // userMessagesObject.push(chatHistory);
     });
 
     this.socket.on("msgResponse", (chatObject) => {
@@ -211,11 +208,6 @@ export default {
       this.socket.emit("chat-message", chatObject);
       this.newMessage = null;
     },
-
-    // addUser() {
-    //   this.ready = true;
-    //   socket.emit("joined", this.username);
-    // },
   },
 };
 </script>

@@ -7,9 +7,9 @@
 
     <main>
       <router-link
-        v-for="(item, index) in chats"
+        v-for="(item, index) in chats[0]"
         :key="index"
-        :to="'/chat/' + item.userChats[0]._id"
+        :to="'/chat/' + item.userChats[index]._id"
       >
         <article>
           <div :class="item.participant.profileAvatar">
