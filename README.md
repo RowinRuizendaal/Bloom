@@ -1,6 +1,6 @@
 ##### Meesterproef @cmda-minor-web 2020 - 2021
 
-![Badge stating project is licensed under MIT license](https://img.shields.io/github/license/ralfz123/browser-technologies-2021) ![Badge stating amount of issues open](https://img.shields.io/github/issues/ralfz123/browser-technologies-2021) [![](https://img.shields.io/badge/site--status-up-success)](https://bloom-hva.herokuapp.com/) [![Badges via shields.io](https://img.shields.io/badge/badges%20via-shields.io-brightgreen)](shields.io)
+![Badge stating project is licensed under MIT license](https://img.shields.io/github/license/RowinRuizendaal/Bloom) ![Badge stating amount of issues open](https://img.shields.io/github/issues/RowinRuizendaal/Bloom) [![](https://img.shields.io/badge/site--status-up-success)](https://bloom-hva.herokuapp.com/) [![Badges via shields.io](https://img.shields.io/badge/badges%20via-shields.io-brightgreen)](shields.io)
 
 # Bloom
 
@@ -29,14 +29,18 @@ The reason the client started this project is that she has been personally invol
 The purpose of this application is to connect people who have had or still have cancer. These people can tell their story together or find support from other users. The users can therefore find a 'buddy' with this app. The user can also indicate in the app what type of cancer they have had and this means that these people are matched based on the type of cancer.
 
 
-
 ## :heart_eyes: Concept
 ### What's it?
 **Bloom** is an application to connect people with each other who have had or still have cancer, these people can tell share their thought and opinions with others.
 
 ### Core feature/user scenario's
-- As a user, I want information on relevant topics, so that I know what to expect after the treatment process.
-- As a user, I want 1 on 1 contact with fellow sufferers, so that I can reflect on my experiences and strengthen my coping strategies.
+- As an user, I want information on relevant topics, so that I know what to expect after the treatment process.
+- As an user, I want 1-on-1 contact with fellow sufferers, so that I can reflect on my experiences and strengthen my coping strategies.
+
+### Features
+- lorem
+### UI
+- image of the feature UI's
 
 
 
@@ -55,6 +59,19 @@ We used Mongoose data schemas to create schemas before we insert the data.
   typeIllness: Array,
   profileAvatar: String,
   about: String,
+}
+
+```
+
+### Chat schema
+```js
+{
+  participants: Array,
+    messages: [{
+        sender: String,
+        content: String,
+        time: String,
+    }, ],
 }
 
 ```
@@ -115,7 +132,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 
 ## :file_folder: Sources
-Credits to [Eva Valkenburg]() for giving us this awesome exercise.
+Credits to [Eva Valkenburg](https://www.evavalkenburg.nl/) for giving us this awesome exercise.
 
 ### Code sources
 - Stackoverflow (n.d.). Searching for answers on dev questions - Stackoverflow. Retrieved 18 May 2021 from https://www.stackoverflow.com
@@ -126,4 +143,4 @@ Credits to [Eva Valkenburg]() for giving us this awesome exercise.
 
 ## :cop: License
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)  
-This project from [Ralf](https://github.com/ralfz123) and [Rowin](https://github.com/RowinRuizendaal) has a [MIT © License](https://github.com/ralfz123/browser-technologies-2021/blob/main/LICENSE)
+This project from [Ralf](https://github.com/ralfz123) and [Rowin](https://github.com/RowinRuizendaal) has a [MIT © License](https://github.com/RowinRuizendaal/Bloom/blob/main/LICENSE)
