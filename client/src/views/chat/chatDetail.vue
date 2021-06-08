@@ -18,21 +18,16 @@
           />
         </svg>
       </router-link>
-      <router-link :to="'/buddies/' + messagesHistory[0].participant.id">
-        <div :class="messagesHistory[0].participant.profileAvatar">
+      <router-link :to="'/buddies/' + this.participant[0].id">
+        <div :class="participant[0].profileAvatar">
           <p>
-            {{
-              createInitials(
-                messagesHistory[0].participant.firstName,
-                messagesHistory[0].participant.surName
-              )
-            }}
+            {{ createInitials(participant[0].firstName, participant[0].surName) }}
           </p>
         </div>
 
         <h2>
-          {{ messagesHistory[0].participant.firstName }}
-          {{ messagesHistory[0].participant.surName }}
+          {{ participant[0].firstName }}
+          {{ participant[0].surName }}
         </h2>
       </router-link>
       <svg
@@ -64,7 +59,7 @@
     <main>
       <ul>
         <li v-for="(item, index) in messagesHistory[0]" :key="index">
-          <div v-if="item.sender == messagesHistory[0].participant.id" class="other">
+          <div v-if="item.sender !== $store.state.user._id" class="other">
             <p>{{ item.content }}</p>
           </div>
 
@@ -75,7 +70,7 @@
 
         <div v-if="messages.length">
           <li v-for="(item, index) in messages" :key="index">
-            <div v-if="item.sender == $route.params.id" class="other">
+            <div v-if="item.sender !== $store.state.user._id" class="other">
               <p>{{ item.content }}</p>
             </div>
 
@@ -131,6 +126,7 @@ export default {
     return {
       socket: null,
       messagesHistory: [],
+      participant: [],
       newMessage: null,
       messages: [],
     };
@@ -141,14 +137,23 @@ export default {
   },
 
   mounted() {
-    this.getChatData();
+    // this.getChatData();
     this.socket.emit("joinRoom", {
       userID: this.$store.state.user._id,
-      enemyID: this.$route.params.id,
+      roomID: this.$route.params.id,
     });
 
-    this.socket.on("chatHistory", ({ chatHistory }) => {
-      console.log("history via socket event: ", chatHistory);
+    this.socket.on("roomData", ({ room, participant }) => {
+      // Store participant
+      let participantData = participant;
+      this.participant.push(participantData);
+
+      // Store messages history
+      let messages = room.messages;
+      this.messagesHistory.push(messages);
+
+      // let userMessagesObject = this.messagesHistory;
+      // userMessagesObject.push(chatHistory);
     });
 
     this.socket.on("msgResponse", (chatObject) => {
@@ -171,7 +176,7 @@ export default {
           userMessagesObject.push(response.data);
         })
         .catch((err) => {
-          this.errors.push("Er is helaas geen account gevonden");
+          this.errors.push("Something went wrong");
         });
     },
 
@@ -197,7 +202,7 @@ export default {
       let time = date.toString();
 
       let chatObject = {
-        participant: this.messagesHistory[0].participant.id,
+        roomID: this.$route.params.id,
         sender: this.$store.state.user._id,
         content: this.newMessage,
         time: time,

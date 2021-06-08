@@ -8,7 +8,7 @@ const chatSchema = new Schema({
         sender: String,
         content: String,
         time: String,
-    }, ]
+    }, ],
 });
 
 exports.chatSchema = chatSchema;

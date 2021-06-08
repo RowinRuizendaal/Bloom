@@ -12,9 +12,11 @@ const io = require('socket.io')(http, {
     },
 });
 
-const { findOneUser } = require('./app/helpers/db.helpers.js');
+const ObjectId = require('mongoose').Types.ObjectId;
+const { findOneUser, findOneChat, getAllChats } = require('./app/helpers/db.helpers.js');
 const { findObject, findObjectTwo } = require('./app/helpers/helpers.js');
 const Users = require('./app/models/user.js');
+const Chats = require('./app/models/chat.js');
 
 app.use(cors());
 
@@ -26,44 +28,49 @@ app.use(router);
 
 // Sockets
 let userData;
-let enemyGlobal;
+// let participantIDGlobal;
 let roomGlobal;
 
 io.on('connection', (socket) => {
     console.log('A user connected');
 
-    socket.on('joinRoom', async({ userID, enemyID }) => {
+    socket.on('joinRoom', async({ userID, roomID }) => {
         //  if obj is not therer --> create one
         // else: find object
-        enemyGlobal = enemyID;
 
-        const room = await searchRoom(userID, enemyID);
-        // console.log('room = ', room.participant.id);
-        roomGlobal = room;
+        socket.join(roomID);
+        roomGlobal = roomID;
 
-        socket.join(room.participant.id);
+        // roomData
+        const roomData = await getRoomData(roomID);
 
-        io.to(room.participant.id).emit('chatHistory', {
-            chatHistory: room.messages,
+        // partiicpent data
+        const participantID = roomData.participants[0];
+        const participantData = await findOneUser(participantID);
+
+        let wholeObject = {
+            room: {
+                participants: roomData.participants,
+                _id: roomData._id,
+                messages: roomData.messages,
+            },
+            participant: {
+                firstName: participantData.firstName,
+                surName: participantData.surName,
+                profileAvatar: participantData.profileAvatar,
+                id: participantData.id,
+            },
+        };
+
+        io.to(roomID).emit('roomData', {
+            room: wholeObject.room,
+            participant: wholeObject.participant,
         });
 
         // Store in helpers folder
-        async function searchRoom(userID, enemyID) {
-            const user = await findOneUser(userID);
-            userData = user;
-            const chatsData = user.chats;
-
-            const enemyChatRoom = enemySearcher(enemyID, chatsData);
-
-            return enemyChatRoom;
-
-            // search enemy
-            function enemySearcher(enemyID, array) {
-                const correctObject = array.find((object) => {
-                    return object.participant.id == enemyID;
-                });
-                return correctObject;
-            }
+        async function getRoomData(roomID) {
+            const dataRoom = await findOneChat(roomID);
+            return dataRoom;
         }
     });
 
@@ -71,65 +78,31 @@ io.on('connection', (socket) => {
     // 2. Push object to mesages array in DB
     // 3. Emit event to client for cs rendering.
 
-    socket.on('chat-message', async({ participant, sender, content, time }) => {
+    socket.on('chat-message', async({ roomID, sender, content, time }) => {
         const chatObject = {
             sender: sender,
             content: content,
             time: time,
         };
+        // console.log(chatObject);
 
-        // Array -> object -> array -> object
+        // 2. Put data obj in chatObj in db
+        const test = await Chats.updateOne({
+            _id: ObjectId(roomID),
+        }, {
+            $push: {
+                messages: {
+                    sender: sender,
+                    content: content,
+                    time: time,
 
-        // // console.log(chatObject)
-        // console.log('all chats: ', userData.chats);
+                },
+            },
+        });
 
-        const correctChatIndex = findObjectTwo(participant, userData.chats);
-        let index = correctChatIndex[0];
-        let object = correctChatIndex[1];
-        // console.log('index:  ', index);
+        console.log(test)
 
-        // Find messages array
-        const messagesArray = object.messages;
-        messagesArray.push(chatObject);
-        // console.log('arr: ', messagesArray);
-
-        // get arr from db
-        // await
-        const user = await findOneUser(userData._id);
-        const chats = user.chats;
-
-
-        //   user.update({'chats.participant.id':participant}, {'$set': {
-        //     'chats.$.messages': 'hoi',
-        //     'chats.$.messages': 'two updated'
-        // }}, function(err) {console.log(err)})
-
-
-
-
-
-
-        // chats.updateOne({
-        //         _id: user.participant.id,
-        //     }, {
-        //         $push: {
-        //             messages: {
-        //                 sender: 'test',
-        //                 content: 'Hallo daar',
-        //                 time: '1 mei 1997',
-        //             },
-        //         },
-        //     }
-
-        //     // done
-        // );
-
-        // push obj to db
-
-        // 1. put in db
-        // 2. send message back to whole room (userID and enemyID)
-        // console.log('room', roomGlobal);
-        io.to(roomGlobal.participant.id).emit('msgResponse', chatObject);
+        io.to(roomID).emit('msgResponse', chatObject);
     });
 
     socket.on('disconnect', () => {

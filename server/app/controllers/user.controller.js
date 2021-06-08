@@ -15,7 +15,6 @@ const { findObject } = require('../helpers/helpers.js');
 
 // Store userID globally for easier use
 let globalUserID;
-console.log(globalUserID);
 
 // Login handler
 async function handleLogin(req, res) {
@@ -24,7 +23,10 @@ async function handleLogin(req, res) {
     if (user == null || user === false) {
         return res.sendStatus(400);
     } else {
-        globalUserID = user._id;
+        console.log(user);
+        let id = user._id;
+        let string = JSON.stringify(id);
+        globalUserID = string;
 
         return res.status(200).json(user);
     }
@@ -75,6 +77,7 @@ async function handleChats(req, res) {
     // Get chats from collection
     // 1. search in collection to the userID
     // 2. get all objects with userID
+    // 3. Return data chat + participent data
 
     const userChats = await getChatsById(req.params.id);
     // console.log('user chats:', userChats);
@@ -85,70 +88,112 @@ async function handleChats(req, res) {
         // get data of users
 
         // participant ID van elk object
-        const participantUserID = await userChats[i].participants[0];
+        let participantUserIDs = await userChats[i].participants;
 
-        const participantUser = await findOneUser(participantUserID);
-        // console.log('object: ', participantUser);
 
-        // participant data object for front use
-        participantUserObject = {
-            participants: [userChats[i].participants],
-            _id: userChats[i]._id,
-            messages: userChats[i].messages,
-            participant: {
-                firstName: participantUser.firstName,
-                surName: participantUser.surName,
-                profileAvatar: participantUser.profileAvatar,
-            },
-        };
+        var result = Object.values(participantUserIDs)
+            // .map((key) => [Number(key), participantUserIDs[key]]);
 
-        arr.push(participantUserObject);
+        console.log('result: ', result);
+        console.log('result type: ', typeof result);
+
+        console.log('global user: ', globalUserID);
+
+        //     if (globalUserID == '60bde5a6fedeac4da052be24') {
+        //         console.log('hardcode test');
+        //     }
+        // }
+
+        filterIDs(result, globalUserID)
+
+        function filterIDs(ids, globalID) {
+            let filteredNames = ids.filter((id) => {
+                return id !== globalID;
+            });
+            return console.log(filteredNames)
+        }
     }
-
-    return res.json(arr);
 }
+
+// const participantUser = await findOneUser(participantUserID);
+// // console.log('object: ', participantUser);
+
+// // participant data object for front use
+// participantUserObject = {
+//     participants: [userChats[i].participants],
+//     _id: userChats[i]._id,
+//     messages: userChats[i].messages,
+//     participant: {
+//         firstName: participantUser.firstName,
+//         surName: participantUser.surName,
+//         profileAvatar: participantUser.profileAvatar,
+//     },
+
+// arr.push(participantUserObject);
+// return res.json(arr);
 
 // get chat data of one user with another person
-async function handleChatDetail(req, res) {
-    // const userData = await findOneUser(req.params.id);
+// async function handleChatDetail(req, res) {
+//     // const userData = await findOneUser(req.params.id);
 
-    // 1. search data object with id
+//     let arr = [];
 
-    const chatObj = await findOneChat(req.params.id);
+//     // 1. search data object with id
 
-    console.log(chatObj);
+//     const chatObj = await findOneChat(req.params.id);
+//     // console.log(chatObj);
 
-    let arr = [];
+//     let participants = chatObj.participants
+//     for (i = 0; i < participants.length; i++) {
 
-    // 2. get participant data
-    const participantUser = await findOneUser(req.params.id);
-    console.log('object: ', participantUser);
+//         // console.log(participants)
+//         // data opvragen per user
+//         const userData = await findOneUser(participants[i]);
+//         console.log('object: ', userData);
 
-    // participant data object for front use
-    participantUserObject = {
-        participants: chatObj.participants,
-        _id: chatObj._id,
-        messages: chatObj.messages,
-        participant: {
-            firstName: participantUser.firstName,
-            surName: participantUser.surName,
-            profileAvatar: participantUser.profileAvatar,
-        },
-    };
+//         let wholeObject = {
+//             participants: chatObj.participants,
+//             _id: chatObj._id,
+//             messages: chatObj.messages,
+//             participant: {
+//                 firstName: participants[i].firstName,
+//                 surName: participants[i].surName,
+//                 profileAvatar: participants[i].profileAvatar,
+//             },
+//         };
+//         console.log(wholeObject)
 
-    arr.push(participantUserObject);
+//     }
 
-    // return
-    return res.json(arr);
+//     // 2. get participant data
+//     // const participantUser = await findOneUser(req.params.id);
+//     // console.log('object: ', participantUser);
 
-    // const chatUserData = userData.chats;
-    // console.log(chatUserData);
+//     // participant data object for front use
+//     // participantUserObject = {
+//     //     participants: chatObj.participants,
+//     //     _id: chatObj._id,
+//     //     messages: chatObj.messages,
+//     //     participant: {
+//     //         firstName: participantUser.firstName,
+//     //         surName: participantUser.surName,
+//     //         profileAvatar: participantUser.profileAvatar,
+//     //     },
+//     // };
 
-    // // Search the enemy in users chat data:
-    // const messagesData = findObject(req.params.id, chatUserData);
+//     // arr.push(participantUserObject);
 
-    // return res.json(messagesData);
-}
+//     // // return
+//     // return res.json(arr);
+
+//     // const chatUserData = userData.chats;
+//     // console.log(chatUserData);
+
+//     // // Search the enemy in users chat data:
+//     // const messagesData = findObject(req.params.id, chatUserData);
+
+//     // return res.json(messagesData);
+// }
 
 // Get all participant data per chat
 async function handleChatParticipants(req, res) {
@@ -170,6 +215,6 @@ module.exports = {
     handleUsers,
     handleUser,
     handleChats,
-    handleChatDetail,
+    // handleChatDetail,
     handleChatParticipants,
 };

@@ -6,11 +6,7 @@
     </header>
 
     <main>
-      <router-link
-        v-for="(item, index) in chats[0]"
-        :key="index"
-        :to="'/chat/' + item.participants[0]"
-      >
+      <router-link v-for="(item, index) in chats[0]" :key="index" :to="'/chat/' + item._id">
         <article>
           <div :class="item.participant.profileAvatar">
             <p>
