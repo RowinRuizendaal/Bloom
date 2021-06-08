@@ -18,7 +18,7 @@
           />
         </svg>
       </router-link>
-      <router-link :to="'/buddies/' + this.participant[0].id">
+      <router-link :to="'/buddies/' + participant[0].id">
         <div :class="participant[0].profileAvatar">
           <p>
             {{ createInitials(participant[0].firstName, participant[0].surName) }}

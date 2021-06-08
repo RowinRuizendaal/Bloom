@@ -106,10 +106,10 @@ async function handleChats(req, res) {
 
     console.log(globalUserID);
 
-    if (idOne == globalUserID) {
+    if (idOne !== globalUserID) {
       console.log('zelfde 1: ', idOne);
       userParti = userDataOne;
-    } else if ((idTwo = globalUserID)) {
+    } else if ((idTwo !== globalUserID)) {
       userParti = userDataTwo;
       console.log('zelfde 2: ', idTwo);
     }

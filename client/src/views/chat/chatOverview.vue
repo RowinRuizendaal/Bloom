@@ -20,8 +20,14 @@
 
           <div>
             <p>{{ item.participant.firstName }} {{ item.participant.surName }}</p>
-            <p>{{ item.userChats[0].messages[item.userChats[0].messages.length - 1].content }}</p>
-            <p>{{ item.userChats[0].messages[item.userChats[0].messages.length - 1].time }}</p>
+            <p>
+              {{ item.userChats[0].messages[item.userChats[0].messages.length - 1].content }}
+            </p>
+            <p>
+              {{
+                convertDate(item.userChats[0].messages[item.userChats[0].messages.length - 1].time)
+              }}
+            </p>
           </div>
         </article>
       </router-link>
@@ -77,6 +83,14 @@ export default {
       let initials = [...fullName.matchAll(rgx)] || [];
       initials = ((initials.shift()?.[1] || "") + (initials.pop()?.[1] || "")).toUpperCase();
       return initials;
+    },
+
+    // Transform date to normal
+    convertDate(date) {
+      // console.log("date: ", date);
+      // let time = date.getTime() / 1000;
+      // console.log(time);
+      return date;
     },
   },
 };
