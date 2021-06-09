@@ -81,7 +81,7 @@ async function getChatsById(userID) {
 
   const userChats = await Chats.find({
     participants: {
-      $in: [ObjectId(userID)],
+      $in: [userID],
     },
   });
 

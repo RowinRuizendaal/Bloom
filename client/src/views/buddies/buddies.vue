@@ -43,7 +43,7 @@
     </header>
 
     <main>
-      <a v-for="(item, index) in users[0]" :key="index" :href="'/buddies/' + item._id">
+      <router-link v-for="(item, index) in users[0]" :key="index" :to="'/buddies/' + item._id">
         <article>
           <div :class="item.profileAvatar">
             <p>{{ createInitials(item.firstName, item.surName) }}</p>
@@ -141,7 +141,7 @@
             </svg>
           </a>
         </article>
-      </a>
+      </router-link>
     </main>
     <Nav active="buddies" />
   </section>

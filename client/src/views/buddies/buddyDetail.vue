@@ -92,7 +92,7 @@
       </article>
 
       <article>
-        <h3>Oncospecifiek - data pas invullen wnr user op profiel komt</h3>
+        <h3>Oncospecifiek</h3>
         <div>
           <ul>
             <li>

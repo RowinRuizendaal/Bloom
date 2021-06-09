@@ -26,8 +26,8 @@ async function handleLogin(req, res) {
   } else {
     console.log('logged in by', user._id);
     let id = user._id;
-    let string = JSON.stringify(id);
-    globalUserID = string;
+    // let string = JSON.stringify(id);
+    globalUserID = id.toString();
 
     return res.status(200).json(user);
   }
