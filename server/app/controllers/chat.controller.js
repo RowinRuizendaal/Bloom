@@ -6,10 +6,13 @@ const {
   createChat,
 } = require('../helpers/db.helpers.js');
 
-const {
-  globalUserID
-} = require('./user.controller.js');
-console.log('geimporte id: ', globalUserID)
+// Store userID globally for easier use
+let globalUserID;
+
+// Stores id in global variable
+function setGlobal(id) {
+  globalUserID = id;
+}
 
 // Get all chats from user by userID
 async function handleChats(req, res) {
@@ -19,7 +22,6 @@ async function handleChats(req, res) {
   // 3. Return data chat + participent data
 
   const userChats = await getChatsById(req.params.id);
-  // console.log('user chats:', userChats);
 
   let arr = [];
 
@@ -32,7 +34,6 @@ async function handleChats(req, res) {
     for (let i in participantUserIDs) {
       let partiUser;
 
-      console.log(globalUserID)
       if (participantUserIDs[i] !== globalUserID) {
         const userData = await findOneUser(participantUserIDs[i]);
         partiUser = userData;
@@ -56,18 +57,18 @@ async function handleChats(req, res) {
 }
 
 // Get all participant data per chat
-async function handleChatParticipants(req, res) {
-  // get user data
-  const userData = await findOneUser(req.params.id);
+// async function handleChatParticipants(req, res) {
+//   // get user data
+//   const userData = await findOneUser(req.params.id);
 
-  const userName = {
-    firstName: userData.firstName,
-    surName: userData.surName,
-  };
+//   const userName = {
+//     firstName: userData.firstName,
+//     surName: userData.surName,
+//   };
 
-  // return data
-  return res.json(userName);
-}
+//   // return data
+//   return res.json(userName);
+// }
 
 async function handleCreateChat(req, res) {
   // 1. partiicpants
@@ -90,5 +91,6 @@ async function handleCreateChat(req, res) {
 module.exports = {
   handleChats,
   handleCreateChat,
-  handleChatParticipants,
+  // handleChatParticipants,
+  setGlobal,
 };

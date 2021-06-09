@@ -8,9 +8,7 @@ const {
   getAllUsers,
 } = require('../helpers/db.helpers.js');
 
-// Store userID globally for easier use
-let globalUserID;
-
+const { setGlobal } = require('./chat.controller.js');
 
 // Login handler
 async function handleLogin(req, res) {
@@ -22,8 +20,7 @@ async function handleLogin(req, res) {
     console.log('LOGIN by:', user._id);
     let id = user._id;
     globalUserID = id.toString();
-    console.log('globalUserID :', globalUserID);
-    
+    setGlobal(globalUserID);
 
     return res.status(200).json(user);
   }
