@@ -47,15 +47,27 @@
               <Ready />
             </div>
             <div class="footer">
-              <router-link v-if="stepState === 1" to="/login" active-class="login"
+              <router-link v-if="stepState === 1" to="/login" class="login"
                 >Ik heb al een account</router-link
               >
 
-              <button v-if="stepState !== 1 && stepState !== 9" @click="setState('next')">
-                Volgende
-              </button>
+              <Button
+                v-if="stepState !== 1 && stepState !== 9"
+                @click.native="setState('next')"
+                :isSlider="false"
+                :isSubmit="false"
+                :slug="false"
+                message="Volgende"
+              />
 
-              <button v-else @click="setState('next')">Starten</button>
+              <Button
+                v-else
+                :isSlider="false"
+                :isSubmit="false"
+                :slug="false"
+                message="Starten"
+                @click.native="setState('next')"
+              />
             </div>
           </legend>
         </fieldset>
@@ -90,6 +102,7 @@ export default {
     SeventhStep,
     EightStep,
     Ready,
+    Button,
   },
 
   methods: {

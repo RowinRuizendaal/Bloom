@@ -138,6 +138,7 @@
         display: flex;
         align-items: center;
         width: 30rem;
+        justify-content: space-between;
         h1 {
             margin-left: 4.2rem;
             font-size: 1.6rem;
@@ -152,6 +153,14 @@
             font-weight: bolder;
             @include q-lg-min {
                 margin-right: 0px;
+            }
+        }
+        .read {
+            display: flex;
+            align-items: center;
+            margin-right: 0.5rem;
+            svg {
+                margin-right: 0.5rem;
             }
         }
     }
