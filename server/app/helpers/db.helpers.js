@@ -108,6 +108,24 @@ async function createChat(object) {
   return createdRoom._id;
 }
 
+// Update chat
+async function updateChat(chatID, newData) {
+  await Chats.updateOne(
+    {
+      _id: ObjectId(chatID),
+    },
+    {
+      $push: {
+        messages: {
+          sender: newData.sender,
+          content: newData.content,
+          time: newData.time,
+        },
+      },
+    }
+  );
+}
+
 module.exports = {
   checkValidUser,
   createUser,
@@ -117,4 +135,5 @@ module.exports = {
   getChatsById,
   findOneChat,
   createChat,
+  updateChat,
 };

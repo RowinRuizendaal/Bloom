@@ -1,7 +1,23 @@
 <template>
   <section class="profile">
     <header>
-      <router-link to="/buddies">Terug</router-link>
+      <router-link to="/buddies"
+        ><svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="7.246"
+          height="11.941"
+          viewBox="0 0 7.246 11.941"
+          style="display: block; transform: scale(-1, 1)"
+        >
+          <path
+            id="Path_13"
+            data-name="Path 13"
+            d="M3.431-4.786a.656.656,0,0,0,0-.928l-5.314-5.314a.656.656,0,0,0-.928,0l-.62.62a.656.656,0,0,0,0,.927L.779-5.25-3.432-1.019a.656.656,0,0,0,0,.927l.62.62a.656.656,0,0,0,.928,0Z"
+            transform="translate(3.623 11.22)"
+            fill="#f07904"
+          />
+        </svg>
+      </router-link>
     </header>
 
     <main>
@@ -138,14 +154,19 @@
 
       <button @click="opened = visible = true">Open Popup</button>
     </main>
+    <Nav active="buddies" />
   </section>
 </template>
 
 <script>
+import Nav from "@/components/nav/nav";
 import axios from "axios";
 
 export default {
   name: "BuddyDetail",
+  components: {
+    Nav,
+  },
 
   mounted() {
     this.getUser();

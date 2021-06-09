@@ -137,7 +137,6 @@ export default {
   },
 
   mounted() {
-    // this.getChatData();
     this.socket.emit("joinRoom", {
       userID: this.$store.state.user._id,
       roomID: this.$route.params.id,
@@ -154,29 +153,12 @@ export default {
     });
 
     this.socket.on("msgResponse", (chatObject) => {
-      console.log("New Message: ", chatObject);
+      // console.log("New Message: ", chatObject);
       this.messages.push(chatObject);
     });
   },
 
   methods: {
-    // get data from params. server GET request
-    getChatData() {
-      let userID = this.$route.params.id;
-      let url = `${window.location.origin}/api/chat/${userID}`;
-
-      axios
-        .get(url)
-        .then((response) => {
-          let userMessagesObject = this.messagesHistory;
-          console.log("response data: ", response.data);
-          userMessagesObject.push(response.data);
-        })
-        .catch((err) => {
-          this.errors.push("Something went wrong");
-        });
-    },
-
     // Get the initials of the name
     createInitials(firstName, surName) {
       let fullName = `${firstName} ${surName}`;
@@ -207,6 +189,7 @@ export default {
 
       this.socket.emit("chat-message", chatObject);
       this.newMessage = null;
+      // this.$refs.newMsg.focus();
     },
   },
 };

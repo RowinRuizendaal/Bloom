@@ -6,19 +6,11 @@ const {
   createUser,
   findOneUser,
   getAllUsers,
-  getAllChats,
-  getChatsById,
-  findOneChat,
-  createChat,
 } = require('../helpers/db.helpers.js');
-
-const { findObject } = require('../helpers/helpers.js');
 
 // Store userID globally for easier use
 let globalUserID;
-// let user = {
-//   socketID: globalUserID
-// }
+
 
 // Login handler
 async function handleLogin(req, res) {
@@ -27,10 +19,11 @@ async function handleLogin(req, res) {
   if (user == null || user === false) {
     return res.sendStatus(400);
   } else {
-    console.log('logged in by', user._id);
+    console.log('LOGIN by:', user._id);
     let id = user._id;
-    // let string = JSON.stringify(id);
     globalUserID = id.toString();
+    console.log('globalUserID :', globalUserID);
+    
 
     return res.status(200).json(user);
   }
@@ -76,88 +69,9 @@ async function handleUser(req, res) {
   return res.json(userData);
 }
 
-// Get all chats from user by userID
-async function handleChats(req, res) {
-  // Get chats from collection
-  // 1. search in collection to the userID
-  // 2. get all objects with userID
-  // 3. Return data chat + participent data
-
-  const userChats = await getChatsById(req.params.id);
-  // console.log('user chats:', userChats);
-
-  let arr = [];
-
-  for (i = 0; i < userChats.length; i++) {
-    let userChatUnique = userChats[i];
-
-    // participant ID van elk object
-    let participantUserIDs = await userChats[i].participants;
-
-    for (let i in participantUserIDs) {
-      let partiUser;
-
-      if (participantUserIDs[i] !== globalUserID) {
-        const userData = await findOneUser(participantUserIDs[i]);
-        partiUser = userData;
-
-        let wholeObject = {
-          participant: {
-            firstName: partiUser.firstName,
-            surName: partiUser.surName,
-            id: partiUser._id,
-            profileAvatar: partiUser.profileAvatar,
-          },
-          userChatUnique,
-        };
-        arr.push(wholeObject);
-      } else {
-      }
-    }
-  }
-
-  return res.json(arr);
-}
-
-// Get all participant data per chat
-async function handleChatParticipants(req, res) {
-  // get user data
-  const userData = await findOneUser(req.params.id);
-
-  const userName = {
-    firstName: userData.firstName,
-    surName: userData.surName,
-  };
-
-  // return data
-  return res.json(userName);
-}
-
-async function handleCreateChat(req, res) {
-  // 1. partiicpants
-  const userID = globalUserID;
-  const partID = req.params.id;
-
-  // 2. Make room
-  const chatObject = {
-    participants: [partID, userID],
-    messages: [],
-  };
-
-  // 3. Create chatRoom and returns roomID
-  const newRoomID = await createChat(chatObject);
-
-  // 4. return roomID
-  return res.json(newRoomID);
-}
-
 module.exports = {
   handleLogin,
   handleRegister,
   handleUsers,
   handleUser,
-  handleChats,
-  // handleChatDetail,
-  handleCreateChat,
-  handleChatParticipants,
 };

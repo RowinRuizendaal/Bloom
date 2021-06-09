@@ -89,7 +89,9 @@ export default {
 
     // Transform date to normal
     convertDate(date) {
-      // console.log("date: ", date);
+      // Wed Jun 09 2021 11:20:28 GMT+0200 (Central European Summer Time)
+      // console.log("date: ", date.substr("0,5"));
+
       // let time = date.getTime() / 1000;
       // console.log(time);
       return date;
