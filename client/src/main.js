@@ -12,7 +12,8 @@ Vue.use(
   new VueSocketIO({
     debug: true,
     connection: SocketIO("http://localhost:5000"),
-  })
+  }),
+  require("moment-timezone")
 );
 
 new Vue({

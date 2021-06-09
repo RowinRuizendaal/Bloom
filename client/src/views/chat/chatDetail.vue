@@ -118,6 +118,7 @@
 <script>
 import axios from "axios";
 import io from "socket.io-client";
+import moment from "moment";
 
 export default {
   name: "ChatDetail",
@@ -171,20 +172,16 @@ export default {
     },
 
     send(e) {
-      // this.messagesss.push({
-      //   message: this.newMessage,
-      //   type: 0,
-      //   user: "Me",
-      // });
       e.preventDefault();
       let date = new Date();
-      let time = date.toString();
+      let formattedDate = moment(date).format("DD-MM-YYYY, h:mm a");
+      console.log("date: ", formattedDate);
 
       let chatObject = {
         roomID: this.$route.params.id,
         sender: this.$store.state.user._id,
         content: this.newMessage,
-        time: time,
+        time: formattedDate,
       };
 
       this.socket.emit("chat-message", chatObject);
