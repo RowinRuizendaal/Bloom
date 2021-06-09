@@ -5,7 +5,7 @@ const controllers = require('../controllers/user.controller.js');
 router
   .post('/api/login', controllers.handleLogin) // Login
   .post('/api/register', controllers.handleRegister) // Register
-  .get('/api/users', controllers.handleUsers) // Users
+  .get('/api/users/:id', controllers.handleUsers) // Users
   .get('/api/user/:id', controllers.handleUser) // User
   .get('/api/chatsItems/:id', controllers.handleChats) // Chats
   .get('/api/createChat/:id', controllers.handleCreateChat); // Create chat env

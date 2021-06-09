@@ -59,9 +59,11 @@ async function findOneUser(userID) {
   return user;
 }
 
-// Get all users of DB
-async function getAllUsers() {
-  const users = await Users.find().catch((err) => console.log(err));
+// Get all users of DB, except the logged in user
+async function getAllUsers(userID) {
+  const users = await Users.find({ _id: { $ne: userID } }).catch((err) =>
+    console.log(err)
+  );
   return users;
 }
 

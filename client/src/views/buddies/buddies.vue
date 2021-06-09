@@ -166,8 +166,10 @@ export default {
   },
   methods: {
     async getAllUsers() {
+      let userID = this.$store.state.user._id;
+
       axios
-        .get("/api/users")
+        .get(`/api/users/${userID}`)
         .then((response) => {
           // iterate over each obj and put in array
           let arrayUsers = this.users;
