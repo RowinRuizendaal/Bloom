@@ -9,7 +9,7 @@
       <router-link
         v-for="(item, index) in chats[0]"
         :key="index"
-        :to="'/chat/' + item.userChats[index]._id"
+        :to="'/chat/' + item.userChatUnique._id"
       >
         <article>
           <div :class="item.participant.profileAvatar">
@@ -21,11 +21,13 @@
           <div>
             <p>{{ item.participant.firstName }} {{ item.participant.surName }}</p>
             <p>
-              {{ item.userChats[0].messages[item.userChats[0].messages.length - 1].content }}
+              {{ item.userChatUnique.messages[item.userChatUnique.messages.length - 1].content }}
             </p>
             <p>
               {{
-                convertDate(item.userChats[0].messages[item.userChats[0].messages.length - 1].time)
+                convertDate(
+                  item.userChatUnique.messages[item.userChatUnique.messages.length - 1].time
+                )
               }}
             </p>
           </div>
