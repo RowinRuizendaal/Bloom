@@ -174,8 +174,7 @@ export default {
     send(e) {
       e.preventDefault();
       let date = new Date();
-      let formattedDate = moment(date).format("DD-MM-YYYY, h:mm a");
-      console.log("date: ", formattedDate);
+      let formattedDate = moment(date).format("DD-MM-YYYY, hh:mm a");
 
       let chatObject = {
         roomID: this.$route.params.id,

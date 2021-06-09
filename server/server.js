@@ -20,7 +20,6 @@ io.on('connection', (socket) => {
 
 app.use(cors());
 
-// parse requests of content-type - application/x-www-form-urlencoded --> multipart when use of multer (files)
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 

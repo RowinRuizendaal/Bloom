@@ -70,17 +70,12 @@ async function getAllUsers(userID) {
 // export to chats folder
 async function getAllChats() {
   const chats = await Chats.find().catch((err) => console.log(err));
+  
   return chats;
 }
 
+// Get chats by userID of the participants
 async function getChatsById(userID) {
-  // const test = await Chats.find({
-  //     participants: {
-  //         $in: [ObjectId(userID)],
-  //     },
-  // }).forEach(function(myDoc) { print("chat: " + myDoc._id); });
-  // console.log(test)
-
   const userChats = await Chats.find({
     participants: {
       $in: [userID],
@@ -90,7 +85,7 @@ async function getChatsById(userID) {
   return userChats;
 }
 
-// Get data of one specific user by userID
+// Get data of one specific chat by chatID
 async function findOneChat(chatID) {
   const chat = await Chats.findOne({ _id: chatID }).catch((err) =>
     console.log(err)
@@ -100,7 +95,7 @@ async function findOneChat(chatID) {
   return chat;
 }
 
-// Add user to DB
+// Add chat to DB
 async function createChat(object) {
   const createdRoom = await Chats.create(object);
 

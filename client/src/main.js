@@ -10,7 +10,7 @@ Vue.config.productionTip = false;
 
 Vue.use(
   new VueSocketIO({
-    debug: true,
+    debug: false,
     connection: SocketIO("http://localhost:5000"),
   }),
   require("moment-timezone")

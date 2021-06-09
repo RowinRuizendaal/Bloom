@@ -35,7 +35,7 @@
                 required
               />
             </label>
-            <router-link to="/forgot-password" active-class="forgot-password"
+            <router-link to="/login" active-class="forgot-password"
               >Wachtwoord vergeten</router-link
             >
 

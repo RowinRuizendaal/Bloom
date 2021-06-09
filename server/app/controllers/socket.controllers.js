@@ -1,5 +1,3 @@
-const Chats = require('../models/chat.js');
-const ObjectId = require('mongoose').Types.ObjectId;
 const {
   findOneUser,
   findOneChat,
@@ -7,11 +5,11 @@ const {
   updateChat,
 } = require('../helpers/db.helpers.js');
 
-// global
+// Global variables
 let roomGlobal;
 let globalUser;
 
-//     if obj is not therer --> create one
+// if obj is not therer --> create one
 // else: find object
 async function joinRoomHandler(socket, server, userID, roomID) {
   socket.join(roomID);
@@ -19,7 +17,7 @@ async function joinRoomHandler(socket, server, userID, roomID) {
   globalUser = userID;
 
   // roomData
-  const roomData = await getRoomData(roomID);
+  const roomData = await findOneChat(roomID);
 
   // Participant data
   const participantID = roomData.participants;
@@ -54,12 +52,6 @@ async function joinRoomHandler(socket, server, userID, roomID) {
       console.log('Not the same');
     }
   }
-
-  // Store in helpers folder
-  async function getRoomData(roomID) {
-    const dataRoom = await findOneChat(roomID);
-    return dataRoom;
-  }
 }
 
 // 1. user joins room on userID enemy
@@ -78,6 +70,7 @@ function chatHandler(server, roomID, sender, content, time) {
   server.to(roomID).emit('msgResponse', chatObject);
 }
 
+// Handles when user leaves room
 function leaveRoomHandler(roomID) {
   console.log('A user disconnected');
 }

@@ -187,6 +187,7 @@ export default {
   methods: {
     createInitials(firstName, surName) {
       let fullName = `${firstName} ${surName}`;
+
       // Logic for getting the name initials
       let rgx = new RegExp(/(\p{L}{1})\p{L}+/, "gu");
       let initials = [...fullName.matchAll(rgx)] || [];
