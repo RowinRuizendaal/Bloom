@@ -153,7 +153,7 @@ export default {
     });
 
     this.socket.on("msgResponse", (chatObject) => {
-      // console.log("New Message: ", chatObject);
+      console.log("New Message: ", chatObject);
       this.messages.push(chatObject);
     });
   },

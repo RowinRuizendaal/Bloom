@@ -12,7 +12,7 @@ const io = require('socket.io')(http, {
   },
 });
 
-const eventHandler = require('./app/controllers/socket.js');
+const eventHandler = require('./app/controllers/socketEvents.js');
 
 io.on('connection', (socket) => {
   eventHandler.ioEvents(socket, io);
