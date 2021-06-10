@@ -70,7 +70,7 @@ async function getAllUsers(userID) {
 // export to chats folder
 async function getAllChats() {
   const chats = await Chats.find().catch((err) => console.log(err));
-  
+
   return chats;
 }
 
@@ -93,6 +93,23 @@ async function findOneChat(chatID) {
 
   // return user data
   return chat;
+}
+
+// Check if chats exists with the two participants
+async function checkChatExist(userID, partID) {
+  const chats = await getChatsById(userID);
+  console.log('chats: ', chats);
+
+  for (let i in chats) {
+    let chatParticipants = chats[i].participants;
+    let check = chatParticipants.includes(partID);
+    if (check) {
+      return chats[i]._id;
+    } else {
+      return false;
+    }
+
+  }
 }
 
 // Add chat to DB
@@ -129,6 +146,7 @@ module.exports = {
   getAllChats,
   getChatsById,
   findOneChat,
+  checkChatExist,
   createChat,
   updateChat,
 };

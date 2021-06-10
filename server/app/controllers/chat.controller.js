@@ -3,6 +3,7 @@ const {
   getAllChats,
   getChatsById,
   findOneChat,
+  checkChatExist,
   createChat,
 } = require('../helpers/db.helpers.js');
 
@@ -71,21 +72,29 @@ async function handleChats(req, res) {
 // }
 
 async function handleCreateChat(req, res) {
-  // 1. partiicpants
+  // 1. participants
   const userID = globalUserID;
   const partID = req.params.id;
 
-  // 2. Make room
-  const chatObject = {
-    participants: [partID, userID],
-    messages: [],
-  };
+  // 2. Check if there is already a room that exists
+  let check = await checkChatExist(userID, partID);
+  console.log('check is: ', check);
+  if (check !== false) {
+    return res.json(check);
+  } else {
+    // Make room
+    const chatObject = {
+      accepted: false,
+      participants: [partID, userID],
+      messages: [],
+    };
 
-  // 3. Create chatRoom and returns roomID
-  const newRoomID = await createChat(chatObject);
+    // 3. Create chatRoom and returns roomID
+    const newRoomID = await createChat(chatObject);
 
-  // 4. return roomID
-  return res.json(newRoomID);
+    // 4. return roomID
+    return res.json(newRoomID);
+  }
 }
 
 module.exports = {

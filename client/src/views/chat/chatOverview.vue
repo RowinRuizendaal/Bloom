@@ -2,7 +2,19 @@
   <section class="chat-overview">
     <header>
       <h2>Chat</h2>
-      <p><span>(v-if newChat)</span>verzoek</p>
+
+      <router-link v-if="this.chatRequests.length" to="/chats/requests">
+        <div>
+          <p>{{ this.chatRequests.length }}</p>
+        </div>
+
+        <p v-if="this.chatRequests.length == !1">verzoeken</p>
+        <p v-else>verzoek</p>
+      </router-link>
+
+      <div v-else>
+        <p>niks</p>
+      </div>
     </header>
 
     <main>
@@ -88,6 +100,7 @@ export default {
   data() {
     return {
       chats: [],
+      chatRequests: [],
       randomUserFirstName: null,
       randomUserId: null,
     };
@@ -106,7 +119,18 @@ export default {
           let arrayChats = this.chats;
           console.log("response: ", response.data);
 
-          if (response.data.length) {
+          let chats = response.data;
+
+          if (chats.length) {
+            for (let i in chats) {
+              console.log();
+              let acceptedState = chats[i].userChatUnique.accepted;
+              if (acceptedState == false)
+                // push in chatRequests
+                this.chatRequests.push(chats[i]);
+              console.log("req: ", this.chatRequests);
+            }
+
             arrayChats.push(response.data);
           } else {
             arrayChats.push(null);

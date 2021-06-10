@@ -114,7 +114,7 @@ const routes = [
     },
   },
   {
-    path: "/chat-requests",
+    path: "/chats/requests",
     name: "ChatRequest",
     component: ChatRequest,
     meta: {
