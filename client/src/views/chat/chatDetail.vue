@@ -58,6 +58,7 @@
 
     <main>
       <ul>
+        <!-- <div v-if="this.$store.state.chatRequests"></div> -->
         <li v-for="(item, index) in messagesHistory[0]" :key="index">
           <div v-if="item.sender !== $store.state.user._id" class="other">
             <p>{{ item.content }}</p>
@@ -81,7 +82,12 @@
         </div>
       </ul>
 
-      <form @submit.prevent="send">
+      <div v-if="requestAccepted == false && viewCreater == false">
+        <button @click="makeRequestChoice('reject')">Afwijzen</button>
+        <button @click="makeRequestChoice('accept')">Accepteren</button>
+      </div>
+
+      <form v-else @submit.prevent="send">
         <div>
           <input type="text" v-model="newMessage" placeholder="Typ een chatbericht..." required />
           <svg
@@ -125,6 +131,9 @@ export default {
 
   data() {
     return {
+      request: null,
+      requestAccepted: false,
+      viewCreater: false,
       socket: null,
       messagesHistory: [],
       participant: [],
@@ -147,6 +156,19 @@ export default {
       // Store participant
       let participantData = participant;
       this.participant.push(participantData);
+      console.log("data", room);
+      // console.log(participantData);
+
+      let userID = this.$store.state.user._id;
+      // Check if this is a chatRequest, then put request to true
+      let requestState = room.request.accepted;
+      let requestCreater = room.request.creater;
+
+      // check if chatCreatorID is the same as this user --> render chat
+      if (requestCreater == userID) {
+        // set view to viewCreater: false
+        this.viewCreater = true;
+      }
 
       // Store messages history
       let messages = room.messages;
@@ -169,6 +191,49 @@ export default {
       let initials = [...fullName.matchAll(rgx)] || [];
       initials = ((initials.shift()?.[1] || "") + (initials.pop()?.[1] || "")).toUpperCase();
       return initials;
+    },
+
+    async makeRequestChoice(choice) {
+      console.log(choice);
+
+      if (choice == "reject") {
+        let chatID = this.$route.params.id;
+
+        let url = `${window.location.origin}/api/deleteChat/${chatID}`;
+
+        axios
+          .get(url)
+          .then((response) => {
+            let errorMsg = response.data;
+            console.log("response: ", errorMsg);
+
+            // succesfull afwijzing feedback msg
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+
+        // delete chat and go back to /chats
+      } else {
+        this.requestAccepted = true;
+        let chatID = this.$route.params.id;
+        let url = `${window.location.origin}/api/acceptChat/${chatID}`;
+
+        axios
+          .get(url)
+          .then((response) => {
+            let errorMsg = response.data;
+            console.log("response: ", errorMsg);
+
+            // succesfull afwijzing feedback msg
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+
+        // set in db state to true + here (this.requestAccepted)
+        // chatbar appears
+      }
     },
 
     send(e) {

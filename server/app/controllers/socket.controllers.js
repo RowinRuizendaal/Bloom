@@ -9,8 +9,6 @@ const {
 let roomGlobal;
 let globalUser;
 
-// if obj is not therer --> create one
-// else: find object
 async function joinRoomHandler(socket, server, userID, roomID) {
   socket.join(roomID);
   roomGlobal = roomID;
@@ -18,6 +16,7 @@ async function joinRoomHandler(socket, server, userID, roomID) {
 
   // roomData
   const roomData = await findOneChat(roomID);
+  console.log(roomData);
 
   // Participant data
   const participantID = roomData.participants;
@@ -32,6 +31,10 @@ async function joinRoomHandler(socket, server, userID, roomID) {
 
       let wholeObject = {
         room: {
+          request: {
+            creater: roomData.request.creater,
+            accepted: roomData.request.accepted,
+          },
           participants: roomData.participants,
           _id: roomData._id,
           messages: roomData.messages,
@@ -43,6 +46,8 @@ async function joinRoomHandler(socket, server, userID, roomID) {
           id: partiUser.id,
         },
       };
+
+      console.log('whole: ', wholeObject);
 
       server.to(roomID).emit('roomData', {
         room: wholeObject.room,

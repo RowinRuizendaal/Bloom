@@ -97,19 +97,25 @@ async function findOneChat(chatID) {
 
 // Check if chats exists with the two participants
 async function checkChatExist(userID, partID) {
+  console.log('test');
   const chats = await getChatsById(userID);
   console.log('chats: ', chats);
 
-  for (let i in chats) {
-    let chatParticipants = chats[i].participants;
-    let check = chatParticipants.includes(partID);
-    if (check) {
-      return chats[i]._id;
-    } else {
-      return false;
+  if (chats.length) {
+    // If user has chats
+    for (let i in chats) {
+      let chatParticipants = chats[i].participants;
+      console.log(chatParticipants);
+      let check = chatParticipants.includes(partID);
+      if (check) {
+        return chats[i]._id;
+      } else {
+        return false;
+      }
+      return;
     }
-
   }
+  return false;
 }
 
 // Add chat to DB
@@ -120,7 +126,7 @@ async function createChat(object) {
   return createdRoom._id;
 }
 
-// Update chat
+// Update chat - add msg
 async function updateChat(chatID, newData) {
   await Chats.updateOne(
     {
@@ -138,6 +144,44 @@ async function updateChat(chatID, newData) {
   );
 }
 
+// delete chat
+async function deleteChat(chatID) {
+  await Chats.findOneAndDelete({ _id: ObjectId(chatID) });
+}
+
+// Accept state
+async function updateRequestChat(chatID) {
+  // await Chats.updateOne(
+  //   {
+  //     _id: ObjectId(chatID),
+  //   },
+  //   {
+  //     request: {
+  //       accepted: true,
+  //     },
+  //   }
+  // );
+  console.log('id: ', chatID);
+  const doc = await Chats.findOne({
+    _id: ObjectId(chatID),
+  });
+
+  console.log(doc.request);
+
+  doc.request.overwrite({
+    accepted: true,
+  });
+  await doc.save();
+  console.log(doc.request);
+
+  // await Chats.replaceOne(
+  //   { _id: ObjectId(chatID) },
+  //   {
+  //     request: { accepted: true },
+  //   }
+  // );
+}
+
 module.exports = {
   checkValidUser,
   createUser,
@@ -149,4 +193,6 @@ module.exports = {
   checkChatExist,
   createChat,
   updateChat,
+  deleteChat,
+  updateRequestChat,
 };

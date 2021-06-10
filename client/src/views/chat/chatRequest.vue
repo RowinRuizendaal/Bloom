@@ -21,7 +21,36 @@
       <h2>berichtverzoeken</h2>
     </header>
 
-    <main></main>
+    <main>
+      <router-link
+        v-for="(item, index) in data"
+        :key="index"
+        :to="'/chat/' + item.userChatUnique._id"
+      >
+        <article>
+          <div :class="item.participant.profileAvatar">
+            <p>
+              {{ createInitials(item.participant.firstName, item.participant.surName) }}
+            </p>
+          </div>
+
+          <div>
+            <p>{{ item.participant.firstName }} {{ item.participant.surName }}</p>
+            <p>
+              {{ item.userChatUnique.messages[item.userChatUnique.messages.length - 1].content }}
+            </p>
+            <p>
+              {{ item.userChatUnique.messages[item.userChatUnique.messages.length - 1].time }}
+            </p>
+            <div>
+              <p>
+                {{ item.userChatUnique.messages.length }}
+              </p>
+            </div>
+          </div>
+        </article></router-link
+      >
+    </main>
     <Nav active="chats" />
   </section>
 </template>
@@ -39,9 +68,10 @@ export default {
     // this.getChats();
   },
   data() {
+    let chatRequestsData = this.$store.state.chatRequests;
+
     return {
-      chats: [],
-      //   chatRequests: [],
+      data: chatRequestsData,
     };
   },
   methods: {
@@ -75,15 +105,15 @@ export default {
     //       console.log(err);
     //     });
     // },
-    // //  Get the initials of a fullname
-    // createInitials(firstName, surName) {
-    //   let fullName = `${firstName} ${surName}`;
-    //   // Logic for getting the name initials
-    //   let rgx = new RegExp(/(\p{L}{1})\p{L}+/, "gu");
-    //   let initials = [...fullName.matchAll(rgx)] || [];
-    //   initials = ((initials.shift()?.[1] || "") + (initials.pop()?.[1] || "")).toUpperCase();
-    //   return initials;
-    // },
+    //  Get the initials of a fullname
+    createInitials(firstName, surName) {
+      let fullName = `${firstName} ${surName}`;
+      // Logic for getting the name initials
+      let rgx = new RegExp(/(\p{L}{1})\p{L}+/, "gu");
+      let initials = [...fullName.matchAll(rgx)] || [];
+      initials = ((initials.shift()?.[1] || "") + (initials.pop()?.[1] || "")).toUpperCase();
+      return initials;
+    },
     // async randomBuddy() {
     //   // 1. Request to all buddies
     //   let currentUserId = this.$store.state.user._id;

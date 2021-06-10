@@ -9,6 +9,8 @@ router
   .get('/api/users/:id', userControllers.handleUsers) // Users
   .get('/api/user/:id', userControllers.handleUser) // User
   .get('/api/chatsItems/:id', chatControllers.handleChats) // Chats
-  .get('/api/createChat/:id', chatControllers.handleCreateChat); // Create chat env
+  .get('/api/createChat/:id', chatControllers.handleCreateChat) // Create chat env
+  .get('/api/deleteChat/:id', chatControllers.handleDeleteChat) // Delete chat env
+  .get('/api/acceptChat/:id', chatControllers.handleAcceptChat); // Accept chat env
 
 module.exports = router;

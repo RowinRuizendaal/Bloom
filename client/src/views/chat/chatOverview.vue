@@ -8,7 +8,7 @@
           <p>{{ this.chatRequests.length }}</p>
         </div>
 
-        <p v-if="this.chatRequests.length == !1">verzoeken</p>
+        <p v-if="this.chatRequests.length > 1">verzoeken</p>
         <p v-else>verzoek</p>
       </router-link>
 
@@ -18,7 +18,7 @@
     </header>
 
     <main>
-      <div v-if="chats[0] === null || chats[0] === undefined" class="partial-state">
+      <div v-if="chats === null || chats === undefined" class="partial-state">
         <p>
           Je hebt nog geen chats. Probeer snel een buddy te vinden
           <router-link :to="'/buddies/'">hier</router-link>. Wij kunnen ook een random buddy voor
@@ -58,7 +58,7 @@
 
       <router-link
         v-else
-        v-for="(item, index) in chats[0]"
+        v-for="(item, index) in chats"
         :key="index"
         :to="'/chat/' + item.userChatUnique._id"
       >
@@ -103,6 +103,7 @@ export default {
       chatRequests: [],
       randomUserFirstName: null,
       randomUserId: null,
+      viewCreater: true,
     };
   },
   methods: {
@@ -114,26 +115,29 @@ export default {
       axios
         .get(url)
         .then((response) => {
-          // if data --> display
-          // else --> empty state
-          let arrayChats = this.chats;
           console.log("response: ", response.data);
 
           let chats = response.data;
-
+          // console.log("all chats: ", chats);
           if (chats.length) {
             for (let i in chats) {
-              console.log();
-              let acceptedState = chats[i].userChatUnique.accepted;
-              if (acceptedState == false)
+              let acceptedState = chats[i].userChatUnique.request.accepted;
+              let requestCreater = chats[i].userChatUnique.request.creater;
+
+              if (requestCreater !== currentUserId && acceptedState == false) {
+                this.viewCreater = false;
+
                 // push in chatRequests
                 this.chatRequests.push(chats[i]);
-              console.log("req: ", this.chatRequests);
+                this.$store.state.chatRequests.push(chats[i]);
+                // console.log("req: ", this.chatRequests);
+              } else {
+                // filter out the chatrequests
+                this.chats.push(chats[i]);
+              }
             }
-
-            arrayChats.push(response.data);
           } else {
-            arrayChats.push(null);
+            this.chats = null;
           }
         })
         .catch((err) => {

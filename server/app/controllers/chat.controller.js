@@ -5,6 +5,8 @@ const {
   findOneChat,
   checkChatExist,
   createChat,
+  deleteChat,
+  updateRequestChat
 } = require('../helpers/db.helpers.js');
 
 // Store userID globally for easier use
@@ -84,7 +86,7 @@ async function handleCreateChat(req, res) {
   } else {
     // Make room
     const chatObject = {
-      accepted: false,
+      request: { creater: globalUserID, accepted: false },
       participants: [partID, userID],
       messages: [],
     };
@@ -97,9 +99,30 @@ async function handleCreateChat(req, res) {
   }
 }
 
+async function handleDeleteChat(req, res) {
+  const chatID = req.params.id;
+  // 1. find chat
+  // 2. delete chat
+  await deleteChat(chatID);
+
+  // 3. return succesfull delete msg
+  return true;
+}
+
+async function handleAcceptChat(req,res){
+  const chatID = req.params.id;
+  // 1. find chat
+  // 2.  set in db state to true
+  await updateRequestChat(chatID);
+
+  // 3. return succesfull delete msg
+  return true;
+}
+
 module.exports = {
   handleChats,
   handleCreateChat,
+  handleDeleteChat,handleAcceptChat,
   // handleChatParticipants,
   setGlobal,
 };
