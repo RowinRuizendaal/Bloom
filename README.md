@@ -31,7 +31,7 @@ The purpose of this application is to connect people who have had or still have 
 
 ## :heart_eyes: Concept
 ### What's it?
-**Bloom** is an application to connect people with each other who have had or still have cancer, these people can tell share their thought and opinions with others.
+**bloom** is an application to connect people with each other who have had or still have cancer, these people can tell share their thought and opinions with others.
 
 ### Core feature/user scenario's
 - As an user, I want information on relevant topics, so that I know what to expect after the treatment process.
@@ -41,8 +41,6 @@ The purpose of this application is to connect people who have had or still have 
 - lorem
 ### UI
 - image of the feature UI's
-
-
 
 ## :1234: Data  
 We used Mongoose data schemas to create schemas before we insert the data.
@@ -66,12 +64,18 @@ We used Mongoose data schemas to create schemas before we insert the data.
 ### Chat schema
 ```js
 {
+  request: {
+    creater: String,
+    accepted: Boolean,
+  },
   participants: Array,
-    messages: [{
-        sender: String,
-        content: String,
-        time: String,
-    }, ],
+  messages: [
+    {
+      sender: String,
+      content: String,
+      time: String,
+    },
+  ],
 }
 
 ```
