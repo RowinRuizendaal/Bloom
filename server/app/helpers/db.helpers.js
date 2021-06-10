@@ -150,36 +150,18 @@ async function deleteChat(chatID) {
 }
 
 // Accept state
-async function updateRequestChat(chatID) {
-  // await Chats.updateOne(
-  //   {
-  //     _id: ObjectId(chatID),
-  //   },
-  //   {
-  //     request: {
-  //       accepted: true,
-  //     },
-  //   }
-  // );
-  console.log('id: ', chatID);
-  const doc = await Chats.findOne({
-    _id: ObjectId(chatID),
-  });
-
-  console.log(doc.request);
-
-  doc.request.overwrite({
-    accepted: true,
-  });
-  await doc.save();
-  console.log(doc.request);
-
-  // await Chats.replaceOne(
-  //   { _id: ObjectId(chatID) },
-  //   {
-  //     request: { accepted: true },
-  //   }
-  // );
+async function updateRequestChat(chatID, createrID) {
+  await Chats.updateOne(
+    {
+      _id: ObjectId(chatID),
+    },
+    {
+      request: {
+        creater: createrID,
+        accepted: true,
+      },
+    }
+  );
 }
 
 module.exports = {

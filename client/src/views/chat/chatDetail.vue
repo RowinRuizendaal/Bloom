@@ -170,6 +170,10 @@ export default {
         this.viewCreater = true;
       }
 
+      if (requestState == true) {
+        this.requestAccepted = true;
+      }
+
       // Store messages history
       let messages = room.messages;
       this.messagesHistory.push(messages);
@@ -216,8 +220,13 @@ export default {
         // delete chat and go back to /chats
       } else {
         this.requestAccepted = true;
+        let object = {
+          createrID: createrID,
+          chatID: chatID,
+        };
+        let createrID = this.participant[0].id;
         let chatID = this.$route.params.id;
-        let url = `${window.location.origin}/api/acceptChat/${chatID}`;
+        let url = `${window.location.origin}/api/acceptChat/${createrID}/${chatID}`;
 
         axios
           .get(url)
