@@ -6,7 +6,46 @@
     </header>
 
     <main>
+      <div v-if="chats[0] === null || chats[0] === undefined" class="partial-state">
+        <p>
+          Je hebt nog geen chats. Probeer snel een buddy te vinden
+          <router-link :to="'/buddies/'">hier</router-link>. Wij kunnen ook een random buddy voor
+          jou uitkiezen, klik dan
+
+          <button @click="randomBuddy()">hier</button>
+        </p>
+
+        <router-link class="randomUser" :to="'/buddies/' + this.randomUserId">
+          <p>{{ this.randomUserFirstName }}</p>
+        </router-link>
+
+        <svg
+          id="Iconly_Bulk_Info_Circle"
+          data-name="Iconly/Bulk/Info Circle"
+          xmlns="http://www.w3.org/2000/svg"
+          width="60"
+          height="100"
+          viewBox="0 0 20 20"
+        >
+          <path
+            id="Fill_1"
+            data-name="Fill 1"
+            d="M20,10A10,10,0,1,1,10,0,10,10,0,0,1,20,10"
+            fill="#f07904"
+            opacity="0.4"
+          />
+          <path
+            id="Combined_Shape"
+            data-name="Combined Shape"
+            d="M.005,8.468a.878.878,0,1,1,.879.875A.874.874,0,0,1,.005,8.468ZM0,5.295V.875a.875.875,0,0,1,1.75,0v4.42a.875.875,0,1,1-1.75,0Z"
+            transform="translate(9.12 5.336)"
+            fill="#f07904"
+          />
+        </svg>
+      </div>
+
       <router-link
+        v-else
         v-for="(item, index) in chats[0]"
         :key="index"
         :to="'/chat/' + item.userChatUnique._id"
@@ -49,6 +88,8 @@ export default {
   data() {
     return {
       chats: [],
+      randomUserFirstName: null,
+      randomUserId: null,
     };
   },
   methods: {
@@ -64,7 +105,12 @@ export default {
           // else --> empty state
           let arrayChats = this.chats;
           console.log("response: ", response.data);
-          arrayChats.push(response.data);
+
+          if (response.data.length) {
+            arrayChats.push(response.data);
+          } else {
+            arrayChats.push(null);
+          }
         })
         .catch((err) => {
           console.log(err);
@@ -79,6 +125,33 @@ export default {
       let initials = [...fullName.matchAll(rgx)] || [];
       initials = ((initials.shift()?.[1] || "") + (initials.pop()?.[1] || "")).toUpperCase();
       return initials;
+    },
+
+    async randomBuddy() {
+      // 1. Request to all buddies
+      let currentUserId = this.$store.state.user._id;
+      let url = `${window.location.origin}/api/users/${currentUserId}`;
+      // 2. pick One random
+      // 3. Return the buddies/id.
+
+      axios
+        .get(url)
+        .then((response) => {
+          const allUsers = response.data;
+          let randomUser = randomUserPicker(allUsers);
+          this.randomUserFirstName = randomUser.firstName;
+          this.randomUserId = randomUser._id;
+
+          // Gets random user of all users
+          function randomUserPicker(users) {
+            const randomUser = users[Math.floor(Math.random() * users.length)];
+
+            return randomUser;
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
   },
 };
