@@ -35,7 +35,7 @@
                 required
               />
             </label>
-            <router-link to="/forgot-password" active-class="forgot-password"
+            <router-link to="/login" active-class="forgot-password"
               >Wachtwoord vergeten</router-link
             >
 
@@ -80,11 +80,12 @@ export default {
         .then((response) => {
           if (response.status === 200) {
             this.$store.commit("updateUser", response.data);
+            this.$store.state.loggedIn = true;
             return this.$router.push("/themes");
           }
         })
         .catch((err) => {
-          console.log(err);
+          // console.log(err);
           this.errors.push("Er is helaas geen account gevonden");
         });
     },

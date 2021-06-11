@@ -18,23 +18,18 @@
           />
         </svg>
       </router-link>
-      <div>
-        <div :class="messagesData[0].participant.profileAvatar">
+      <router-link :to="'/buddies/' + participant[0].id">
+        <div :class="participant[0].profileAvatar">
           <p>
-            {{
-              createInitials(
-                messagesData[0].participant.firstName,
-                messagesData[0].participant.surName
-              )
-            }}
+            {{ createInitials(participant[0].firstName, participant[0].surName) }}
           </p>
         </div>
-        <h2>
-          {{ messagesData[0].participant.firstName }}
-          {{ messagesData[0].participant.surName }}
-        </h2>
-      </div>
 
+        <h2>
+          {{ participant[0].firstName }}
+          {{ participant[0].surName }}
+        </h2>
+      </router-link>
       <svg
         id="Iconly_Bulk_More_Circle"
         data-name="Iconly/Bulk/More Circle"
@@ -63,156 +58,131 @@
 
     <main>
       <ul>
-        <li v-for="(item, index) in messagesData[0].messages" :key="index">
-          <div
-            v-if="item.sender == messagesData[0].participant.id"
-            :class="messagesData[0].participant.profileAvatar"
-          >
-            <p>andere{{ item.content }}:</p>
+        <!-- <div v-if="this.$store.state.chatRequests"></div> -->
+        <li v-for="(item, index) in messagesHistory[0]" :key="index">
+          <div v-if="item.sender !== $store.state.user._id" class="other">
+            <p>{{ item.content }}</p>
           </div>
 
-          <div v-else>
+          <div v-else class="me">
             <p>{{ item.content }}</p>
           </div>
         </li>
+
+        <div v-if="messages.length">
+          <li v-for="(item, index) in messages" :key="index">
+            <div v-if="item.sender !== $store.state.user._id" class="other">
+              <p>{{ item.content }}</p>
+            </div>
+
+            <div v-else class="me">
+              <p>{{ item.content }}</p>
+            </div>
+          </li>
+        </div>
       </ul>
 
-      <!-- <div class="container">
-        <div class="col-lg-6 offset-lg-3">
-          <h2>{{ username }}</h2>
-          <div class="card bg-info" v-if="ready">
-            <div class="card-header text-white">
-              <h4>
-                My Chat App
-                <span class="float-right">{{ connections }} connections</span>
-              </h4>
-            </div>
-            <ul class="list-group list-group-flush text-right">
-              <small v-if="typing" class="text-white">{{ typing }} is typing</small>
-              <li class="list-group-item" v-for="(message, index) in messages" :key="index">
-                <span :class="{ 'float-left': message.type === 1 }">
-                  {{ message.message }}
-                  <small>:{{ message.user }}</small>
-                </span>
-              </li>
-            </ul>
+      <div v-if="requestAccepted == false && viewCreater == false">
+        <button @click="makeRequestChoice('reject')">Afwijzen</button>
+        <button @click="makeRequestChoice('accept')">Accepteren</button>
+      </div>
 
-            <div class="card-body">
-              <form @submit.prevent="send">
-                <div class="form-group">
-                  <input
-                    type="text"
-                    class="form-control"
-                    v-model="newMessage"
-                    placeholder="Enter message here"
-                  />
-                </div>
-              </form>
-            </div>
-          </div>
+      <form v-else @submit.prevent="send">
+        <div>
+          <input type="text" v-model="newMessage" placeholder="Typ een chatbericht..." required />
+          <svg
+            id="Voice"
+            xmlns="http://www.w3.org/2000/svg"
+            width="17"
+            height="20"
+            viewBox="0 0 17 20"
+          >
+            <path
+              id="Fill_1"
+              data-name="Fill 1"
+              d="M16.031,0a.962.962,0,0,0-.969.957,6.563,6.563,0,0,1-13.125,0A.962.962,0,0,0,.969,0,.962.962,0,0,0,0,.957,8.443,8.443,0,0,0,7.532,9.293v1.925a.969.969,0,0,0,1.937,0V9.293A8.443,8.443,0,0,0,17,.957.962.962,0,0,0,16.031,0"
+              transform="translate(0 7.826)"
+              fill="#726d61"
+              opacity="0.4"
+            />
+            <path
+              id="Fill_4"
+              data-name="Fill 4"
+              d="M4.351,13.217H4.7a4.325,4.325,0,0,0,4.351-4.3V4.3A4.324,4.324,0,0,0,4.7,0H4.351A4.324,4.324,0,0,0,0,4.3V8.921a4.325,4.325,0,0,0,4.351,4.3"
+              transform="translate(3.973 0)"
+              fill="#726d61"
+            />
+          </svg>
         </div>
-      </div> -->
+
+        <button type="submit">send</button>
+      </form>
     </main>
   </section>
 </template>
 
 <script>
 import axios from "axios";
-
-// var socket = io.connect();
+import io from "socket.io-client";
+import moment from "moment";
 
 export default {
   name: "ChatDetail",
 
-  mounted() {
-    this.getChatData();
-  },
-
-  // created() {
-  //   window.onbeforeunload = () => {
-  //     socket.emit("leave", this.username);
-  //   };
-
-  //   socket.on("chat-message", (data) => {
-  //     this.messages.push({
-  //       message: data.message,
-  //       type: 1,
-  //       user: data.user,
-  //     });
-  //   });
-
-  //   socket.on("typing", (data) => {
-  //     this.typing = data;
-  //   });
-
-  //   socket.on("stopTyping", () => {
-  //     this.typing = false;
-  //   });
-
-  //   socket.on("joined", (data) => {
-  //     this.info.push({
-  //       username: data,
-  //       type: "joined",
-  //     });
-
-  //     setTimeout(() => {
-  //       this.info = [];
-  //     }, 5000);
-  //   });
-
-  //   socket.on("leave", (data) => {
-  //     this.info.push({
-  //       username: data,
-  //       type: "left",
-  //     });
-
-  //     setTimeout(() => {
-  //       this.info = [];
-  //     }, 5000);
-  //   });
-
-  //   socket.on("connections", (data) => {
-  //     this.connections = data;
-  //   });
-  // },
-
-  // watch: {
-  //   newMessage(value) {
-  //     value ? socket.emit("typing", this.username) : socket.emit("stopTyping");
-  //   },
-  // },
-
   data() {
     return {
+      requestAccepted: false,
+      viewCreater: false,
+      socket: null,
+      messagesHistory: [],
+      participant: [],
       newMessage: null,
-      messagesss: [],
-      typing: false,
-      username: null,
-      ready: false,
-      info: [],
-      connections: 0,
-      messagesData: [],
+      messages: [],
     };
   },
 
+  created() {
+    this.socket = io("http://localhost:5000");
+  },
+
+  mounted() {
+    this.socket.emit("joinRoom", {
+      userID: this.$store.state.user._id,
+      roomID: this.$route.params.id,
+    });
+
+    this.socket.on("roomData", ({ room, participant }) => {
+      // Store participant
+      let participantData = participant;
+      this.participant.push(participantData);
+
+      let userID = this.$store.state.user._id;
+      // Check if this is a chatRequest, then put request to true
+      let requestState = room.request.accepted;
+      let requestCreater = room.request.creater;
+
+      // check if chatCreatorID is the same as this user --> render chat
+      if (requestCreater == userID) {
+        // set view to viewCreater: false
+        this.viewCreater = true;
+      }
+
+      if (requestState == true) {
+        this.requestAccepted = true;
+      }
+
+      // Store messages history
+      let messages = room.messages;
+      this.messagesHistory.push(messages);
+    });
+
+    this.socket.on("msgResponse", (chatObject) => {
+      // console.log("New Message: ", chatObject);
+      this.messages.push(chatObject);
+    });
+  },
+
   methods: {
-    // get data from params. server GET request
-    async getChatData() {
-      let userID = this.$route.params.id;
-      let url = `${window.location.origin}/api/chat/${userID}`;
-
-      axios
-        .get(url)
-        .then((response) => {
-          console.log("chat object: ", response.data);
-          let userMessagesObject = this.messagesData;
-          userMessagesObject.push(response.data);
-        })
-        .catch((err) => {
-          this.errors.push("Er is helaas geen account gevonden");
-        });
-    },
-
     // Get the initials of the name
     createInitials(firstName, surName) {
       let fullName = `${firstName} ${surName}`;
@@ -224,24 +194,64 @@ export default {
       return initials;
     },
 
-    // send() {
-    //   this.messages.push({
-    //     message: this.newMessage,
-    //     type: 0,
-    //     user: "Me",
-    //   });
+    // Chat request handler
+    async makeRequestChoice(choice) {
+      if (choice === "reject") {
+        let chatID = this.$route.params.id;
+        let url = `${window.location.origin}/api/deleteChat/${chatID}`;
 
-    //   socket.emit("chat-message", {
-    //     message: this.newMessage,
-    //     user: this.username,
-    //   });
-    //   this.newMessage = null;
-    // },
+        axios
+          .get(url)
+          .then((response) => {
+            let errorMsg = response.data;
+            console.log("response: ", errorMsg);
+            this.$router.push("/chats");
+            // succesfull afwijzing feedback msg
+          })
+          .catch((err) => {
+            console.log(err);
+          });
 
-    // addUser() {
-    //   this.ready = true;
-    //   socket.emit("joined", this.username);
-    // },
+        // delete chat and go back to /chats
+      } else {
+        this.requestAccepted = true;
+
+        let createrID = this.participant[0].id;
+        let chatID = this.$route.params.id;
+        let url = `${window.location.origin}/api/acceptChat/${createrID}/${chatID}`;
+
+        axios
+          .get(url)
+          .then((response) => {
+            let errorMsg = response.data;
+            console.log("response: ", errorMsg);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+
+        // set in db state to true + here (this.requestAccepted)
+        // chatbar appears
+      }
+    },
+
+    // Send messages handler
+    send(e) {
+      e.preventDefault();
+      let date = new Date();
+      let formattedDate = moment(date).format("DD-MM-YYYY, hh:mm a");
+
+      let chatObject = {
+        roomID: this.$route.params.id,
+        sender: this.$store.state.user._id,
+        content: this.newMessage,
+        time: formattedDate,
+      };
+
+      this.socket.emit("chat-message", chatObject);
+      this.newMessage = null;
+      // this.$refs.newMsg.focus();
+    },
   },
 };
 </script>

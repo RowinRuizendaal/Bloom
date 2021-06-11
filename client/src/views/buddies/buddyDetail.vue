@@ -1,7 +1,23 @@
 <template>
   <section class="profile">
     <header>
-      <router-link to="/buddies">Terug</router-link>
+      <router-link to="/buddies"
+        ><svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="7.246"
+          height="11.941"
+          viewBox="0 0 7.246 11.941"
+          style="display: block; transform: scale(-1, 1)"
+        >
+          <path
+            id="Path_13"
+            data-name="Path 13"
+            d="M3.431-4.786a.656.656,0,0,0,0-.928l-5.314-5.314a.656.656,0,0,0-.928,0l-.62.62a.656.656,0,0,0,0,.927L.779-5.25-3.432-1.019a.656.656,0,0,0,0,.927l.62.62a.656.656,0,0,0,.928,0Z"
+            transform="translate(3.623 11.22)"
+            fill="#f07904"
+          />
+        </svg>
+      </router-link>
     </header>
 
     <main>
@@ -52,7 +68,7 @@
                   fill="#f07904"
                 /></svg
             ></span>
-            {{ this.data[0].birthDate }}
+            {{ calcAge(this.data[0].birthDate) }}
           </p>
           <p>
             <span
@@ -83,7 +99,7 @@
             {{ this.data[0].typeIllness[0] }}
           </p>
         </div>
-        <button>bericht</button>
+        <button @click="createChat">bericht</button>
       </article>
 
       <article>
@@ -92,32 +108,45 @@
       </article>
 
       <article>
-        <h3>Oncospecifiek - data pas invullen wnr user op profiel komt</h3>
-        <ul>
-          <li>
-            <p>Type kanker</p>
-            <p>{{ this.data[0].typeIllness[0] }}</p>
-          </li>
-          <li>
-            <p>Fase</p>
-            <p></p>
-          </li>
-          <li>
-            <p>Ziekenhuis</p>
-            <p></p>
-          </li>
-          <li>
-            <p>Diagnosejaar</p>
-            <p></p>
-          </li>
-        </ul>
+        <h3>Oncospecifiek</h3>
+        <div>
+          <ul>
+            <li>
+              <p>Type kanker</p>
+            </li>
+            <li>
+              <p>Fase</p>
+            </li>
+            <li>
+              <p>Ziekenhuis</p>
+            </li>
+            <li>
+              <p>Diagnosejaar</p>
+            </li>
+          </ul>
+
+          <ul>
+            <li>
+              <p>{{ this.data[0].typeIllness[0] }}</p>
+            </li>
+            <li>
+              <p>lorem</p>
+            </li>
+            <li>
+              <p>lorem</p>
+            </li>
+            <li>
+              <p>lorem</p>
+            </li>
+          </ul>
+        </div>
       </article>
 
       <article>
         <h3>Profielvragen</h3>
         <div :class="this.data[0].profileAvatar">
-          <h4>vraag</h4>
-          <p>antwoord</p>
+          <h4>Wat is de vraag?</h4>
+          <p>Dit is het antwoord.</p>
         </div>
       </article>
 
@@ -125,14 +154,19 @@
 
       <button @click="opened = visible = true">Open Popup</button>
     </main>
+    <Nav active="buddies" />
   </section>
 </template>
 
 <script>
+import Nav from "@/components/nav/nav";
 import axios from "axios";
 
 export default {
   name: "BuddyDetail",
+  components: {
+    Nav,
+  },
 
   mounted() {
     this.getUser();
@@ -168,6 +202,34 @@ export default {
       let initials = [...fullName.matchAll(rgx)] || [];
       initials = ((initials.shift()?.[1] || "") + (initials.pop()?.[1] || "")).toUpperCase();
       return initials;
+    },
+
+    // Calculates the age from birthday to string
+    calcAge(dateString) {
+      const birthday = +new Date(dateString);
+      return ~~((Date.now() - birthday) / 31557600000) + " jaar";
+    },
+
+    // create chat and go to chat
+    async createChat() {
+      let partID = this.$route.params.id;
+      let url = `${window.location.origin}/api/createChat/${partID}`;
+
+      // 1. Make post request to make new db object in chats - axios
+      // 2. returns chatRoomID
+      // 3. Route.push roomID
+
+      axios
+        .get(url)
+        .then((response) => {
+          // let arrayChats = this.chats;
+          console.log("response: ", response.data);
+          this.$router.push(`/chat/${response.data}`);
+        })
+        .catch((err) => {
+          console.log(err);
+          // this.errors.push("Er is helaas geen account gevonden");
+        });
     },
   },
 };

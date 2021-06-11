@@ -11,6 +11,7 @@ export default new Vuex.Store({
     loggedIn: false,
     //Register user
     user: {},
+    chatRequests: [],
     themelist: [
       {
         // Klachten

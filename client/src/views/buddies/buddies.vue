@@ -5,7 +5,7 @@
       <svg
         id="Filter"
         xmlns="http://www.w3.org/2000/svg"
-        width="29.167"
+        width="20"
         height="25.926"
         viewBox="0 0 29.167 25.926"
       >
@@ -43,7 +43,7 @@
     </header>
 
     <main>
-      <a v-for="(item, index) in users[0]" :key="index" :href="'/buddies/' + item._id">
+      <router-link v-for="(item, index) in users[0]" :key="index" :to="'/buddies/' + item._id">
         <article>
           <div :class="item.profileAvatar">
             <p>{{ createInitials(item.firstName, item.surName) }}</p>
@@ -121,7 +121,7 @@
                   />
                 </svg>
               </span>
-              {{ item.birthDate }}
+              {{ calcAge(item.birthDate) }}
             </p>
           </div>
           <a :href="'/buddies/' + item._id">
@@ -141,7 +141,7 @@
             </svg>
           </a>
         </article>
-      </a>
+      </router-link>
     </main>
     <Nav active="buddies" />
   </section>
@@ -166,8 +166,10 @@ export default {
   },
   methods: {
     async getAllUsers() {
+      let userID = this.$store.state.user._id;
+
       axios
-        .get("/api/users")
+        .get(`/api/users/${userID}`)
         .then((response) => {
           // iterate over each obj and put in array
           let arrayUsers = this.users;
@@ -187,6 +189,12 @@ export default {
       let initials = [...fullName.matchAll(rgx)] || [];
       initials = ((initials.shift()?.[1] || "") + (initials.pop()?.[1] || "")).toUpperCase();
       return initials;
+    },
+
+    // Calculates the age from birthday to string
+    calcAge(dateString) {
+      const birthday = +new Date(dateString);
+      return ~~((Date.now() - birthday) / 31557600000) + " jaar";
     },
   },
 };
