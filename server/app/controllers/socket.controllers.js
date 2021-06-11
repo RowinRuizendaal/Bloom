@@ -16,7 +16,6 @@ async function joinRoomHandler(socket, server, userID, roomID) {
 
   // roomData
   const roomData = await findOneChat(roomID);
-  console.log(roomData);
 
   // Participant data
   const participantID = roomData.participants;
@@ -47,7 +46,6 @@ async function joinRoomHandler(socket, server, userID, roomID) {
         },
       };
 
-      console.log('whole: ', wholeObject);
 
       server.to(roomID).emit('roomData', {
         room: wholeObject.room,

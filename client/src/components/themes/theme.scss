@@ -17,12 +17,13 @@
         }
     }
     .theme {
-        h3 {
+        h2 {
             margin-top: 2rem;
             margin-left: 1rem;
             font-family: silka;
             font-weight: bold;
             font-size: 1.0000007559056rem;
+            font-size: .8rem;
             color: $gray;
             text-transform: uppercase;
         }
@@ -52,7 +53,7 @@
                 margin: 0.5rem;
                 margin-bottom: 1rem;
                 cursor: pointer;
-                border-radius: 5px;
+                border-radius: 13px;
                 box-shadow: 0 15px 15px -14px rgb(114, 109, 97 / 25%);
                 &:after {
                     content: "";

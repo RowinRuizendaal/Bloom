@@ -156,7 +156,7 @@ export default {
       // Store participant
       let participantData = participant;
       this.participant.push(participantData);
-      console.log("data", room);
+      // console.log("data", room);
       // console.log(participantData);
 
       let userID = this.$store.state.user._id;
@@ -180,7 +180,7 @@ export default {
     });
 
     this.socket.on("msgResponse", (chatObject) => {
-      console.log("New Message: ", chatObject);
+      // console.log("New Message: ", chatObject);
       this.messages.push(chatObject);
     });
   },

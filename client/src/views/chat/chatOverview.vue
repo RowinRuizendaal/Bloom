@@ -115,7 +115,7 @@ export default {
       axios
         .get(url)
         .then((response) => {
-          console.log("response: ", response.data);
+          // console.log("response: ", response.data);
 
           let chats = response.data;
           // console.log("all chats: ", chats);

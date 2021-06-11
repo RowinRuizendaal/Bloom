@@ -110,11 +110,9 @@ async function handleDeleteChat(req, res) {
 }
 
 async function handleAcceptChat(req, res) {
-  
-  const createrID = req.params.createrID
+  const createrID = req.params.createrID;
   const chatID = req.params.chatID;
 
-  
   // 1. find chat
   // 2.  set in db state to true
   await updateRequestChat(chatID, createrID);

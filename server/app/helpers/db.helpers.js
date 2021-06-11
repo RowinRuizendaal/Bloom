@@ -97,9 +97,7 @@ async function findOneChat(chatID) {
 
 // Check if chats exists with the two participants
 async function checkChatExist(userID, partID) {
-  console.log('test');
   const chats = await getChatsById(userID);
-  console.log('chats: ', chats);
 
   if (chats.length) {
     // If user has chats

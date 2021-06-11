@@ -15,7 +15,7 @@
 
     <main>
       <section class="theme">
-        <h3>Hoe ga ik om met...</h3>
+        <h2>Hoe ga ik om met...</h2>
         <div class="container">
           <div v-for="(theme, index) in themelist" :key="index">
             <router-link :to="{ name: 'article', params: { id: theme.id } }">
