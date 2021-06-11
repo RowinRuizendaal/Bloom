@@ -12,32 +12,47 @@ const {
 // Store userID globally for easier use
 let globalUserID;
 
-// Stores id in global variable
+/**
+ * Stores current userID in global variable
+ *
+ * @param {String} chatID - ID of the current user
+ *
+ */
+
 function setGlobal(id) {
   globalUserID = id;
 }
 
-// Get all chats from user by userID
+/**
+ * Get all chats from user by userID
+ *
+ * @param {String} chatID - ID of the chatroom
+ *
+ * @return {Array} allChats - Array with all chats(objects) from user
+ *
+ */
+
 async function handleChats(req, res) {
-  // Get chats from collection
-  // 1. search in collection to the userID
-  // 2. get all objects with userID
   // 3. Return data chat + participent data
 
+  // 1. search in collection to the userID
   const userChats = await getChatsById(req.params.id);
 
-  let arr = [];
+  let allChats = [];
 
+  // 2. get all chats from userID
   for (i = 0; i < userChats.length; i++) {
     let userChatUnique = userChats[i];
 
-    // participant ID van elk object
     let participantUserIDs = await userChats[i].participants;
 
+    // Get each participantID of each chat object
     for (let i in participantUserIDs) {
       let partiUser;
 
+      // Check if participantID is equal to current userID
       if (participantUserIDs[i] !== globalUserID) {
+        // Create new chat environment
         const userData = await findOneUser(participantUserIDs[i]);
         partiUser = userData;
 
@@ -50,41 +65,39 @@ async function handleChats(req, res) {
           },
           userChatUnique,
         };
-        arr.push(wholeObject);
+        allChats.push(wholeObject);
       } else {
+        // nothing
       }
     }
   }
 
-  return res.json(arr);
+  return res.json(allChats);
 }
 
-// Get all participant data per chat
-// async function handleChatParticipants(req, res) {
-//   // get user data
-//   const userData = await findOneUser(req.params.id);
-
-//   const userName = {
-//     firstName: userData.firstName,
-//     surName: userData.surName,
-//   };
-
-//   // return data
-//   return res.json(userName);
-// }
-
+/**
+ * Checks if chat already exists, otherwise create chat environment
+ *
+ * @param {String} userID - ID of the current user
+ * @param {String} participantID - ID of the participant
+ *
+ * @return {String} newChatID - ID of the new chatroom
+ *
+ */
 async function handleCreateChat(req, res) {
-  // 1. participants
+  // 1. participants IDs
   const userID = globalUserID;
   const partID = req.params.id;
 
   // 2. Check if there is already a room that exists
   let check = await checkChatExist(userID, partID);
-  console.log('check is: ', check);
+  // console.log('check is: ', check);
+
   if (check !== false) {
+    // returns chatID
     return res.json(check);
   } else {
-    // Make room
+    // Create chat environment
     const chatObject = {
       request: { creater: globalUserID, accepted: false },
       participants: [partID, userID],
@@ -92,32 +105,48 @@ async function handleCreateChat(req, res) {
     };
 
     // 3. Create chatRoom and returns roomID
-    const newRoomID = await createChat(chatObject);
+    const newChatID = await createChat(chatObject);
 
     // 4. return roomID
-    return res.json(newRoomID);
+    return res.json(newChatID);
   }
 }
 
+/**
+ * Chat request handler - reject
+ *
+ * @param {String} chatID - ID of the chat
+ *
+ * @return {Boolean} true - Succesfull message of the action
+ *
+ */
 async function handleDeleteChat(req, res) {
   const chatID = req.params.id;
-  // 1. find chat
-  // 2. delete chat
+
+  // 1. Find and delete chat
   await deleteChat(chatID);
 
-  // 3. return succesfull delete msg
+  // 2. Return succesfull delete msg
   return res.json(true);
 }
 
+/**
+ * Chat request handler - accept
+ *
+ * @param {String} createrID - ID of the creater of the chat
+ * @param {String} chatID - ID of the chat
+ *
+ * @return {Boolean} true - Succesfull message of the action
+ *
+ */
 async function handleAcceptChat(req, res) {
   const createrID = req.params.createrID;
   const chatID = req.params.chatID;
 
-  // 1. find chat
-  // 2.  set in db state to true
+  // 1. find chat and update chat request
   await updateRequestChat(chatID, createrID);
 
-  // 3. return succesfull delete msg
+  // 2. returns true
   return true;
 }
 
@@ -126,6 +155,5 @@ module.exports = {
   handleCreateChat,
   handleDeleteChat,
   handleAcceptChat,
-  // handleChatParticipants,
   setGlobal,
 };

@@ -104,7 +104,7 @@
           </ul>
         </div>
 
-        <!-- hulp toggle -->
+        <!-- Hulp toggle -->
         <div v-if="data === 2" class="hulp">
           <h2 class="heading">{{ article.heading3 }}</h2>
           <p>{{ article.p2 }}</p>

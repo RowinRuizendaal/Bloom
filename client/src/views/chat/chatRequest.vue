@@ -64,7 +64,7 @@ export default {
   components: {
     Nav,
   },
-  mounted() {},
+
   data() {
     let chatRequestsData = this.$store.state.chatRequests;
 

@@ -215,16 +215,14 @@ export default {
       let partID = this.$route.params.id;
       let url = `${window.location.origin}/api/createChat/${partID}`;
 
-      // 1. Make post request to make new db object in chats - axios
-      // 2. returns chatRoomID
-      // 3. Route.push roomID
-
+      // 1. Make post request to make new db object in chats
       axios
         .get(url)
         .then((response) => {
-          // let arrayChats = this.chats;
-          console.log("response: ", response.data);
-          this.$router.push(`/chat/${response.data}`);
+          // 2. returns chatRoomID
+          let chatID = response.data;
+          console.log("response: ", chatID);
+          this.$router.push(`/chat/${chatID}`);
         })
         .catch((err) => {
           console.log(err);
