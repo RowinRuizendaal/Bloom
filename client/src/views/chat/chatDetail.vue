@@ -131,7 +131,6 @@ export default {
 
   data() {
     return {
-      request: null,
       requestAccepted: false,
       viewCreater: false,
       socket: null,
@@ -156,8 +155,6 @@ export default {
       // Store participant
       let participantData = participant;
       this.participant.push(participantData);
-      // console.log("data", room);
-      // console.log(participantData);
 
       let userID = this.$store.state.user._id;
       // Check if this is a chatRequest, then put request to true
@@ -197,12 +194,10 @@ export default {
       return initials;
     },
 
+    // Chat request handler
     async makeRequestChoice(choice) {
-      console.log(choice);
-
-      if (choice == "reject") {
+      if (choice === "reject") {
         let chatID = this.$route.params.id;
-
         let url = `${window.location.origin}/api/deleteChat/${chatID}`;
 
         axios
@@ -210,7 +205,7 @@ export default {
           .then((response) => {
             let errorMsg = response.data;
             console.log("response: ", errorMsg);
-
+            this.$router.push("/chats");
             // succesfull afwijzing feedback msg
           })
           .catch((err) => {
@@ -220,10 +215,7 @@ export default {
         // delete chat and go back to /chats
       } else {
         this.requestAccepted = true;
-        let object = {
-          createrID: createrID,
-          chatID: chatID,
-        };
+
         let createrID = this.participant[0].id;
         let chatID = this.$route.params.id;
         let url = `${window.location.origin}/api/acceptChat/${createrID}/${chatID}`;
@@ -233,8 +225,6 @@ export default {
           .then((response) => {
             let errorMsg = response.data;
             console.log("response: ", errorMsg);
-
-            // succesfull afwijzing feedback msg
           })
           .catch((err) => {
             console.log(err);
@@ -245,6 +235,7 @@ export default {
       }
     },
 
+    // Send messages handler
     send(e) {
       e.preventDefault();
       let date = new Date();

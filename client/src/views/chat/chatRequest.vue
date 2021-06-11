@@ -64,9 +64,7 @@ export default {
   components: {
     Nav,
   },
-  mounted() {
-    // this.getChats();
-  },
+  mounted() {},
   data() {
     let chatRequestsData = this.$store.state.chatRequests;
 
@@ -75,36 +73,6 @@ export default {
     };
   },
   methods: {
-    // get user chat data by user ID
-    // async getChats() {
-    //   let currentUserId = this.$store.state.user._id;
-    //   let url = `${window.location.origin}/api/chatsItems/${currentUserId}`;
-    //   axios
-    //     .get(url)
-    //     .then((response) => {
-    //       // if data --> display
-    //       // else --> empty state
-    //       let arrayChats = this.chats;
-    //       console.log("response: ", response.data);
-    //       let chats = response.data;
-    //       if (chats.length) {
-    //         for (let i in chats) {
-    //           console.log();
-    //           let acceptedState = chats[i].userChatUnique.accepted;
-    //           if (acceptedState == false)
-    //             // push in chatRequests
-    //             this.chatRequests.push(chats[i]);
-    //           console.log("req: ", this.chatRequests);
-    //         }
-    //         arrayChats.push(response.data);
-    //       } else {
-    //         arrayChats.push(null);
-    //       }
-    //     })
-    //     .catch((err) => {
-    //       console.log(err);
-    //     });
-    // },
     //  Get the initials of a fullname
     createInitials(firstName, surName) {
       let fullName = `${firstName} ${surName}`;
@@ -114,29 +82,6 @@ export default {
       initials = ((initials.shift()?.[1] || "") + (initials.pop()?.[1] || "")).toUpperCase();
       return initials;
     },
-    // async randomBuddy() {
-    //   // 1. Request to all buddies
-    //   let currentUserId = this.$store.state.user._id;
-    //   let url = `${window.location.origin}/api/users/${currentUserId}`;
-    //   // 2. pick One random
-    //   // 3. Return the buddies/id.
-    //   axios
-    //     .get(url)
-    //     .then((response) => {
-    //       const allUsers = response.data;
-    //       let randomUser = randomUserPicker(allUsers);
-    //       this.randomUserFirstName = randomUser.firstName;
-    //       this.randomUserId = randomUser._id;
-    //       // Gets random user of all users
-    //       function randomUserPicker(users) {
-    //         const randomUser = users[Math.floor(Math.random() * users.length)];
-    //         return randomUser;
-    //       }
-    //     })
-    //     .catch((err) => {
-    //       console.log(err);
-    //     });
-    // },
   },
 };
 </script>

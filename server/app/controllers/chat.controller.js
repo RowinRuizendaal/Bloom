@@ -106,7 +106,7 @@ async function handleDeleteChat(req, res) {
   await deleteChat(chatID);
 
   // 3. return succesfull delete msg
-  return true;
+  return res.json(true);
 }
 
 async function handleAcceptChat(req, res) {

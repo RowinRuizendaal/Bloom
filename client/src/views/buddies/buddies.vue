@@ -191,6 +191,7 @@ export default {
       return initials;
     },
 
+    // Calculates the age from birthday to string
     calcAge(dateString) {
       const birthday = +new Date(dateString);
       return ~~((Date.now() - birthday) / 31557600000) + " jaar";

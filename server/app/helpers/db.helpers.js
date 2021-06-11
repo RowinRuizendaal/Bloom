@@ -145,6 +145,7 @@ async function updateChat(chatID, newData) {
 // delete chat
 async function deleteChat(chatID) {
   await Chats.findOneAndDelete({ _id: ObjectId(chatID) });
+  return true;
 }
 
 // Accept state
