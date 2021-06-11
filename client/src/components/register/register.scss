@@ -92,10 +92,12 @@
                 text-align: left;
                 font-weight: bold;
             }
-            // .buttons {
-            //     display: flex;
-            //     justify-content: flex-end;
-            // }
+            .buttons {
+                display: flex;
+                align-items: flex-end;
+                width: 100%;
+                flex-direction: row-reverse;
+            }
         }
     }
 }

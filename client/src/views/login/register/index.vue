@@ -50,14 +50,15 @@
               <router-link v-if="stepState === 1" to="/login" class="login"
                 >Ik heb al een account</router-link
               >
-              <div></div>
-              <Button
-                v-if="stepState !== 1 && stepState !== 9"
-                @click.native="setState('next')"
-                message="Volgende"
-              >
-                ></Button
-              >
+              <div class="buttons" v-if="stepState !== 1 && stepState !== 9">
+                <Button
+                  v-if="stepState !== 1 && stepState !== 9"
+                  @click.native="setState('next')"
+                  message="Volgende"
+                >
+                  ></Button
+                >
+              </div>
 
               <Button
                 v-else
