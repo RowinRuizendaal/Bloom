@@ -1,6 +1,10 @@
 const mongoose = require('mongoose');
-
 const Schema = mongoose.Schema;
+
+/**
+ * Datastructure/Schema of the chat object
+ *
+ */
 
 const chatSchema = new Schema({
   request: {

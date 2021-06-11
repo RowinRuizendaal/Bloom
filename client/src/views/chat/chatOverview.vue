@@ -159,18 +159,20 @@ export default {
       // 1. Request to all buddies
       let currentUserId = this.$store.state.user._id;
       let url = `${window.location.origin}/api/users/${currentUserId}`;
-      // 2. pick One random
-      // 3. Return the buddies/id.
 
       axios
         .get(url)
         .then((response) => {
           const allUsers = response.data;
+
+          // 2. pick One random user
           let randomUser = randomUserPicker(allUsers);
+
+          // 3. Set firstname and id of random user to component state
           this.randomUserFirstName = randomUser.firstName;
           this.randomUserId = randomUser._id;
 
-          // Gets random user of all users
+          // Get random user of all users
           function randomUserPicker(users) {
             const randomUser = users[Math.floor(Math.random() * users.length)];
 

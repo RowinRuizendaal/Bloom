@@ -1,20 +1,29 @@
 const {
   findOneUser,
   findOneChat,
-  getAllChats,
-  updateChat,
+  updateChatMessages,
 } = require('../helpers/db.helpers.js');
 
 // Global variables
 let roomGlobal;
 let globalUser;
 
+/**
+ * User joins room
+ *
+ * @param {Object} socket - socket object
+ * @param {String} server - socket server (IO)
+ * @param {String} userID - ID of the current user
+ * @param {String} roomID - ID of the chatroom
+ *
+ */
+
 async function joinRoomHandler(socket, server, userID, roomID) {
   socket.join(roomID);
   roomGlobal = roomID;
   globalUser = userID;
 
-  // roomData
+  // Data of a chatroom
   const roomData = await findOneChat(roomID);
 
   // Participant data
@@ -46,40 +55,53 @@ async function joinRoomHandler(socket, server, userID, roomID) {
         },
       };
 
-
       server.to(roomID).emit('roomData', {
         room: wholeObject.room,
         participant: wholeObject.participant,
       });
     } else {
-      console.log('Not the same');
+      // console.log('Not the same');
     }
   }
 }
 
-// 1. user joins room on userID enemy
-// 2. Push object to mesages array in DB
-// 3. Emit event to client for cs rendering.
-function chatHandler(server, roomID, sender, content, time) {
-  const chatObject = {
+/**
+ * New chat message handler
+ *
+ * @param {String} server - socket server (IO)
+ * @param {String} roomID - ID of the chatroom
+ * @param {String} sender - ID of the sender of the message
+ * @param {String} content - Content of the message
+ * @param {String} time - Time of the message
+ *
+ * @return {Object} messageObject - Object with all content of the new message
+ */
+
+function newMessageHandler(server, roomID, sender, content, time) {
+  const messageObject = {
     sender: sender,
     content: content,
     time: time,
   };
 
   // 2. Put data obj in chatObj in db
-  updateChat(roomID, chatObject);
+  updateChatMessages(roomID, messageObject);
 
-  server.to(roomID).emit('msgResponse', chatObject);
+  // Return the new message to chatroom
+  server.to(roomID).emit('newMessage', messageObject);
 }
 
-// Handles when user leaves room
+/**
+ * Handles when user leaves chatroom
+ *
+ */
+
 function leaveRoomHandler(roomID) {
   console.log('A user disconnected');
 }
 
 module.exports = {
   joinRoomHandler,
-  chatHandler,
+  newMessageHandler,
   leaveRoomHandler,
 };

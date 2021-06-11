@@ -1,6 +1,10 @@
 const mongoose = require('mongoose');
-
 const Schema = mongoose.Schema;
+
+/**
+ * Datastructure/Schema of the user object
+ *
+ */
 
 const userSchema = new Schema({
   firstName: String,

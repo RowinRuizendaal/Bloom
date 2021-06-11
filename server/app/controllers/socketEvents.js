@@ -1,6 +1,6 @@
 const {
   joinRoomHandler,
-  chatHandler,
+  newMessageHandler,
   leaveRoomHandler,
 } = require('./socket.controllers.js');
 
@@ -10,7 +10,7 @@ exports.ioEvents = async (socket, server) => {
   });
 
   socket.on('chat-message', ({ roomID, sender, content, time }) => {
-    chatHandler(server, roomID, sender, content, time);
+    newMessageHandler(server, roomID, sender, content, time);
   });
 
   socket.on('disconnect', () => {
