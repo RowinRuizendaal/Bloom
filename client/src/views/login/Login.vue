@@ -6,9 +6,6 @@
 
     <main>
       <h2>Welkom terug</h2>
-      <ul v-if="errors.length">
-        <li v-for="(error, index) in errors" :key="index">{{ error }}</li>
-      </ul>
       <form v-on:submit="onSubmit" method="POST" enctype="application/x-www-form-urlencoded">
         <fieldset>
           <legend>
@@ -48,18 +45,23 @@
           </legend>
         </fieldset>
       </form>
+      <ul v-if="errors.length" class="error-list">
+        <Error :message="errors[0]" />
+      </ul>
     </main>
   </section>
 </template>
 
 <script>
 import Button from "../../components/button/button.vue";
+import Error from "../../components/error/error.vue";
 import axios from "axios";
 
 export default {
   name: "Login",
   components: {
     Button,
+    Error,
   },
   data() {
     return {
@@ -85,7 +87,9 @@ export default {
           }
         })
         .catch((err) => {
-          // console.log(err);
+          if (this.errors.length >= 1) {
+            return;
+          }
           this.errors.push("Er is helaas geen account gevonden");
         });
     },

@@ -47,15 +47,25 @@
               <Ready />
             </div>
             <div class="footer">
-              <router-link v-if="stepState === 1" to="/login" active-class="login"
+              <router-link v-if="stepState === 1" to="/login" class="login"
                 >Ik heb al een account</router-link
               >
+              <div class="buttons" v-if="stepState !== 1 && stepState !== 9">
+                <Button
+                  v-if="stepState !== 1 && stepState !== 9"
+                  @click.native="setState('next')"
+                  message="Volgende"
+                >
+                  ></Button
+                >
+              </div>
 
-              <button v-if="stepState !== 1 && stepState !== 9" @click="setState('next')">
-                Volgende
-              </button>
-
-              <button v-else @click="setState('next')">Starten</button>
+              <Button
+                v-else
+                @click.native="setState('next')"
+                message="Starten"
+                :isSubmit="true"
+              ></Button>
             </div>
           </legend>
         </fieldset>
@@ -80,7 +90,7 @@ import axios from "axios";
 
 export default {
   components: {
-    // Button,
+    Button,
     FirstStep,
     SecondStep,
     ThirdStep,
@@ -102,9 +112,7 @@ export default {
       return;
     },
 
-    onSubmit(e) {
-      e.preventDefault();
-
+    onSubmit() {
       if (this.stepState === 9) {
         this.$store.state.loggedIn = true;
 
@@ -113,18 +121,26 @@ export default {
           headers: { "Content-type": "application/json" },
         });
       }
-
-      // Redirect to /themes
-      if (this.stepState === 10) {
-        this.$router.push("/themes");
-      }
+      // need to check if status code is 200 here
+      // set registered true if
+      this.registered = true;
     },
   },
   data() {
     return {
       maxslides: 9,
       stepState: 1,
+      registered: false,
     };
+  },
+  updated() {
+    if (this.stepState === 9) {
+      this.onSubmit();
+    }
+    // Redirect to /themes
+    if (this.stepState === 10 && this.registered) {
+      this.$router.push("/themes");
+    }
   },
 };
 </script>
