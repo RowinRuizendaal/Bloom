@@ -75,7 +75,7 @@
                   fill="#f07904"
                 /></svg
             ></span>
-            {{ getAge(data.birthDate) }}
+            {{ calcAge(data.birthDate) }}
           </p>
           <p>
             <svg
@@ -195,17 +195,9 @@ export default {
       return initials;
     },
 
-    // Get age - source: https://stackoverflow.com/a/7091965
-    getAge(dateString) {
-      var today = new Date();
-      var birthDate = new Date(dateString);
-      var age = today.getFullYear() - birthDate.getFullYear();
-      var m = today.getMonth() - birthDate.getMonth();
-      if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-        age--;
-      }
-      age = `${age} jaar`;
-      return age;
+    calcAge(dateString) {
+      const birthday = +new Date(dateString);
+      return ~~((Date.now() - birthday) / 31557600000) + " jaar";
     },
   },
 };
