@@ -10,7 +10,17 @@ const {
 
 const { setGlobal } = require('./chat.controller.js');
 
-// Login handler
+/**
+ * Login handler - validates the user's credentials
+ *
+ * @param {String} emailAddress - EmailAddress of the login action
+ * @param {String} password - Password of the login action
+ *
+ * @return {HTTPStatusCode} 200/400 - StatusCode of the HTTP response
+ * @return {Object} user - Data of the user
+ *
+ */
+
 async function handleLogin(req, res) {
   const user = await checkValidUser(req.body.emailAddress, req.body.password);
 
@@ -26,7 +36,22 @@ async function handleLogin(req, res) {
   }
 }
 
-// Register handler
+/**
+ * Register handler - creates the user
+ *
+ * @param {String} firstName - firstName of the register process
+ * @param {String} surName - surName of the register process
+ * @param {String} emailAddress - emailAddress of the register process
+ * @param {String} password - Password of the register process (will be hashed)
+ * @param {Date} birthDate - birthDate of the register process
+ * @param {String} town - town of the register process
+ * @param {String} gender - gender of the register process
+ * @param {String} typeIllness - typeIllness of the register process
+ * @param {String} profileAvatar - profileAvatar of the register process
+ * @param {String} about - about of the register process
+ *
+ */
+
 function handleRegister(req, res) {
   // Salt the plain password
   const passwordHash = bcrypt.hashSync(req.body.password, saltRounds);
@@ -44,11 +69,19 @@ function handleRegister(req, res) {
     about: req.body.about,
   };
 
-  console.log('User register data: ', userObject);
+  console.log('User registered - data: ', userObject);
   createUser(userObject);
 }
 
-// Get all users
+/**
+ * Get all users data except the current user
+ *
+ * @param {String} userID - ID of the current user
+ *
+ * @return {Array} usersData - Data of all users
+ *
+ */
+
 async function handleUsers(req, res) {
   // get all users except the userID
   const usersData = await getAllUsers(req.params.id);
@@ -57,7 +90,16 @@ async function handleUsers(req, res) {
   return res.json(usersData);
 }
 
-// Get one specific user by userID
+/**
+ * Get one specific user by userID
+ *
+ * @param {String} userID - ID of the user
+ *
+ * @return {Object} userData - Data of specific user
+ *
+ */
+
+//
 async function handleUser(req, res) {
   // get user data
   const userData = await findOneUser(req.params.id);

@@ -176,9 +176,9 @@ export default {
       this.messagesHistory.push(messages);
     });
 
-    this.socket.on("msgResponse", (chatObject) => {
-      // console.log("New Message: ", chatObject);
-      this.messages.push(chatObject);
+    this.socket.on("newMessage", (messageObject) => {
+      // console.log("New Message: ", messageObject);
+      this.messages.push(messageObject);
     });
   },
 
@@ -197,6 +197,7 @@ export default {
     // Chat request handler
     async makeRequestChoice(choice) {
       if (choice === "reject") {
+        console.log(choice);
         let chatID = this.$route.params.id;
         let url = `${window.location.origin}/api/deleteChat/${chatID}`;
 

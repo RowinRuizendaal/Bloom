@@ -166,17 +166,19 @@ export default {
   },
   methods: {
     async getAllUsers() {
-      let userID = this.$store.state.user._id;
+      let currentUserID = this.$store.state.user._id;
+      let url = `${window.location.origin}/api/users/${currentUserID}`;
 
       axios
-        .get(`/api/users/${userID}`)
+        .get(url)
         .then((response) => {
-          // iterate over each obj and put in array
+          // Iterate over each obj and put in array
           let arrayUsers = this.users;
           arrayUsers.push(response.data);
         })
         .catch((err) => {
-          this.errors.push("Er is helaas geen account gevonden");
+          console.log("err");
+          // this.errors.push("Er zijn helaas geen users gevonden");
         });
     },
 

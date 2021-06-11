@@ -3,13 +3,25 @@ const Chats = require('../models/chat.js');
 const bcrypt = require('bcrypt');
 const ObjectId = require('mongoose').Types.ObjectId;
 
-// Get data of one specific user by userID
+
+
+/**
+ * Get data of one specific user by userID
+ *
+ * @param {String} email - emailaddress of the login credentials
+ * @param {String} password - password of the login credentials
+ *
+ * @return {Boolean} false - state of the action if no succeeded
+ *
+ */
+
+
 async function checkValidUser(email, password) {
   const user = await Users.findOne({
     emailAddress: email,
   });
 
-  // if user exist with email
+  // If user exist with email
   if (user) {
     const compareSalt = await bcrypt.compare(password, user.password);
 
@@ -18,11 +30,18 @@ async function checkValidUser(email, password) {
       return user;
     }
   }
-  // no user has been found so return false
+  // No user has been found so return false
   return false;
 }
 
-// Add user to DB
+/**
+ * Create new user
+ *
+ * @param {Object} userCredentials - Data of the new registered user
+ *
+ */
+
+
 function createUser({
   firstName,
   surName,
@@ -49,17 +68,33 @@ function createUser({
   });
 }
 
-// Get data of one specific user by userID
+/**
+ * Get data of one specific user by userID
+ *
+ * @param {String} userID - ID of the user
+ *
+ * @return {Object} user - Data of the user
+ *
+ */
+
 async function findOneUser(userID) {
   const user = await Users.findOne({ _id: userID }).catch((err) =>
     console.log(err)
   );
 
-  // return user data
+  // Return user data
   return user;
 }
 
-// Get all users of DB, except the logged in user
+/**
+ * Get data of all users, except the current user
+ *
+ * @param {String} userID - ID of the user
+ *
+ * @return {Array} users - Data of all users
+ *
+ */
+
 async function getAllUsers(userID) {
   const users = await Users.find({ _id: { $ne: userID } }).catch((err) =>
     console.log(err)
@@ -67,14 +102,15 @@ async function getAllUsers(userID) {
   return users;
 }
 
-// export to chats folder
-async function getAllChats() {
-  const chats = await Chats.find().catch((err) => console.log(err));
+/**
+ * Get all chats by userID of the participants
+ *
+ * @param {String} userID - ID of the user
+ *
+ * @return {Array} userChats - Chat data of the user
+ *
+ */
 
-  return chats;
-}
-
-// Get chats by userID of the participants
 async function getChatsById(userID) {
   const userChats = await Chats.find({
     participants: {
@@ -82,20 +118,38 @@ async function getChatsById(userID) {
     },
   });
 
+  // Return user chats
   return userChats;
 }
 
-// Get data of one specific chat by chatID
+/**
+ * Get data of one specific chat by chatID
+ *
+ * @param {String} chatID - ID of the chatroom
+ *
+ * @return {Object} chat - Data of the chat
+ *
+ */
+
 async function findOneChat(chatID) {
   const chat = await Chats.findOne({ _id: chatID }).catch((err) =>
     console.log(err)
   );
 
-  // return user data
+  // Return chat data
   return chat;
 }
 
-// Check if chats exists with the two participants
+/**
+ * Check if chats exists with the two participants
+ *
+ * @param {String} userID - ID of the currentUser
+ * @param {String} partID - ID of the participant
+ *
+ * @return {Boolean} true/false - State of action
+ *
+ */
+
 async function checkChatExist(userID, partID) {
   const chats = await getChatsById(userID);
 
@@ -103,9 +157,10 @@ async function checkChatExist(userID, partID) {
     // If user has chats
     for (let i in chats) {
       let chatParticipants = chats[i].participants;
-      console.log(chatParticipants);
+      // console.log(chatParticipants);
       let check = chatParticipants.includes(partID);
       if (check) {
+        // Returns chatID
         return chats[i]._id;
       } else {
         return false;
@@ -116,7 +171,15 @@ async function checkChatExist(userID, partID) {
   return false;
 }
 
-// Add chat to DB
+/**
+ * Create chat environment
+ *
+ * @param {Object} object - Data for creating the chat
+ *
+ * @return {String} createdRoom._id - ID of the created chatroom
+ *
+ */
+
 async function createChat(object) {
   const createdRoom = await Chats.create(object);
 
@@ -124,8 +187,15 @@ async function createChat(object) {
   return createdRoom._id;
 }
 
-// Update chat - add msg
-async function updateChat(chatID, newData) {
+/**
+ * Add new message to chat
+ *
+ * @param {String} chatID - ID of the chatroom
+ * @param {Object} newData - Data of the new message
+ *
+ */
+
+async function updateChatMessages(chatID, newData) {
   await Chats.updateOne(
     {
       _id: ObjectId(chatID),
@@ -142,13 +212,28 @@ async function updateChat(chatID, newData) {
   );
 }
 
-// delete chat
+/**
+ * Deletes chat
+ *
+ * @param {String} chatID - ID of the chatroom
+ *
+ * @return {Boolean} true/false - State of the action
+ *
+ */
+
 async function deleteChat(chatID) {
   await Chats.findOneAndDelete({ _id: ObjectId(chatID) });
   return true;
 }
 
-// Accept state
+/**
+ * Update chatrequest state to accepted
+ *
+ * @param {String} chatID - ID of the chatroom
+ * @param {String} createrID - ID of the creater of the chatroom
+ *
+ */
+
 async function updateRequestChat(chatID, createrID) {
   await Chats.updateOne(
     {
@@ -168,12 +253,11 @@ module.exports = {
   createUser,
   findOneUser,
   getAllUsers,
-  getAllChats,
   getChatsById,
   findOneChat,
   checkChatExist,
   createChat,
-  updateChat,
+  updateChatMessages,
   deleteChat,
   updateRequestChat,
 };
