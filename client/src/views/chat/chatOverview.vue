@@ -21,15 +21,8 @@
       <div v-if="chats === null || chats === undefined" class="partial-state">
         <p>
           Je hebt nog geen chats. Probeer snel een buddy te vinden
-          <router-link :to="'/buddies/'">hier</router-link>. Wij kunnen ook een random buddy voor
-          jou uitkiezen, klik dan
-
-          <button @click="randomBuddy()">hier</button>
+          <router-link :to="'/buddies/'">hier</router-link>.
         </p>
-
-        <router-link class="randomUser" :to="'/buddies/' + this.randomUserId">
-          <p>{{ this.randomUserFirstName }}</p>
-        </router-link>
 
         <svg
           id="Iconly_Bulk_Info_Circle"
@@ -71,12 +64,17 @@
 
           <div>
             <p>{{ item.participant.firstName }} {{ item.participant.surName }}</p>
-            <p>
+            <p v-if="item.userChatUnique.messages.length">
               {{ item.userChatUnique.messages[item.userChatUnique.messages.length - 1].content }}
             </p>
-            <p>
+
+            <p v-else class="partialState">Stuur je eerste berichtje!</p>
+
+            <p v-if="item.userChatUnique.messages.length">
               {{ item.userChatUnique.messages[item.userChatUnique.messages.length - 1].time }}
             </p>
+
+            <p v-else class="partialState"></p>
           </div>
         </article>
       </router-link>
@@ -101,8 +99,6 @@ export default {
     return {
       chats: [],
       chatRequests: [],
-      randomUserFirstName: null,
-      randomUserId: null,
       viewCreater: true,
     };
   },
@@ -153,35 +149,6 @@ export default {
       let initials = [...fullName.matchAll(rgx)] || [];
       initials = ((initials.shift()?.[1] || "") + (initials.pop()?.[1] || "")).toUpperCase();
       return initials;
-    },
-
-    async randomBuddy() {
-      // 1. Request to all buddies
-      let currentUserId = this.$store.state.user._id;
-      let url = `${window.location.origin}/api/users/${currentUserId}`;
-
-      axios
-        .get(url)
-        .then((response) => {
-          const allUsers = response.data;
-
-          // 2. pick One random user
-          let randomUser = randomUserPicker(allUsers);
-
-          // 3. Set firstname and id of random user to component state
-          this.randomUserFirstName = randomUser.firstName;
-          this.randomUserId = randomUser._id;
-
-          // Get random user of all users
-          function randomUserPicker(users) {
-            const randomUser = users[Math.floor(Math.random() * users.length)];
-
-            return randomUser;
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
     },
   },
 };

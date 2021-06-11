@@ -3,8 +3,6 @@ const Chats = require('../models/chat.js');
 const bcrypt = require('bcrypt');
 const ObjectId = require('mongoose').Types.ObjectId;
 
-
-
 /**
  * Get data of one specific user by userID
  *
@@ -14,7 +12,6 @@ const ObjectId = require('mongoose').Types.ObjectId;
  * @return {Boolean} false - state of the action if no succeeded
  *
  */
-
 
 async function checkValidUser(email, password) {
   const user = await Users.findOne({
@@ -40,7 +37,6 @@ async function checkValidUser(email, password) {
  * @param {Object} userCredentials - Data of the new registered user
  *
  */
-
 
 function createUser({
   firstName,
@@ -154,19 +150,23 @@ async function checkChatExist(userID, partID) {
   const chats = await getChatsById(userID);
 
   if (chats.length) {
-    // If user has chats
+    // Global variable - existing chatID
+    let existingChatID;
+
+    // If user has chats, take look at participants key in each object
     for (let i in chats) {
       let chatParticipants = chats[i].participants;
-      // console.log(chatParticipants);
+
       let check = chatParticipants.includes(partID);
+
       if (check) {
-        // Returns chatID
-        return chats[i]._id;
+        // Sets global variable to existing Chat ID
+        existingChatID = chats[i]._id;
       } else {
-        return false;
+        existingChatID = false;
       }
-      return;
     }
+    return existingChatID;
   }
   return false;
 }

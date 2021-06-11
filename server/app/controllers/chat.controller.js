@@ -91,7 +91,6 @@ async function handleCreateChat(req, res) {
 
   // 2. Check if there is already a room that exists
   let check = await checkChatExist(userID, partID);
-  // console.log('check is: ', check);
 
   if (check !== false) {
     // returns chatID
