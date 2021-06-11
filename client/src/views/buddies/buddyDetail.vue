@@ -221,7 +221,6 @@ export default {
         .then((response) => {
           // 2. returns chatRoomID
           let chatID = response.data;
-          console.log("response: ", chatID);
           this.$router.push(`/chat/${chatID}`);
         })
         .catch((err) => {

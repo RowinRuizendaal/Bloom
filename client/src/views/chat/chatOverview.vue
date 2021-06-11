@@ -71,12 +71,17 @@
 
           <div>
             <p>{{ item.participant.firstName }} {{ item.participant.surName }}</p>
-            <p>
+            <p v-if="item.userChatUnique.messages.length">
               {{ item.userChatUnique.messages[item.userChatUnique.messages.length - 1].content }}
             </p>
-            <p>
+
+            <p v-else class="partialState">Stuur je eerste berichtje!</p>
+
+            <p v-if="item.userChatUnique.messages.length">
               {{ item.userChatUnique.messages[item.userChatUnique.messages.length - 1].time }}
             </p>
+
+            <p v-else class="partialState"></p>
           </div>
         </article>
       </router-link>

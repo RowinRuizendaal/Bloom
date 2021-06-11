@@ -58,7 +58,6 @@
 
     <main>
       <ul>
-        <!-- <div v-if="this.$store.state.chatRequests"></div> -->
         <li v-for="(item, index) in messagesHistory[0]" :key="index">
           <div v-if="item.sender !== $store.state.user._id" class="other">
             <p>{{ item.content }}</p>
@@ -197,7 +196,7 @@ export default {
     // Chat request handler
     async makeRequestChoice(choice) {
       if (choice === "reject") {
-        console.log(choice);
+        // console.log(choice);
         let chatID = this.$route.params.id;
         let url = `${window.location.origin}/api/deleteChat/${chatID}`;
 
@@ -205,7 +204,7 @@ export default {
           .get(url)
           .then((response) => {
             let errorMsg = response.data;
-            console.log("response: ", errorMsg);
+            // console.log("response: ", errorMsg);
             this.$router.push("/chats");
             // succesfull afwijzing feedback msg
           })
