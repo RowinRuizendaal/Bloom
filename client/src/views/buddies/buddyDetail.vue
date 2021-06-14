@@ -149,10 +149,6 @@
           <p>Dit is het antwoord.</p>
         </div>
       </article>
-
-      <form action=""></form>
-
-      <button @click="opened = visible = true">Open Popup</button>
     </main>
     <Nav active="buddies" :tour="false" />
   </section>
