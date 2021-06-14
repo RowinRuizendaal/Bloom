@@ -81,27 +81,27 @@ UX friendly, how?
 Screenshots of the pages in the application
 <p float="left">
 
-<img src="docs/UI/start.png" alt="The user interface of the start page" width="300"/>
+<img src="docs/UI/start.png" alt="The user interface of the start page" width="250"/>
 
-<img src="docs/UI/onboarding.png" alt="The user interface of the onboarding page" width="300"/>
+<img src="docs/UI/onboarding.png" alt="The user interface of the onboarding page" width="250"/>
 
-<img src="docs/UI/login.png" alt="The user interface of the login page" width="300"/>
+<img src="docs/UI/login.png" alt="The user interface of the login page" width="250"/>
 
 </p>
 
 <p float="left">
 
-<img src="docs/UI/themes.png" alt="The user interface of the themes page" width="300"/>
+<img src="docs/UI/themes.png" alt="The user interface of the themes page" width="250"/>
 
-<img src="docs/UI/profile.png" alt="The user interface of the profile page" width="300"/>
+<img src="docs/UI/profile.png" alt="The user interface of the profile page" width="250"/>
 
-<img src="docs/UI/buddies.png" alt="The user interface of the Buddies page" width="300"/>
+<img src="docs/UI/buddies.png" alt="The user interface of the Buddies page" width="250"/>
 </p>
 
 <p float="left">
-<img src="docs/UI/chats.png" alt="The user interface of the chats page" width="300"/>
+<img src="docs/UI/chats.png" alt="The user interface of the chats page" width="250"/>
 
-<img src="docs/UI/chat-detail.png" alt="The user interface of the chat-detail page" width="300"/>
+<img src="docs/UI/chat-detail.png" alt="The user interface of the chat-detail page" width="250"/>
 </p>
 
 ## :1234: Data  
