@@ -103,6 +103,7 @@ Screenshots of the pages in the application
 
 <img src="docs/UI/chat-detail.png" alt="The user interface of the chat-detail page" width="300"/>
 </p>
+
 ## :1234: Data  
 We used Mongoose data schemas to create schemas before we insert the data.
 ### User schema
@@ -147,6 +148,13 @@ This data is created as ```lorem``` by default when you want to chat with someon
 
 ```
 
+### Socket events
+|ClientSide|ServerSide|
+|---|---|
+|[joinRoom](https://github.com/RowinRuizendaal/Bloom/blob/master/server/app/controllers/socket.controllers.js#L21-L66) |[joinRoomHandler](https://github.com/RowinRuizendaal/Bloom/blob/master/server/app/controllers/socket.controllers.js#L21-L66)|
+|[roomData](https://github.com/RowinRuizendaal/Bloom/blob/master/client/src/views/chat/chatDetail.vue#L153-L176)|[roomData](https://github.com/RowinRuizendaal/Bloom/blob/master/server/app/controllers/socket.controllers.js#L58-L61)|
+|[newMessage](https://github.com/RowinRuizendaal/Bloom/blob/master/client/src/views/chat/chatDetail.vue#L178-L182)| [newMessageHandler](https://github.com/RowinRuizendaal/Bloom/blob/master/server/app/controllers/socket.controllers.js#L80-L92)|
+
 ## :nerd_face: Technical summary
 This app is built, using:
 - _Mobile First technique_
@@ -160,6 +168,8 @@ This app is built, using:
 - [Socket.io](http://socket.io/)
 - [Heroku deployment](https://www.heroku.com/nodejs)
 
+## Folderstructure
+>markdown table
 
 ## :gear: Installation
 >⚠️ To use the application in development, you need a MongoDB database and a URI to connect with it! Please contact us if you want to run the project.
