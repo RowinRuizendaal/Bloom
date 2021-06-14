@@ -41,15 +41,22 @@ The purpose of this application is to connect people who have had or still have 
 - You can register an account via a Progressive Disclosure register process
 - You can login onto your account
 - You can assume a lot of information about cancer at the Themes page
-- You can see other buddies  
+- You can see other buddies
+- You can filter the buddies
+- You can match a buddy by beginning a chat with him/her
+- You can chat with a buddy
 
 ### Tech-features
 - passsword hashing
 - vuex store encrypointg
 - localstorage
 
-### UI
+### User Interface
 Screenshots of the pages in the application
+
+<img src="docs/UI/start.png" alt="The user interface of the start page" width="300"/>
+
+<img src="docs/UI/onboarding.png" alt="The user interface of the onboarding page" width="300"/>
 
 <img src="docs/UI/login.png" alt="The user interface of the login page" width="300"/>
 
@@ -58,6 +65,10 @@ Screenshots of the pages in the application
 <img src="docs/UI/themes.png" alt="The user interface of the themes page" width="300"/>
 
 <img src="docs/UI/buddies.png" alt="The user interface of the Buddies page" width="300"/>
+
+<img src="docs/UI/chats.png" alt="The user interface of the chats page" width="300"/>
+
+<img src="docs/UI/chat-detail.png" alt="The user interface of the chat-detail page" width="300"/>
 
 ## :1234: Data  
 We used Mongoose data schemas to create schemas before we insert the data.
