@@ -105,16 +105,13 @@ export default {
   methods: {
     // get user chat data by user ID
     async getChats() {
-      let currentUserId = this.$store.state.user._id;
-      let url = `${window.location.origin}/api/chatsItems/${currentUserId}`;
+      let url = `${window.location.origin}/api/chatsItems`;
 
       axios
         .get(url)
         .then((response) => {
-          // console.log("response: ", response.data);
-
           let chats = response.data;
-          // console.log("all chats: ", chats);
+
           if (chats.length) {
             for (let i in chats) {
               let acceptedState = chats[i].userChatUnique.request.accepted;

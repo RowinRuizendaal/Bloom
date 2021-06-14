@@ -10,6 +10,8 @@ const {
 
 const { setGlobal } = require('./chat.controller.js');
 
+let anotherGlobalUserID;
+
 /**
  * Login handler - validates the user's credentials
  *
@@ -29,8 +31,9 @@ async function handleLogin(req, res) {
   } else {
     console.log('LOGIN by:', user._id);
     let id = user._id;
-    globalUserID = id.toString();
-    setGlobal(globalUserID);
+    let globalUserID = id.toString();
+    anotherGlobalUserID = globalUserID
+    setGlobal(anotherGlobalUserID);
 
     return res.status(200).json(user);
   }
@@ -52,7 +55,7 @@ async function handleLogin(req, res) {
  *
  */
 
-function handleRegister(req, res) {
+async function handleRegister(req, res) {
   // Salt the plain password
   const passwordHash = bcrypt.hashSync(req.body.password, saltRounds);
 
@@ -70,7 +73,14 @@ function handleRegister(req, res) {
   };
 
   console.log('User registered - data: ', userObject);
-  createUser(userObject);
+  let newUser = await createUser(userObject);
+
+  // Set global userID to userID
+  let globalUserID = newUser._id.toString();
+  anotherGlobalUserID  = globalUserID
+  setGlobal(globalUserID);
+
+  return res.json(newUser)
 }
 
 /**
@@ -84,7 +94,7 @@ function handleRegister(req, res) {
 
 async function handleUsers(req, res) {
   // get all users except the userID
-  const usersData = await getAllUsers(req.params.id);
+  const usersData = await getAllUsers(anotherGlobalUserID);
 
   // return data
   return res.json(usersData);
