@@ -31,12 +31,21 @@
           color: $white;
         }
       }
+    }
+    div {
+      background-color: $white;
+      clip-path: circle(30%);
+      padding: 0.5em;
 
       p {
         color: $orange;
-        font-size: 0.8rem;
-        font-weight: $font-weight-semibold;
       }
+    }
+
+    p {
+      color: $orange;
+      font-size: 0.8rem;
+      font-weight: $font-weight-semibold;
     }
   }
 

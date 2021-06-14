@@ -143,6 +143,47 @@
       }
     }
 
+    div.requests {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-evenly;
+
+      button {
+        border: none;
+        background-color: $white;
+        border: 0.5px solid rgba(112, 112, 112, 0.322);
+        padding: 1em;
+        width: 12em;
+        border-radius: 50px;
+        font-family: $font-family-primary;
+        font-weight: $font-weight-semibold;
+
+        &:nth-of-type(1) {
+          color: $gray;
+
+          &:hover,
+          &:active,
+          &:focus {
+            border: 0.5px solid $gray;
+            background-color: $gray;
+            color: $white;
+          }
+        }
+
+        &:nth-of-type(2) {
+          color: $orange;
+
+          &:hover,
+          &:active,
+          &:focus {
+            border: 0.5px solid $orange;
+            background-color: $orange;
+            color: $white;
+          }
+        }
+      }
+    }
+
     form {
       position: fixed;
       bottom: 0;

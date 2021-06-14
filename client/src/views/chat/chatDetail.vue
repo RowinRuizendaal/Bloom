@@ -81,7 +81,7 @@
         </div>
       </ul>
 
-      <div v-if="requestAccepted == false && viewCreater == false">
+      <div class="requests" v-if="requestAccepted == false && viewCreater == false">
         <button @click="makeRequestChoice('reject')">Afwijzen</button>
         <button @click="makeRequestChoice('accept')">Accepteren</button>
       </div>
