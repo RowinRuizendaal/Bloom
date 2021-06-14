@@ -52,7 +52,6 @@ export default {
   },
   methods: {
     nextSlide(index) {
-      console.log(this.$store.state.activeIndex);
       return this.$store.commit("nextSlide", index);
     },
   },
