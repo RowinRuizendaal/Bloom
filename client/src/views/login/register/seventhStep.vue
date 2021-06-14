@@ -14,7 +14,7 @@
       </p>
     </div>
 
-    <ul class="six">
+    <ul class="seven">
       <li v-for="(item, index) in avatars" :key="index">
         <input
           type="radio"

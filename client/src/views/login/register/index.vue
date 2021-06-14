@@ -46,26 +46,31 @@
             <div v-else-if="stepState === 9">
               <Ready />
             </div>
-            <div class="footer">
-              <router-link v-if="stepState === 1" to="/login" class="login"
-                >Ik heb al een account</router-link
+            <div class="footerBegin" v-if="stepState === 1">
+              <router-link to="/login" class="login">Ik heb al een account</router-link>
+
+              <Button
+                v-if="stepState !== 1 && stepState !== 9"
+                @click.native="setState('next')"
+                message="volgende"
               >
-              <div class="buttons" v-if="stepState !== 1 && stepState !== 9">
-                <Button
-                  v-if="stepState !== 1 && stepState !== 9"
-                  @click.native="setState('next')"
-                  message="Volgende"
-                >
-                  ></Button
-                >
-              </div>
+                ></Button
+              >
 
               <Button
                 v-else
                 @click.native="setState('next')"
-                message="Starten"
+                message="starten"
                 :isSubmit="true"
               ></Button>
+            </div>
+
+            <div class="footer" v-else-if="stepState !== 1 && stepState !== 9">
+              <Button @click.native="setState('next')" message="volgende"> ></Button>
+            </div>
+
+            <div class="footer" v-else>
+              <Button @click.native="setState('next')" message="starten" :isSubmit="true"></Button>
             </div>
           </legend>
         </fieldset>
@@ -149,14 +154,40 @@ export default {
     onSubmit() {
       if (this.stepState === 9) {
         // Post submit to server
-        axios.post("/api/register", this.$store.state.user, {
-          headers: { "Content-type": "application/json" },
-        });
+        axios
+          .post("/api/register", this.$store.state.user, {
+            headers: { "Content-type": "application/json" },
+          })
+          .then((response) => {
+            if (response.status === 200) {
+              let userData = response.data;
+
+              // Clean store
+              this.$store.state.user = "";
+
+              // Set all data to store
+              this.$store.state.user = userData;
+
+              // Set states to true
+              this.registered = true;
+              this.$store.state.loggedIn = true;
+            }
+          })
+
+          .catch((err) => {
+            // if (this.errors.length >= 1) {
+            //   return;
+            // }
+            // this.errors.push("Niet gelukt om acc in db te zetten");
+          });
       }
+<<<<<<< HEAD
       // need to check if status code is 200 here
       // set registered true if
       this.$store.state.loggedIn = true;
       this.registered = true;
+=======
+>>>>>>> master
     },
   },
   data() {

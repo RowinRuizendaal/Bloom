@@ -1,7 +1,6 @@
 /**
  * The index of the database config
  *
- *
  */
 
 const dbConfig = require('./db.config.js');

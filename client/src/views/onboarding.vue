@@ -2,8 +2,10 @@
   <main>
     <header>
       <nav>
-        <li class="logo"><h2>bloom</h2></li>
-        <li><router-link to="/register" class="skip">skip</router-link></li>
+        <ul>
+          <li class="logo"><h2>bloom</h2></li>
+          <li><router-link to="/register" class="skip">skip</router-link></li>
+        </ul>
       </nav>
     </header>
     <article

@@ -1,7 +1,6 @@
 /**
  * Connection to the db
  *
- *
  */
 
 const db = require('./db.index.js');

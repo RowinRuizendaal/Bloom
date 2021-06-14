@@ -38,7 +38,7 @@ async function checkValidUser(email, password) {
  *
  */
 
-function createUser({
+async function createUser({
   firstName,
   surName,
   emailAddress,
@@ -50,7 +50,7 @@ function createUser({
   profileAvatar,
   about,
 }) {
-  Users.create({
+  let newUser = await Users.create({
     firstName: firstName,
     surName: surName,
     emailAddress: emailAddress,
@@ -62,6 +62,8 @@ function createUser({
     profileAvatar: profileAvatar,
     about: about,
   });
+
+  return newUser;
 }
 
 /**
