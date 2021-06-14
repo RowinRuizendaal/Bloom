@@ -21,6 +21,7 @@ let globalUserID;
 
 function setGlobal(id) {
   globalUserID = id;
+  // console.log('[chat.controller.js:] ', globalUserID);
 }
 
 /**
@@ -36,7 +37,7 @@ async function handleChats(req, res) {
   // 3. Return data chat + participent data
 
   // 1. search in collection to the userID
-  const userChats = await getChatsById(req.params.id);
+  const userChats = await getChatsById(globalUserID);
 
   let allChats = [];
 

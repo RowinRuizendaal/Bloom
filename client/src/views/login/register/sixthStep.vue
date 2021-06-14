@@ -1,5 +1,5 @@
 <template>
-  <div class="stepSix">
+  <div class="six">
     <h2>Welk type kanker heb je gehad?</h2>
 
     <ul class="chips">
