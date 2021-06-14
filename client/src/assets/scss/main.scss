@@ -74,6 +74,10 @@ main {
     padding-bottom: 5rem;
 }
 
+.home {
+    padding-bottom: 0rem;
+}
+
 // Vue tour need important to overrule the built-in css
 .v-step {
     background-color: white !important;
