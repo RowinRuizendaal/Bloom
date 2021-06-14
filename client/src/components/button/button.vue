@@ -12,7 +12,7 @@
     </span>
   </a>
 
-  <button v-else-if="isSubmit" class="nextButton test" type="submit">
+  <button v-else-if="isSubmit" class="nextButton" type="submit">
     {{ message }}
     <span>
       <!-- arrow icon -->
