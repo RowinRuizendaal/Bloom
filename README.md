@@ -79,23 +79,30 @@ UX friendly, how?
 
 ### User Interface
 Screenshots of the pages in the application
+<p float="left">
 
-<img src="docs/UI/start.png" alt="The user interface of the start page" width="200"/>
+<img src="docs/UI/start.png" alt="The user interface of the start page" width="300"/>
 
-<img src="docs/UI/onboarding.png" alt="The user interface of the onboarding page" width="200"/>
+<img src="docs/UI/onboarding.png" alt="The user interface of the onboarding page" width="300"/>
 
-<img src="docs/UI/login.png" alt="The user interface of the login page" width="200"/>
+<img src="docs/UI/login.png" alt="The user interface of the login page" width="300"/>
 
-<img src="docs/UI/themes.png" alt="The user interface of the themes page" width="200"/>
+</p>
 
-<img src="docs/UI/profile.png" alt="The user interface of the profile page" width="200"/>
+<p float="left">
 
-<img src="docs/UI/buddies.png" alt="The user interface of the Buddies page" width="200"/>
+<img src="docs/UI/themes.png" alt="The user interface of the themes page" width="300"/>
 
-<img src="docs/UI/chats.png" alt="The user interface of the chats page" width="200"/>
+<img src="docs/UI/profile.png" alt="The user interface of the profile page" width="300"/>
 
-<img src="docs/UI/chat-detail.png" alt="The user interface of the chat-detail page" width="200"/>
+<img src="docs/UI/buddies.png" alt="The user interface of the Buddies page" width="300"/>
+</p>
 
+<p float="left">
+<img src="docs/UI/chats.png" alt="The user interface of the chats page" width="300"/>
+
+<img src="docs/UI/chat-detail.png" alt="The user interface of the chat-detail page" width="300"/>
+</p>
 ## :1234: Data  
 We used Mongoose data schemas to create schemas before we insert the data.
 ### User schema
