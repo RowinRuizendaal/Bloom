@@ -122,13 +122,33 @@ export default {
         this.$store.state.loggedIn = true;
 
         // Post submit to server
-        axios.post("/api/register", this.$store.state.user, {
-          headers: { "Content-type": "application/json" },
-        });
+        axios
+          .post("/api/register", this.$store.state.user, {
+            headers: { "Content-type": "application/json" },
+          })
+          .then((response) => {
+            if (response.status === 200) {
+              let userData = response.data;
+
+              // Clean store
+              this.$store.state.user = "";
+
+              // Set all data to store
+              this.$store.state.user = userData;
+
+              // Set states to true
+              this.registered = true;
+              this.$store.state.loggedIn = true;
+            }
+          })
+
+          .catch((err) => {
+            // if (this.errors.length >= 1) {
+            //   return;
+            // }
+            // this.errors.push("Niet gelukt om acc in db te zetten");
+          });
       }
-      // need to check if status code is 200 here
-      // set registered true if
-      this.registered = true;
     },
   },
   data() {

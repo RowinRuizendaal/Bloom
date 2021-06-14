@@ -166,8 +166,7 @@ export default {
   },
   methods: {
     async getAllUsers() {
-      let currentUserID = this.$store.state.user._id;
-      let url = `${window.location.origin}/api/users/${currentUserID}`;
+      let url = `${window.location.origin}/api/users`;
 
       axios
         .get(url)
@@ -177,7 +176,6 @@ export default {
           arrayUsers.push(response.data);
         })
         .catch((err) => {
-          console.log("err");
           // this.errors.push("Er zijn helaas geen users gevonden");
         });
     },
