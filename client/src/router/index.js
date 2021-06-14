@@ -1,11 +1,11 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 
-import Login from "../views/login/Login.vue";
+import Login from "../views/login/login.vue";
 import RegisterIndex from "../views/login/register/index.vue";
 import ForgotPassword from "../views/login/forgotPassword.vue";
 
-import Profile from "../views/profile/Profile.vue";
+import Profile from "../views/profile/profile.vue";
 
 import Buddies from "../views/buddies/buddies.vue";
 import BuddyDetail from "../views/buddies/buddyDetail.vue";
