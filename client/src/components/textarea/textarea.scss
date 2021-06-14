@@ -1,0 +1,16 @@
+textarea {
+    font-size: 0.875rem;
+    font-family: "Open Sans", sans-serif;
+    font-weight: 500;
+
+    padding: 0.625rem 1.125rem;
+    resize: none;
+    width: 100%;
+
+    border: solid 1px $lightgray;
+    border-radius: 1.25rem;
+
+    &:focus {
+        outline: none;
+    }
+}
