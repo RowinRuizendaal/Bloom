@@ -11,13 +11,13 @@ _Meesterproef, a course of the minor Web Design & Development. It is a minor of 
 [Link to live version :rocket:](https://bloom-hva.herokuapp.com/)
 ### Table of Contents
 <div style="margin-left: auto; margin-right: auto;margin: 0 auto;">
-    <a href="#rocket-purpose-of-project">🚀 Purpose of Project <a>
-    • <a href="#heart_eyes-concept">😍 Concept<a>
-    • <a href="#1234-data">🔢 Data<a>
-    • <a href="#nerd_face-technical-summary">🤓  Technical summary<a>
-    • <a href="#gear-installation">⚙️ Installation<a>
-    • <a href="#file_folder-sources">📁 Sources<a>
-    • <a href="#cop-license">👮 License<a>
+    <a href="#rocket-purpose-of-project">🚀 Purpose of Project </a>
+    • <a href="#heart_eyes-concept">😍 Concept</a>
+    • <a href="#1234-data">🔢 Data</a>
+    • <a href="#nerd_face-technical-summary">🤓  Technical summary</a>
+    • <a href="#gear-installation">⚙️ Installation</a>
+    • <a href="#file_folder-sources">📁 Sources</a>
+    • <a href="#cop-license">👮 License</a>
 </div>
 
 ## :rocket: Purpose of Project
@@ -34,17 +34,37 @@ The purpose of this application is to connect people who have had or still have 
 **bloom** is an application to connect people with each other who have had or still have cancer, these people can tell share their thought and opinions with others.
 
 ### Core feature/user scenario's
-- As an user, I want information on relevant topics, so that I know what to expect after the treatment process.
-- As an user, I want 1-on-1 contact with fellow sufferers, so that I can reflect on my experiences and strengthen my coping strategies.
+- As a user, I want information on relevant topics, so that I know what to expect after the treatment process.
+- As a user, I want 1-on-1 contact with fellow sufferers, so that I can reflect on my experiences and strengthen my coping strategies.
 
 ### Features
-- lorem
+- You can register an account via a Progressive Disclosure register process
+- You can login onto your account
+- You can assume a lot of information about cancer at the Themes page
+- You can see other buddies  
+
+### Tech-features
+- passsword hashing
+- vuex store encrypointg
+- localstorage
+
 ### UI
-- image of the feature UI's
+Screenshots of the pages in the application
+
+<img src="docs/UI/login.png" alt="The user interface of the login page" width="300"/>
+
+<img src="docs/UI/profile.png" alt="The user interface of the profile page" width="300"/>
+
+<img src="docs/UI/themes.png" alt="The user interface of the themes page" width="300"/>
+
+<img src="docs/UI/buddies.png" alt="The user interface of the Buddies page" width="300"/>
 
 ## :1234: Data  
 We used Mongoose data schemas to create schemas before we insert the data.
 ### User schema
+lorem ipsum 
+This data in db is created by the register function
+
 ```js
 {
   firstName: String,
@@ -62,6 +82,9 @@ We used Mongoose data schemas to create schemas before we insert the data.
 ```
 
 ### Chat schema
+lorem ipsum 
+This data is created as ```lorem``` by default when you want to chat with someone. (function object). This data can be manipulated by the accept of the other partiicpant. or delte, then this object iwll bee delted in db. Or New message via socket will also be pushed to db for later visit on chat (messages history).
+
 ```js
 {
   request: {
@@ -90,11 +113,12 @@ This app is built, using:
 - [Vuex](https://vuex.vuejs.org/guide/#the-simplest-store)
 - [Vue Router](https://router.vuejs.org/)
 - [Mongoose](https://mongoosejs.com/)
+- [Socket.io](http://socket.io/)
 - [Heroku deployment](https://www.heroku.com/nodejs)
 
 
 ## :gear: Installation
->⚠️ To use the application in development, you need a MongoDB database and a URI to connect with it! Contact us please if you want to run the project.
+>⚠️ To use the application in development, you need a MongoDB database and a URI to connect with it! Please contact us if you want to run the project.
 
 1. Clone the repository:  
 ```
@@ -119,7 +143,6 @@ cd server && npm run dev
 ```
 http://localhost:8080/
 ```
-
 
 ### Compiles and minifies for production
 ```
