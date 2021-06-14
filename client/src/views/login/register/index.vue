@@ -70,6 +70,11 @@
           </legend>
         </fieldset>
       </form>
+      <div v-if="errors.length" class="error">
+        <ul class="error-list" v-for="(item, index) in errors" :key="index">
+          <Error :message="errors[index]" />
+        </ul>
+      </div>
     </main>
   </section>
 </template>
@@ -85,6 +90,7 @@ import SixthStep from "./sixthStep.vue";
 import SeventhStep from "./seventhStep.vue";
 import EightStep from "./eightStep.vue";
 import Ready from "./readyStep.vue";
+import Error from "../../../components/error/error.vue";
 
 import axios from "axios";
 
@@ -100,22 +106,48 @@ export default {
     SeventhStep,
     EightStep,
     Ready,
+    Error,
   },
 
   methods: {
     setState(sort) {
-      if (sort === "next") {
+      const validate = [
+        {
+          id: 1,
+          Emailadres: this.$store.state.user.emailAddress,
+          Wachtwoord: this.$store.state.user.password,
+        },
+        {
+          id: 2,
+          Voornaam: this.$store.state.user.firstName,
+          Achternaam: this.$store.state.user.surName,
+        },
+      ];
+
+      validate.filter((element) => {
+        if (element.id === this.stepState) {
+          Object.keys(element).filter((k) => {
+            if (element[k] === "" || element[k] === undefined || element[k] === null) {
+              this.errors.push(`${[k]} is niet opgegeven`);
+              return (this.validate = false);
+            } else {
+              this.errors = [];
+              this.validate = true;
+            }
+          });
+        }
+      });
+      if (sort === "next" && this.validate) {
         return (this.stepState += 1);
-      } else if (sort === "prev") {
+      } else if (sort === "prev" && this.validate) {
         return (this.stepState -= 1);
       }
+
       return;
     },
 
     onSubmit() {
       if (this.stepState === 9) {
-        this.$store.state.loggedIn = true;
-
         // Post submit to server
         axios.post("/api/register", this.$store.state.user, {
           headers: { "Content-type": "application/json" },
@@ -123,6 +155,7 @@ export default {
       }
       // need to check if status code is 200 here
       // set registered true if
+      this.$store.state.loggedIn = true;
       this.registered = true;
     },
   },
@@ -131,6 +164,8 @@ export default {
       maxslides: 9,
       stepState: 1,
       registered: false,
+      validate: false,
+      errors: [],
     };
   },
   updated() {

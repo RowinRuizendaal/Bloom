@@ -21,7 +21,15 @@
       </div>
     </article>
     <div class="buttons">
-      <Button message="volgende" v-bind:isSlider="true" />
+      <Button
+        v-if="$store.state.activeIndex === 2"
+        :isSlider="false"
+        :isSubmit="false"
+        :slug="false"
+        message="volgende"
+        internLink="/register"
+      />
+      <Button message="volgende" v-bind:isSlider="true" v-else />
       <div class="circles">
         <span
           v-for="index in maxslides"
@@ -42,6 +50,7 @@ export default {
   },
   methods: {
     nextSlide(index) {
+      console.log(this.$store.state.activeIndex);
       return this.$store.commit("nextSlide", index);
     },
   },
