@@ -181,13 +181,6 @@ export default {
             // this.errors.push("Niet gelukt om acc in db te zetten");
           });
       }
-<<<<<<< HEAD
-      // need to check if status code is 200 here
-      // set registered true if
-      this.$store.state.loggedIn = true;
-      this.registered = true;
-=======
->>>>>>> master
     },
   },
   data() {
