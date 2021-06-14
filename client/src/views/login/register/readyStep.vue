@@ -8,18 +8,12 @@
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      // check if all data is filled in
-    };
-  },
-};
+export default {};
 </script>
 
 <style lang="scss">
 img {
   display: block;
-  margin: 0 auto;
+  margin: 5em auto;
 }
 </style>
