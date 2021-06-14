@@ -26,7 +26,7 @@
           </div>
         </div>
       </section>
-      <Nav />
+      <Nav :tour="true" />
     </main>
   </section>
 </template>

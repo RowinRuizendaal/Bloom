@@ -3,7 +3,7 @@ import VueRouter from "vue-router";
 
 import Login from "../views/login/login.vue";
 import RegisterIndex from "../views/login/register/index.vue";
-import ForgotPassword from "../views/login/forgotPassword.vue";
+import ForgotPassword from "../views/login/ForgotPassword.vue";
 
 import Profile from "../views/profile/profile.vue";
 
@@ -14,7 +14,7 @@ import ChatOverview from "../views/chat/chatOverview.vue";
 import ChatDetail from "../views/chat/chatDetail.vue";
 import ChatRequest from "../views/chat/chatRequest.vue";
 
-import Home from "../views/home.vue";
+import Home from "../views/Home.vue";
 import Onboarding from "../views/onboarding.vue";
 import Theme from "../views/themes/theme.vue";
 import ThemeSlug from "../views/themes/slug.vue";
