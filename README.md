@@ -28,7 +28,6 @@ The reason the client started this project is that she has been personally invol
 
 The purpose of this application is to connect people who have had or still have cancer. These people can tell their story together or find support from other users. The users can therefore find a 'buddy' with this app. The user can also indicate in the app what type of cancer they have had and this means that these people are matched based on the type of cancer.
 
-
 ## :heart_eyes: Concept
 ### What's it?
 **bloom** is an application to connect people with each other who have had or still have cancer, these people can tell share their thought and opinions with others.
@@ -47,28 +46,55 @@ The purpose of this application is to connect people who have had or still have 
 - You can chat with a buddy
 
 ### Tech-features
-- passsword hashing
-- vuex store encrypointg
-- localstorage
+#### Passsword hashing
+why?
+how?
+codesnippet?
+UX friendly, how?
+
+#### Vuex store encrypoint
+why?
+how?
+codesnippet?
+UX friendly, how?
+
+#### LocalStorage
+why?
+how?
+codesnippet?
+UX friendly, how?
+
+#### realtime chat
+why?
+how?
+codesnippet?
+UX friendly, how?
+
+## Progressive Web App
+- GIF
+- Why?
+- files
+- how? --> better for UX
+
 
 ### User Interface
 Screenshots of the pages in the application
 
-<img src="docs/UI/start.png" alt="The user interface of the start page" width="300"/>
+<img src="docs/UI/start.png" alt="The user interface of the start page" width="200"/>
 
-<img src="docs/UI/onboarding.png" alt="The user interface of the onboarding page" width="300"/>
+<img src="docs/UI/onboarding.png" alt="The user interface of the onboarding page" width="200"/>
 
-<img src="docs/UI/login.png" alt="The user interface of the login page" width="300"/>
+<img src="docs/UI/login.png" alt="The user interface of the login page" width="200"/>
 
-<img src="docs/UI/profile.png" alt="The user interface of the profile page" width="300"/>
+<img src="docs/UI/themes.png" alt="The user interface of the themes page" width="200"/>
 
-<img src="docs/UI/themes.png" alt="The user interface of the themes page" width="300"/>
+<img src="docs/UI/profile.png" alt="The user interface of the profile page" width="200"/>
 
-<img src="docs/UI/buddies.png" alt="The user interface of the Buddies page" width="300"/>
+<img src="docs/UI/buddies.png" alt="The user interface of the Buddies page" width="200"/>
 
-<img src="docs/UI/chats.png" alt="The user interface of the chats page" width="300"/>
+<img src="docs/UI/chats.png" alt="The user interface of the chats page" width="200"/>
 
-<img src="docs/UI/chat-detail.png" alt="The user interface of the chat-detail page" width="300"/>
+<img src="docs/UI/chat-detail.png" alt="The user interface of the chat-detail page" width="200"/>
 
 ## :1234: Data  
 We used Mongoose data schemas to create schemas before we insert the data.
