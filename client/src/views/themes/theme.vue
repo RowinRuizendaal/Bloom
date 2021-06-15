@@ -19,14 +19,14 @@
         <div class="container">
           <div v-for="(theme, index) in themelist" :key="index">
             <router-link :to="{ name: 'article', params: { id: theme.id } }">
-              <article>
+              <article :class="theme.background">
                 <h3>{{ theme.name }}</h3>
               </article>
             </router-link>
           </div>
         </div>
       </section>
-      <Nav />
+      <Nav :tour="true" />
     </main>
   </section>
 </template>

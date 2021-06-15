@@ -21,7 +21,7 @@
     </header>
 
     <main>
-      <article>
+      <article v-if="this.data[0]">
         <div class="profile-img" :class="this.data[0].profileAvatar">
           <p>
             {{ createInitials(this.data[0].firstName, this.data[0].surName) }}
@@ -102,7 +102,7 @@
         <button @click="createChat">bericht</button>
       </article>
 
-      <article>
+      <article v-if="this.data[0]">
         <h3>Biografie</h3>
         <p>{{ this.data[0].about }}</p>
       </article>
@@ -125,7 +125,7 @@
             </li>
           </ul>
 
-          <ul>
+          <ul v-if="this.data[0]">
             <li>
               <p>{{ this.data[0].typeIllness[0] }}</p>
             </li>
@@ -142,19 +142,15 @@
         </div>
       </article>
 
-      <article>
+      <article v-if="this.data[0]">
         <h3>Profielvragen</h3>
         <div :class="this.data[0].profileAvatar">
           <h4>Wat is de vraag?</h4>
           <p>Dit is het antwoord.</p>
         </div>
       </article>
-
-      <form action=""></form>
-
-      <button @click="opened = visible = true">Open Popup</button>
     </main>
-    <Nav active="buddies" />
+    <Nav active="buddies" :tour="false" />
   </section>
 </template>
 

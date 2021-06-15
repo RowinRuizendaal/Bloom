@@ -1,5 +1,5 @@
 <template>
-  <main>
+  <main class="home">
     <section class="index__page">
       <article>
         <p>Welkom bij</p>
@@ -17,39 +17,5 @@ export default {
 </script>
 
 <style lang="scss">
-.index__page {
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  background-image: url("../assets/svg/background.svg");
-  background-position: center;
-  background-size: cover 100% 100%;
-  background-repeat: no-repeat;
-  overflow: hidden;
-  @include q-lg-min {
-    background-size: cover;
-  }
-  article {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    p {
-      font-weight: bold;
-      font-size: 16px;
-      color: $gray;
-    }
-    h1 {
-      color: $orange;
-      font-size: 48px;
-      margin-bottom: 5rem;
-    }
-  }
-  .start {
-    color: $orange;
-    font-size: 21px;
-  }
-}
+@import "@/components/home/home.scss";
 </style>

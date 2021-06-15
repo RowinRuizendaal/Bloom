@@ -73,3 +73,41 @@ input.loginInput {
 main {
     padding-bottom: 5rem;
 }
+
+.home {
+    padding-bottom: 0rem;
+}
+
+// Vue tour need important to overrule the built-in css
+.v-step {
+    background-color: white !important;
+    color: black !important;
+    .v-step__header {
+        font-family: $font-family-primary;
+        color: $orange;
+        font-weight: $font-weight-bold;
+        background-color: $lighterYellow !important;
+    }
+    .v-step__content {
+        div {
+            color: $gray !important;
+            font-family: $font-family-primary;
+        }
+        span {
+            color: $gray;
+            font-weight: $font-weight-bold;
+        }
+    }
+    .v-step__buttons {
+        background-color: $white;
+        button {
+            color: $gray !important;
+            font-family: $font-family-primary;
+        }
+    }
+    .v-step__arrow--dark {
+        &:before {
+            background-color: white !important;
+        }
+    }
+}

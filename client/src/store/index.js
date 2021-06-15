@@ -70,6 +70,7 @@ export default new Vuex.Store({
         id: 2,
         name: "Angst",
         image: "2.jpg",
+        background: "right",
         intro:
           "Een ernstige ziekte kan je angstig maken. Dat is begrijpelijk. Je leven en toekomstplannen zijn ingrijpend veranderd. Veel mensen met kanker zijn angstig. Dat is een normale reactie. Ben je vaak angstig en gaat dat gevoel niet over? Dan is het belangrijk dat je hulp zoekt.",
         p1: "",
@@ -131,6 +132,7 @@ export default new Vuex.Store({
         id: 3,
         name: "Somberheid",
         image: "3.jpg",
+        background: "left",
         intro:
           "Een ernstige ziekte kan je somber maken. Dat is heel begrijpelijk. Je dagelijks leven en je toekomstplannen zijn ingrijpend veranderd. Ben je vaak somber en gaat dat gevoel niet over? Dan is het belangrijk dat je hulp zoekt.",
         p1: "",
@@ -307,6 +309,7 @@ export default new Vuex.Store({
         id: 6,
         name: "Lichaam & uiterlijk",
         image: "1.jpg",
+        background: "right",
         intro:
           "Door een ernstige ziekte ontstaan soms geldproblemen. Bijvoorbeeld door extra kosten. Of doordat je minder of helemaal niet kunt werken door je ziekte. Heb je geldproblemen of schulden? Praat erover en zoek hulp.",
         p1: "Geldzorgen kunnen je somber, onzeker of angstig maken. Ook kun je er slecht door gaan slapen. Weet dat je niet de enige bent. Veel mensen met kanker hebben geldproblemen. Vaak schamen ze zich. Ze praten er daarom liever niet over. Dat maakt de geldzorgen en negatieve gevoelens vaak alleen maar erger.",

@@ -1,7 +1,7 @@
 <template>
   <nav class="navigation">
     <ul class="items">
-      <li class="link" :class="{ 'fill-active': active === 'home' }">
+      <li class="link" :class="{ 'fill-active': active === 'home' }" data-v-step="1">
         <router-link to="/themes">
           <div class="list">
             <svg
@@ -25,7 +25,7 @@
           </div>
         </router-link>
       </li>
-      <li class="link" :class="{ 'fill-active': active === 'buddies' }">
+      <li class="link" :class="{ 'fill-active': active === 'buddies' }" data-v-step="2">
         <router-link to="/buddies">
           <div class="list">
             <svg
@@ -68,7 +68,7 @@
           </div>
         </router-link>
       </li>
-      <li class="link" :class="{ 'fill-active': active === 'chats' }">
+      <li class="link" :class="{ 'fill-active': active === 'chats' }" data-v-step="3">
         <router-link to="/chats">
           <div class="list">
             <svg xmlns="http://www.w3.org/2000/svg" width="25" height="24.962">
@@ -86,7 +86,7 @@
           </div>
         </router-link>
       </li>
-      <li class="link" :class="{ 'fill-active': active === 'profile' }">
+      <li class="link" :class="{ 'fill-active': active === 'profile' }" data-v-step="4">
         <router-link to="/profile">
           <div class="list">
             <svg
@@ -110,6 +110,7 @@
         </router-link>
       </li>
     </ul>
+    <v-tour name="myTour" :steps="steps" v-if="tour" :options="myOptions"></v-tour>
   </nav>
 </template>
 
@@ -120,6 +121,61 @@ export default {
       type: String,
       default: "home",
     },
+    tour: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  data() {
+    return {
+      myOptions: {
+        useKeyboardNavigation: false,
+        labels: {
+          buttonSkip: "Sla de tour over",
+          buttonPrevious: "Vorige",
+          buttonNext: "Volgende",
+          buttonStop: "Voltooien",
+        },
+      },
+      steps: [
+        {
+          target: '[data-v-step="1"]',
+          header: {
+            title: "Thema's",
+          },
+          content: `Hier vind je <span>psychosociale klachten</span> opgedeeld in een aantal thema’s. Je kunt hier informatie vinden over <span>klachten, tips en hulp per thema.</span>`,
+        },
+        {
+          target: '[data-v-step="2"]',
+          header: {
+            title: "Buddy",
+          },
+          content:
+            "Hier vind je een overzicht van de profielen van <span>andere gebruikers</span>. Je kunt hier op zoek gaan naar een <span>buddy</span> om mee te praten.",
+        },
+        {
+          target: '[data-v-step="3"]',
+          header: {
+            title: "Berichten",
+          },
+          content:
+            "Hier vind je de <span>chat</span>, waar gesprekken met andere gebruikers komen te staan. Je moet een bericht eerst <span>goedkeuren</span>, voordat het gesprek wordt gestart.",
+        },
+        {
+          target: '[data-v-step="4"]',
+          header: {
+            title: "Profiel",
+          },
+          content:
+            "Hier vind je de <span>informatie</span> terug die je tijdens het registreren hebt ingevuld. Dit kun je altijd nog <span>aanpassen</span>, of aanvullende informatie toevoegen.",
+        },
+      ],
+    };
+  },
+  mounted: function () {
+    if (this.tour) {
+      this.$tours["myTour"].start();
+    }
   },
 };
 </script>

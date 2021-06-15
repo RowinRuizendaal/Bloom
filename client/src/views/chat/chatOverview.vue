@@ -13,7 +13,7 @@
       </router-link>
 
       <div v-else>
-        <p>niks</p>
+        <p>0</p>
       </div>
     </header>
 
@@ -114,6 +114,7 @@ export default {
 
           if (chats.length) {
             for (let i in chats) {
+              let currentUserId = this.$store.state.user._id;
               let acceptedState = chats[i].userChatUnique.request.accepted;
               let requestCreater = chats[i].userChatUnique.request.creater;
 
@@ -123,7 +124,6 @@ export default {
                 // push in chatRequests
                 this.chatRequests.push(chats[i]);
                 this.$store.state.chatRequests.push(chats[i]);
-                // console.log("req: ", this.chatRequests);
               } else {
                 // filter out the chatrequests
                 this.chats.push(chats[i]);

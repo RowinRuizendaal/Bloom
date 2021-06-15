@@ -7,6 +7,7 @@
     font-family: $font-family-primary;
     font-weight: $font-weight-bold;
     font-size: 0.8rem;
+    margin-bottom: 1rem;
     &::before {
         content: "\0021";
         height: 1.25rem;

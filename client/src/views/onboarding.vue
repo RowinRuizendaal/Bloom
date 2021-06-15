@@ -2,8 +2,10 @@
   <main>
     <header>
       <nav>
-        <li class="logo"><h2>bloom</h2></li>
-        <li><router-link to="/register" class="skip">skip</router-link></li>
+        <ul>
+          <li class="logo"><h2>bloom</h2></li>
+          <li><router-link to="/register" class="skip">skip</router-link></li>
+        </ul>
       </nav>
     </header>
     <article
@@ -21,7 +23,15 @@
       </div>
     </article>
     <div class="buttons">
-      <Button message="volgende" v-bind:isSlider="true" />
+      <Button
+        v-if="$store.state.activeIndex === 2"
+        :isSlider="false"
+        :isSubmit="false"
+        :slug="false"
+        message="volgende"
+        internLink="/register"
+      />
+      <Button message="volgende" v-bind:isSlider="true" v-else />
       <div class="circles">
         <span
           v-for="index in maxslides"
