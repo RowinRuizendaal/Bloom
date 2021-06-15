@@ -140,10 +140,6 @@ export default {
           gender: this.$store.state.user.gender,
         },
         {
-          id: 5,
-          gender: this.$store.state.user.gender,
-        },
-        {
           id: 6,
           type: this.$store.state.user.typeIllness,
         },
