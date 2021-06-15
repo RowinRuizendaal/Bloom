@@ -64,14 +64,18 @@
 
           <div>
             <p>{{ item.participant.firstName }} {{ item.participant.surName }}</p>
-            <p v-if="item.userChatUnique.messages.length">
+            <p v-if="item.userChatUnique.messages.length > 0">
               {{ item.userChatUnique.messages[item.userChatUnique.messages.length - 1].content }}
             </p>
 
-            <p v-else class="partialState">Stuur je eerste berichtje!</p>
+            <!-- <p v-else class="partialState">Stuur je eerste berichtje!</p> -->
 
-            <p v-if="item.userChatUnique.messages.length">
-              {{ item.userChatUnique.messages[item.userChatUnique.messages.length - 1].time }}
+            <p v-if="item.userChatUnique.messages.length > 0">
+              {{
+                convertTime(
+                  item.userChatUnique.messages[item.userChatUnique.messages.length - 1].time
+                )
+              }}
             </p>
 
             <p v-else class="partialState"></p>
@@ -86,6 +90,7 @@
 <script>
 import Nav from "@/components/nav/nav";
 import axios from "axios";
+import moment from "moment";
 
 export default {
   name: "ChatOverview",
@@ -97,36 +102,100 @@ export default {
   },
   data() {
     return {
-      chats: [],
+      chats: null,
       chatRequests: [],
       viewCreater: true,
     };
   },
   methods: {
-    // get user chat data by user ID
     async getChats() {
-      let url = `${window.location.origin}/api/chatsItems`;
+      // get user chat data by user ID
+      let currentUserId = this.$store.state.user._id;
+      let url = `${window.location.origin}/api/chatsItems/${currentUserId}`;
 
       axios
         .get(url)
         .then((response) => {
           let chats = response.data;
+          console.log("response: ", chats);
 
-          if (chats.length) {
+          // When there are chats
+          if (chats.length > 0) {
+            let chatsArray = [];
+
+            // Loop over chat objects
             for (let i in chats) {
-              let currentUserId = this.$store.state.user._id;
+              // console.log("all chats", chats[i]);
+              // let currentUserId = this.$store.state.user._id;
               let acceptedState = chats[i].userChatUnique.request.accepted;
               let requestCreater = chats[i].userChatUnique.request.creater;
 
+              // if chat obj is not accepted
               if (requestCreater !== currentUserId && acceptedState == false) {
                 this.viewCreater = false;
 
-                // push in chatRequests
+                // Push to chatRequests to seperate the data
                 this.chatRequests.push(chats[i]);
-                this.$store.state.chatRequests.push(chats[i]);
-              } else {
-                // filter out the chatrequests
-                this.chats.push(chats[i]);
+              }
+              // if chat obj is accepted
+              else {
+                // 1. Check if chat obj has messages, otherwise create timestamp key and set to null
+                // 2. Check the timestamp
+
+                let test = lengthCheck(chats[i]);
+                // 3. Push obj in new Arr
+                chatsArray.push(test);
+
+                // get the latest chat object and return latest message objecht
+                function lengthCheck(obj) {
+                  if (obj.userChatUnique.messages.length > 0) {
+                    console.log("object", obj);
+                    let last = getLastObject(obj.userChatUnique.messages);
+                    console.log("last messge per chat -- ", last);
+
+                    function getLastObject(arr) {
+                      return arr[arr.length - 1];
+                    }
+
+                    // Check if message is from current user or participant
+                    let lastMsg = {
+                      participant: {
+                        firstName: obj.participant.firstName,
+                        surName: obj.participant.surName,
+                        id: obj.participant.id,
+                        profileAvatar: obj.participant.profileAvatar,
+                      },
+                      userChatUnique: {
+                        messages: [last],
+                        participants: obj.userChatUnique.participants,
+                        request: {
+                          accepted: obj.userChatUnique.request.accepted,
+                          creater: obj.userChatUnique.request.creater,
+                        },
+                        _id: obj.userChatUnique._id,
+                      },
+                    };
+
+                    return lastMsg;
+                  } else {
+                    // time from now, so thisempty chat wil be put to the highest
+                    let date = new Date();
+                    let timestampSeconds = date.getTime() / 1000;
+                    obj.userChatUnique.messages.push({
+                      content: "Stuur je eerste berichtje!",
+                      time: timestampSeconds,
+                    });
+                    return obj;
+                  }
+                }
+                // 4. Sort the newArr
+                let testie = chatsArray.sort(function (a, b) {
+                  return b.userChatUnique.messages[0].time - a.userChatUnique.messages[0].time;
+                });
+
+                // 5. Assign this.chats to newArr
+                console.log("this.chats :", this.chats);
+                this.chats = testie;
               }
             }
           } else {
@@ -146,6 +215,26 @@ export default {
       let initials = [...fullName.matchAll(rgx)] || [];
       initials = ((initials.shift()?.[1] || "") + (initials.pop()?.[1] || "")).toUpperCase();
       return initials;
+    },
+
+    // Check if time is the same as today, then remove date
+    convertTime(timestamp) {
+      let timeStampMsg = timestamp * 1000;
+
+      let todayHours = new Date().setHours(0, 0, 0, 0);
+      let chatTimeHours = new Date(timeStampMsg).setHours(0, 0, 0, 0);
+
+      if (todayHours === chatTimeHours) {
+        // Message is from today
+        // format to correct
+        let formattedDate = moment(timeStampMsg).format("hh:mm a");
+        return formattedDate;
+      } else {
+        // Message is from not today
+        // format to correct
+        let formattedDate = moment(timeStampMsg).format("DD-MM-YYYY, hh:mm a");
+        return formattedDate;
+      }
     },
   },
 };

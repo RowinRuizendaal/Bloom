@@ -23,7 +23,7 @@
 
     <main>
       <router-link
-        v-for="(item, index) in data"
+        v-for="(item, index) in chatRequests"
         :key="index"
         :to="'/chat/' + item.userChatUnique._id"
       >
@@ -43,7 +43,11 @@
             <p v-else class="partialState">Stuur je eerste berichtje!</p>
 
             <p v-if="item.userChatUnique.messages.length">
-              {{ item.userChatUnique.messages[item.userChatUnique.messages.length - 1].time }}
+              {{
+                convertTime(
+                  item.userChatUnique.messages[item.userChatUnique.messages.length - 1].time
+                )
+              }}
             </p>
 
             <p v-else class="partialState"></p>
@@ -63,6 +67,7 @@
 <script>
 import Nav from "@/components/nav/nav";
 import axios from "axios";
+import moment from "moment";
 
 export default {
   name: "ChatRequest",
@@ -70,14 +75,39 @@ export default {
     Nav,
   },
 
-  data() {
-    let chatRequestsData = this.$store.state.chatRequests;
+  mounted() {
+    this.getChats();
+  },
 
+  data() {
     return {
-      data: chatRequestsData,
+      chatRequests: [],
     };
   },
+
   methods: {
+    async getChats() {
+      // get user chat data by user ID
+      let currentUserId = this.$store.state.user._id;
+      let url = `${window.location.origin}/api/chatsItems/${currentUserId}`;
+
+      axios.get(url).then((response) => {
+        let chatRequests = response.data;
+
+        // Iterate over each object
+        for (let i in chatRequests) {
+          let chatObject = chatRequests[i];
+
+          //  Check if chatObj is request (req.accpe = false)
+          if (chatObject.userChatUnique.request.accepted == false) {
+            console.log(chatObject);
+            // push object
+            this.chatRequests.push(chatObject);
+          }
+        }
+      });
+    },
+
     //  Get the initials of a fullname
     createInitials(firstName, surName) {
       let fullName = `${firstName} ${surName}`;
@@ -86,6 +116,26 @@ export default {
       let initials = [...fullName.matchAll(rgx)] || [];
       initials = ((initials.shift()?.[1] || "") + (initials.pop()?.[1] || "")).toUpperCase();
       return initials;
+    },
+
+    // Check if time is the same as today, then remove date
+    convertTime(timestamp) {
+      let timeStampMsg = timestamp * 1000;
+
+      let todayHours = new Date().setHours(0, 0, 0, 0);
+      let chatTimeHours = new Date(timeStampMsg).setHours(0, 0, 0, 0);
+
+      if (todayHours === chatTimeHours) {
+        // Message is from today
+        // format to correct
+        let formattedDate = moment(timeStampMsg).format("hh:mm a");
+        return formattedDate;
+      } else {
+        // Message is from not today
+        // format to correct
+        let formattedDate = moment(timeStampMsg).format("DD-MM-YYYY, hh:mm a");
+        return formattedDate;
+      }
     },
   },
 };
