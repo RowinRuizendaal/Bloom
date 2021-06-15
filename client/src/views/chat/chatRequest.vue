@@ -100,8 +100,7 @@ export default {
 
           //  Check if chatObj is request (req.accpe = false)
           if (chatObject.userChatUnique.request.accepted == false) {
-            console.log(chatObject);
-            // push object
+            // Push object to chatRequests
             this.chatRequests.push(chatObject);
           }
         }
@@ -111,6 +110,7 @@ export default {
     //  Get the initials of a fullname
     createInitials(firstName, surName) {
       let fullName = `${firstName} ${surName}`;
+
       // Logic for getting the name initials
       let rgx = new RegExp(/(\p{L}{1})\p{L}+/, "gu");
       let initials = [...fullName.matchAll(rgx)] || [];
@@ -127,12 +127,10 @@ export default {
 
       if (todayHours === chatTimeHours) {
         // Message is from today
-        // format to correct
         let formattedDate = moment(timeStampMsg).format("hh:mm a");
         return formattedDate;
       } else {
         // Message is from not today
-        // format to correct
         let formattedDate = moment(timeStampMsg).format("DD-MM-YYYY, hh:mm a");
         return formattedDate;
       }

@@ -117,87 +117,46 @@ export default {
         .get(url)
         .then((response) => {
           let chats = response.data;
-          console.log("response: ", chats);
 
-          // When there are chats
-          if (chats.length > 0) {
-            let chatsArray = [];
+          // 1. Check if there are chats
+          if (chats.length > 0)
+            // global arr
+            var allChats = [];
 
-            // Loop over chat objects
-            for (let i in chats) {
-              let acceptedState = chats[i].userChatUnique.request.accepted;
-              let requestCreater = chats[i].userChatUnique.request.creater;
+          // 2. If chats are not accpeted, push them in this.chatRequests
+          for (let i in chats) {
+            if (chats[i].userChatUnique.request.accepted != true) {
+              this.chatRequests.push(chats[i]);
+            } else {
+              // 3a Else check what the latest chatmessages are
+              let chatObject = chats[i];
+              let chatMessages = chatObject.userChatUnique.messages;
 
-              // if chat obj is not accepted
-              if (requestCreater !== currentUserId && acceptedState == false) {
-                this.viewCreater = false;
+              // 3b Check if there are messages
+              if (chatMessages.length > 0) {
+                // 3c Check what the latest chatmessages are
+                let lastMessage = chatMessages[chatMessages.length - 1];
 
-                // Push to chatRequests to seperate the data
-                this.chatRequests.push(chats[i]);
-              }
-              // if chat obj is accepted
-              else {
-                // 1. Check if chat obj has messages, otherwise create timestamp key and set to null
-                // 2. Check the timestamp
+                // 4. Get the timestamp
+                let timestamp = lastMessage.time;
 
-                let test = lengthCheck(chats[i]);
-                // 3. Push obj in new Arr
-                chatsArray.push(test);
+                // 5. Push them in a global array
+                chats[i]["timeSort"] = {};
+                chats[i]["timeSort"].time = timestamp;
+                chats[i]["timeSort"].message = lastMessage;
+                allChats.push(chats[i]);
 
-                // get the latest chat object and return latest message objecht
-                function lengthCheck(obj) {
-                  if (obj.userChatUnique.messages.length > 0) {
-                    console.log("object", obj);
-                    let last = getLastObject(obj.userChatUnique.messages);
-                    console.log("last messge per chat -- ", last);
-
-                    function getLastObject(arr) {
-                      return arr[arr.length - 1];
-                    }
-
-                    // Check if message is from current user or participant
-                    let lastMsg = {
-                      participant: {
-                        firstName: obj.participant.firstName,
-                        surName: obj.participant.surName,
-                        id: obj.participant.id,
-                        profileAvatar: obj.participant.profileAvatar,
-                      },
-                      userChatUnique: {
-                        messages: [last],
-                        participants: obj.userChatUnique.participants,
-                        request: {
-                          accepted: obj.userChatUnique.request.accepted,
-                          creater: obj.userChatUnique.request.creater,
-                        },
-                        _id: obj.userChatUnique._id,
-                      },
-                    };
-
-                    return lastMsg;
-                  } else {
-                    // time from now, so thisempty chat wil be put to the highest
-                    let date = new Date();
-                    let timestampSeconds = date.getTime() / 1000;
-                    obj.userChatUnique.messages.push({
-                      content: "Stuur je eerste berichtje!",
-                      time: timestampSeconds,
-                    });
-                    return obj;
-                  }
-                }
-                // 4. Sort the newArr
-                let testie = chatsArray.sort(function (a, b) {
-                  return b.userChatUnique.messages[0].time - a.userChatUnique.messages[0].time;
+                // 6. Sort the array
+                allChats.sort(function (a, b) {
+                  return b.timeSort.message.time - a.timeSort.message.time;
                 });
 
-                // 5. Assign this.chats to newArr
-                console.log("this.chats :", this.chats);
-                this.chats = testie;
+                // 7. Assign this.chats with that global array
+                this.chats = allChats;
+              } else {
+                // No message in chat object, so put there a message in
               }
             }
-          } else {
-            this.chats = null;
           }
         })
         .catch((err) => {

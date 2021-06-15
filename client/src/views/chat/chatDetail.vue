@@ -123,7 +123,6 @@
 <script>
 import axios from "axios";
 import io from "socket.io-client";
-import moment from "moment";
 
 export default {
   name: "ChatDetail",

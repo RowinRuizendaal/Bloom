@@ -37,7 +37,6 @@ async function handleChats(req, res) {
   // 3. Return data chat + participent data
 
   // 1. search in collection to the userID
-  console.log(req.params.id)
   const userChats = await getChatsById(req.params.id);
 
   let allChats = [];
@@ -45,7 +44,6 @@ async function handleChats(req, res) {
   // 2. get all chats from userID
   for (i = 0; i < userChats.length; i++) {
     let userChatUnique = userChats[i];
-    console.log('chat obj: ', userChatUnique);
 
     let participantUserIDs = await userChats[i].participants;
 
@@ -54,7 +52,7 @@ async function handleChats(req, res) {
       let partiUser;
 
       // Check if participantID is equal to current userID
-      if (participantUserIDs[i] !== globalUserID) {
+      if (participantUserIDs[i] !== req.params.id) {
         // Create new chat environment
         const userData = await findOneUser(participantUserIDs[i]);
         partiUser = userData;
@@ -68,7 +66,7 @@ async function handleChats(req, res) {
           },
           userChatUnique,
         };
-        console.log(wholeObject)
+
         allChats.push(wholeObject);
       } else {
         // nothing

@@ -34,8 +34,10 @@ export default {};
 </script>
 
 <style lang="scss">
-svg {
-  display: block;
-  margin: 5em auto;
+.ready {
+  svg {
+    display: block;
+    margin: 5em auto;
+  }
 }
 </style>
