@@ -267,6 +267,7 @@ This app is built, using:
 - [Heroku deployment](https://www.heroku.com/nodejs)
 
 ## Folderstructure
+```
 📦client
  ┣ 📂node_modules
  ┣ 📂public
@@ -462,6 +463,7 @@ This app is built, using:
  ┣ 📜package.json
  ┣ 📜vue.config.js
  ┗ 📜yarn.lock
+ ```
 
 ## :gear: Installation
 >⚠️ To use the application in development, you need a MongoDB database and a URI to connect with it! Please contact us if you want to run the project.
