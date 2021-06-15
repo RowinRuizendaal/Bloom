@@ -125,8 +125,6 @@ export default {
 
             // Loop over chat objects
             for (let i in chats) {
-              // console.log("all chats", chats[i]);
-              // let currentUserId = this.$store.state.user._id;
               let acceptedState = chats[i].userChatUnique.request.accepted;
               let requestCreater = chats[i].userChatUnique.request.creater;
 
