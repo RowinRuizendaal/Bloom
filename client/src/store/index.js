@@ -26,7 +26,7 @@ export default new Vuex.Store({
           "De vermoeidheid voelt alsof je uitgeput bent. Je bent al erg moe na een eenvoudig klusje.",
           "Bijvoorbeeld afwassen of stofzuigen. Je bent elke dag moe. De vermoeidheid gaat niet over. Ook niet als je even gaat zitten en uitrust.",
         ],
-        quote: `"Ik mezelf behoorlijk uitgeput. Dit zorgt voor vermoeidheid zowel lichamelijk als mentaal"`,
+        quote: `"Ik ben behoorlijk uitgeput. Dit zorgt voor vermoeidheid zowel lichamelijk als mentaal"`,
         klachtenheader: "Andere klachten",
         klachten1:
           "Als je erg moe bent, heb je weinig energie en kun je weinig doen. Dat heeft invloed op je emoties en gevoelens. Je bent bijvoorbeeld snel boos of somber. Mensen begrijpen vaak niet hoe het is om steeds moe te zijn. Dat kan je eenzaam maken.",
@@ -49,19 +49,19 @@ export default new Vuex.Store({
         links: [
           {
             website: "Haaglanden Medisch Centrum",
-            url: "https://google.com",
+            url: "https://www.haaglandenmc.nl/",
           },
           {
             website: "Kenniscentrum Chronische Vermoeidheid",
-            url: "https://google.com",
+            url: "https://nkcv.nl/",
           },
           {
             website: "Psychologenpraktijk M. Kalogridi",
-            url: "https://google.com",
+            url: "https://kalogridi.nl/",
           },
           {
             website: "Eerstelijnspsychologiepraktijk Vosmeer",
-            url: "https://google.com",
+            url: "https://www.zorgkaartnederland.nl/zorginstelling/psychologiepraktijk-en-psychotherapiepraktijk-eerstelijns-psychologie-praktijk-m-c-vosmeer-den-haag-3023216",
           },
         ],
       },
@@ -103,27 +103,27 @@ export default new Vuex.Store({
         links: [
           {
             website: "Haaglanden Medisch Centrum",
-            url: "https://google.com",
+            url: "https://www.haaglandenmc.nl/",
           },
           {
             website: "Module Angst en paniek",
-            url: "https://google.com",
+            url: "https://www.embloom.nl/content/angst-en-paniek/",
           },
           {
             website: "Stichting Kanker in Beeld",
-            url: "https://google.com",
+            url: "https://www.kankerinbeeld.nl/",
           },
           {
             website: "Zelfhulptraining Minder angst na kanker",
-            url: "https://google.com",
+            url: "https://www.hdi.nl/minder-angst-na-kanker/#:~:text=In%20deze%20zelfhulptraining%20leer%20je,je%20hiermee%20om%20kunt%20gaan.",
           },
           {
             website: "Psychologenpraktijk M. Kalogridi",
-            url: "https://google.com",
+            url: "https://kalogridi.nl/",
           },
           {
             website: "Eerstelijnspsychologiepraktijk Vosmeer",
-            url: "https://google.com",
+            url: "https://www.zorgkaartnederland.nl/zorginstelling/psychologiepraktijk-en-psychotherapiepraktijk-eerstelijns-psychologie-praktijk-m-c-vosmeer-den-haag-3023216",
           },
         ],
       },
@@ -168,7 +168,7 @@ export default new Vuex.Store({
         links: [
           {
             website: "Haaglanden Medisch Centrum",
-            url: "https://google.com",
+            url: "https://www.haaglandenmc.nl/",
           },
           {
             website: "Cursus In de put uit de put",
@@ -180,11 +180,11 @@ export default new Vuex.Store({
           },
           {
             website: "Stichting Kanker in Beeld",
-            url: "https://google.com",
+            url: "https://www.kankerinbeeld.nl/",
           },
           {
             website: "Psychologenpraktijk M. Kalogridi",
-            url: "https://google.com",
+            url: "https://kalogridi.nl/",
           },
           {
             website: "Eerstelijnspsychologiepraktijk Vosmeer",
@@ -230,11 +230,11 @@ export default new Vuex.Store({
         links: [
           {
             website: "Haaglanden Medisch Centrum",
-            url: "https://google.com",
+            url: "https://www.haaglandenmc.nl/",
           },
           {
             website: "Nederlandse Vereniging voor Relatietherapie",
-            url: "https://google.com",
+            url: "https://www.nvrg.nl/home",
           },
           {
             website: "Module Relatieproblemen",
@@ -242,11 +242,11 @@ export default new Vuex.Store({
           },
           {
             website: "Seksuologiepraktijk Den Haag",
-            url: "https://google.com",
+            url: "https://www.verwijsgidskanker.nl/organisatie/3273/seksuologiepraktijk-den-haag",
           },
           {
             website: "CenSeRe",
-            url: "https://google.com",
+            url: "https://censere.nl/",
           },
         ],
       },
@@ -284,11 +284,11 @@ export default new Vuex.Store({
         links: [
           {
             website: "Haaglanden Medisch Centrum",
-            url: "https://google.com",
+            url: "https://www.haaglandenmc.nl/",
           },
           {
             website: "Kans Tegen Kanker",
-            url: "https://google.com",
+            url: "https://www.kanstegenkanker.nl/",
           },
           {
             website: "Module Geldzorgen",
@@ -300,7 +300,7 @@ export default new Vuex.Store({
           },
           {
             website: "Nibud",
-            url: "https://google.com",
+            url: "https://www.nibud.nl/",
           },
         ],
       },
@@ -338,11 +338,11 @@ export default new Vuex.Store({
         links: [
           {
             website: "Haaglanden Medisch Centrum",
-            url: "https://google.com",
+            url: "https://www.haaglandenmc.nl/",
           },
           {
             website: "Kenniscentrum Chronische Vermoeidheid",
-            url: "https://google.com",
+            url: "https://nkcv.nl/",
           },
           {
             website: "Psychologenpraktijk M. Kalogridi",

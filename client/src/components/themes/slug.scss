@@ -33,6 +33,7 @@
         align-items: center;
         text-align: center;
         padding: 1.25rem;
+        height: 2rem;
         .active-class {
             background-color: $lightYellow;
         }
@@ -41,7 +42,10 @@
             background-color: $lighterYellow;
             width: 10rem;
             cursor: pointer;
-            height: 3rem;
+            height: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             &:first-child {
                 border-top-left-radius: 5px;
                 border-bottom-left-radius: 5px;
@@ -52,6 +56,9 @@
             }
             p {
                 color: $orange;
+                font-family: $font-family-primary;
+                font-weight: $font-weight-light;
+                font-size: 1rem;
             }
         }
     }
@@ -71,6 +78,7 @@
         border-top-right-radius: 20px;
         height: 12rem;
         object-fit: cover;
+        margin-top: -0.9rem;
         @include q-lg-min {
             max-width: 30rem;
         }
@@ -90,6 +98,9 @@
         .intro {
             color: $gray;
             padding: 1.25rem;
+            margin-top: -0.5rem;
+            margin-bottom: -0.2rem;
+            line-height: 1.6rem;
         }
         p {
             &:nth-child(1) {
@@ -128,11 +139,15 @@
         color: $orange;
         font-family: Nunito;
         font-weight: bolder;
-        font-size: 1.5rem;
+        font-size: 1.2rem;
+        font-style: italic;
         position: relative;
         border-radius: 5px;
         line-height: 1.6rem;
         margin-bottom: 2rem;
+        background-color: $lighterYellow;
+        border-radius: 1.7rem;
+        padding: 20px 22px 22px 20px;
     }
     .header {
         display: flex;
@@ -148,7 +163,7 @@
         }
         p {
             margin-left: auto;
-            margin-right: 4.2rem;
+            margin-right: 3.2rem;
             color: $orange;
             font-weight: bolder;
             @include q-lg-min {

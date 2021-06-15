@@ -3,8 +3,11 @@
     <h2>Vertel iets over jezelf</h2>
     <p>Is er nog iets wat je zou willen delen? Dat kun je kwijt in je biografie.</p>
 
-    <input
+    <textarea
       type="text"
+      rows="14"
+      cols="10"
+      wrap="soft"
       :value="about"
       @input="updateAbout"
       placeholder="Vertel iets over jezelf"
