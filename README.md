@@ -166,6 +166,7 @@ You can install the application from the browser to your homescreen. So you can 
 The app remembers the pages you have visited. So when you are offline (have no internet connection) you can use the app in the offline mode with all the pages from the cache you have visited. Also when you are online and you visit pages that are in the cache, it optimses the speed of the app.
 
 Icon:
+
 <img src="docs/pwa/pwa-favicon.png" alt="Favicon of the PWA" width=150px>
 
 Mobile:
