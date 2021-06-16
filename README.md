@@ -12,9 +12,9 @@ _Meesterproef, a course of the minor Web Design & Development. It is a minor of 
 ### Table of Contents
 <div style="margin-left: auto; margin-right: auto;margin: 0 auto;">
     <a href="#rocket-purpose-of-project">🚀 Purpose of Project </a>
-    • <a href="#goal-of-the-application">🎯 Goal of the application</a>
+    • <a href="#dart-goal-of-the-application">🎯 Goal of the application</a>
     • <a href="#heart_eyes-concept">😍  Concept</a>
-    • <a href="#progressive-web-app"> 📱 Progressive Web App</a>
+    • <a href="#iphone-progressive-web-app">📱  Progressive Web App</a>
     • <a href="#1234-data">🔢  Data</a>
     • <a href="#nerd_face-technical-summary">🤓  Technical summary</a>
     • <a href="#folderstructure">🗂 Folderstructure</a>
@@ -27,7 +27,7 @@ _Meesterproef, a course of the minor Web Design & Development. It is a minor of 
 
 The reason the client started this project is that she has been personally involved in this disease. The client's mother has had breast cancer. She then started to talk a lot with her mother about the process afterward. However, there is still little instruction/approach to be found after the treatment project. It is clear during the treatment process what the approach is, but after that, it stops. Not much is known about that yet. That is why Eva got the idea to investigate this.
 
-## Goal of the application
+## :dart: Goal of the application
 
 The purpose of this application is to connect people who have had or still have cancer. These people can tell their story together or find support from other users. The users can therefore find a 'buddy' with this app. The user can also indicate in the app what type of cancer they have had and this means that these people are matched based on the type of cancer.
 
@@ -178,7 +178,7 @@ convertTime(timestamp) {
 };
 ```
 
-## Progressive Web App
+## :iphone: Progressive Web App
 A progressive web application (PWA) is a type of application software delivered through the web, built using common web technologies including HTML, CSS and JavaScript. It is intended to work on any platform that uses a standards-compliant browser, including both desktop and mobile devices.
 
 Improvements:
