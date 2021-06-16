@@ -123,9 +123,12 @@ export default {
             // global arr
             var allChats = [];
 
-          // 2. If chats are not accpeted, push them in this.chatRequests
+          // 2. If chats are not accpeted ant id isn't from creater, push them in this.chatRequests
           for (let i in chats) {
-            if (chats[i].userChatUnique.request.accepted != true) {
+            if (
+              !chats[i].userChatUnique.request.accepted &&
+              chats[i].userChatUnique.request.creater != currentUserId
+            ) {
               this.chatRequests.push(chats[i]);
             } else {
               // 3a Else check what the latest chatmessages are

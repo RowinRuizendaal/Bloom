@@ -31,11 +31,11 @@
               <FifthStep />
             </div>
 
-            <div v-else-if="stepState === 6">
+            <div v-else-if="stepState === 6" class="correction">
               <SixthStep />
             </div>
 
-            <div v-else-if="stepState === 7">
+            <div v-else-if="stepState === 7" class="correction">
               <SeventhStep />
             </div>
 
@@ -129,27 +129,27 @@ export default {
         },
         {
           id: 3,
-          geboortedatum: this.$store.state.user.birthDate,
+          Geboortedatum: this.$store.state.user.birthDate,
         },
         {
           id: 4,
-          woonplaats: this.$store.state.user.town,
+          Woonplaats: this.$store.state.user.town,
         },
         {
           id: 5,
-          gender: this.$store.state.user.gender,
+          Gender: this.$store.state.user.gender,
         },
         {
           id: 6,
-          type: this.$store.state.user.typeIllness,
+          Type: this.$store.state.user.typeIllness,
         },
         {
           id: 7,
-          pictogram: this.$store.state.user.profileAvatar,
+          Pictogram: this.$store.state.user.profileAvatar,
         },
         {
           id: 8,
-          biografie: this.$store.state.user.about,
+          Biografie: this.$store.state.user.about,
         },
       ];
 
