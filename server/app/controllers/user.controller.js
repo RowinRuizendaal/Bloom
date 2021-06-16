@@ -94,7 +94,7 @@ async function handleRegister(req, res) {
 
 async function handleUsers(req, res) {
   // get all users except the userID
-  const usersData = await getAllUsers(anotherGlobalUserID);
+  const usersData = await getAllUsers(req.params.id);
 
   // return data
   return res.json(usersData);
