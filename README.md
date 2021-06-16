@@ -175,6 +175,7 @@ Mobile:
 
 
 Desktop:
+
 <img src="docs/pwa/pwa-app.png" alt="User Interface of the PWA" width=500px>
 
 ##### [`vue.config.js`](https://github.com/RowinRuizendaal/Bloom/blob/master/client/vue.config.js#L19-L58)
