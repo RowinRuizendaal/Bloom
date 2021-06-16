@@ -184,12 +184,12 @@ export default {
       if (todayHours === chatTimeHours) {
         // Message is from today
         // format to correct
-        let formattedDate = moment(timeStampMsg).format("hh:mm a");
+        let formattedDate = moment(timeStampMsg).format("HH:mm");
         return formattedDate;
       } else {
         // Message is from not today
         // format to correct
-        let formattedDate = moment(timeStampMsg).format("DD-MM-YYYY, hh:mm a");
+        let formattedDate = moment(timeStampMsg).format("DD-MM-YYYY, HH:mm");
         return formattedDate;
       }
     },

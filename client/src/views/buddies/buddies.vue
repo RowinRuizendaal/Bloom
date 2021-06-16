@@ -114,7 +114,7 @@
               name="type"
               value="type"
             />
-            <label for="reset">reset het filter</label>
+            <label for="reset">Reset filter</label>
           </div>
           <p v-if="(users[0] && sort) || age || gender" class="result">
             {{ users[0].length }} personen gevonden
