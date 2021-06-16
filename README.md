@@ -12,9 +12,12 @@ _Meesterproef, a course of the minor Web Design & Development. It is a minor of 
 ### Table of Contents
 <div style="margin-left: auto; margin-right: auto;margin: 0 auto;">
     <a href="#rocket-purpose-of-project">🚀 Purpose of Project </a>
-    • <a href="#heart_eyes-concept">😍 Concept</a>
-    • <a href="#1234-data">🔢 Data</a>
+    • <a href="#goal-of-the-application">🎯 Goal of the application</a>
+    • <a href="#heart_eyes-concept">😍  Concept</a>
+    • <a href="#progressive-web-app"> 📱 Progressive Web App</a>
+    • <a href="#1234-data">🔢  Data</a>
     • <a href="#nerd_face-technical-summary">🤓  Technical summary</a>
+    • <a href="#folderstructure">🗂 Folderstructure</a>
     • <a href="#gear-installation">⚙️ Installation</a>
     • <a href="#file_folder-sources">📁 Sources</a>
     • <a href="#cop-license">👮 License</a>
@@ -40,17 +43,14 @@ The purpose of this application is to connect people who have had or still have 
 - You can register an account via a Progressive Disclosure register process
 - You can login onto your account
 - You can assume a lot of information about cancer at the Themes page
-
 - You can see other buddies
 - You can filter the buddies
 - You can see a buddy's profile page
 - You can match a buddy by beginning a chat with him/her
-
 - You can accept or deny a chat request
 - You can chat real-time with a buddy
-
 - You can view your own profile
-- You can download the page as application for any device
+- You can download the website as application for any device
 
 ### Tech-features
 #### Passsword hashing
@@ -62,12 +62,12 @@ What hashing method do we use?
 As password hashing function we use 'bcrypt. bcrypt is a password-hashing function designed by Niels Provos and David Mazières, based on the Blowfish cipher and presented at USENIX in 1999. Besides incorporating a salt to protect against rainbow table attacks, bcrypt is an adaptive function: over time, the iteration count can be increased to make it slower, so it remains resistant to brute-force search attacks even with increasing computation power. The bcrypt function is the default password hash algorithm for OpenBSD and other systems including some Linux distributions such as SUSE Linux. There are implementations of bcrypt for C, C++, C#, Elixir, Go, Java, JavaScript, Perl, PHP, Python, Ruby, and other languages.
 
 
-Why?
+##### Why?
 
 While doing our research I found out that there were different tutorial videos s/guides on the internet for bcrypt, the other ones were a bit hard to understand or they had a complex guide on how to use it. So we picked bcrypt because it is easy to use and I could follow the guides for research. Scypt is a safe hashing method but really complex with KDF, this implementation would require more research and our app is safer with just bcrypt.
 
 
-How?
+##### How?
 
 ```js
 const bcrypt = require('bcrypt');
@@ -107,11 +107,11 @@ rounds=31: 2-3 days/hash
 
 #### Vuex store/localstorage encrypting
 
-why?
+##### Why?
 
 We are using an encryption method with LS, to make sure that our localstorage data is encrypted, we have choosen this method because the localstorage can have personal data in it, to make sure that it is not plain text, we have decided to encrypt this.
 
-how?
+##### How?
 
 ```js
 import createPersistedState from "vuex-persistedstate";
@@ -132,28 +132,57 @@ const ls = new SecureLS({ isCompression: false });
 ![Bloom logo](docs/localstorage.png)
 
 #### Realtime Chat
+##### Why?
 This feature is built with socketIO. The package [vue-socket.io](https://vue-socket.io/) helped a lot also. With this feature you can chat with other people. First you join a room, that checks if there is already chat history. When there is, it sends you from the server the chat history. After that you can chat with the person you are in the room.
 
-##### Events
+##### How?
+###### Events
 |ClientSide|ServerSide|
 |---|---|
 |[joinRoom](https://github.com/RowinRuizendaal/Bloom/blob/master/server/app/controllers/socket.controllers.js#L21-L66) |[joinRoomHandler](https://github.com/RowinRuizendaal/Bloom/blob/master/server/app/controllers/socket.controllers.js#L21-L66)|
 |[roomData](https://github.com/RowinRuizendaal/Bloom/blob/master/client/src/views/chat/chatDetail.vue#L153-L176)|[roomData](https://github.com/RowinRuizendaal/Bloom/blob/master/server/app/controllers/socket.controllers.js#L58-L61)|
 |[newMessage](https://github.com/RowinRuizendaal/Bloom/blob/master/client/src/views/chat/chatDetail.vue#L178-L182)| [newMessageHandler](https://github.com/RowinRuizendaal/Bloom/blob/master/server/app/controllers/socket.controllers.js#L80-L92)|
 
-#### chat order + timestamp
-LOREM!!!!
-why?
-how?
-codesnippet?
-UX friendly, how?
+#### Chat overview order & Timestamp
+##### Why?
+We implemented a feature in the chat overview page where the chats are ordened by timestamp. This is an added value for the users, because it is then clear to the users which chat is the most recent and is therefore at the top. This eliminates the need for the user to search through all chats.
+
+##### How?
+Sorting the chats is thus done by retrieving the last message of all chat objects. There it looks at the timestamp contained in the object. The timestamp is in seconds, so that is very accurate to calculate which day and time that is. When the timestamp of the chat message corresponds to the day the user is viewing, only the timestamp will be displayed and not the date. Older posts will include the date. All those chat objects are pushed into an array which is then sorted using the `.sort()` method. Then the array is rendered in the page and so the chat overview always keeps the most recent chats at the top.
+
+
+###### Sorting the chats by timestamp
+```js
+allChats.sort(function (a, b) {
+  return b.timeSort.message.time - a.timeSort.message.time;
+});
+```
+
+###### Checks if the timestamp matches the date when the user looks at it.
+```js
+convertTime(timestamp) {
+  let timeStampMsg = timestamp * 1000;
+  let todayHours = new Date().setHours(0, 0, 0, 0);
+  let chatTimeHours = new Date(timeStampMsg).setHours(0, 0, 0, 0);
+  if (todayHours === chatTimeHours) {
+    // Message is from today
+    // format to correct
+    let formattedDate = moment(timeStampMsg).format("HH:mm");
+    return formattedDate;
+  } else {
+    // Message is from not today
+    // format to correct
+    let formattedDate = moment(timeStampMsg).format("DD-MM-YYYY, HH:mm");
+    return formattedDate;
+  }
+};
+```
 
 ## Progressive Web App
 A progressive web application (PWA) is a type of application software delivered through the web, built using common web technologies including HTML, CSS and JavaScript. It is intended to work on any platform that uses a standards-compliant browser, including both desktop and mobile devices.
 
-!!!
 Improvements:
-- speed
+- Fast loading of the pages
 - Render pages while being offline
 - Cache pages you've visited before
 - Update cache pages while there is new content
@@ -161,26 +190,19 @@ Improvements:
 Also this improves the UX a bit, because the speed of the app is improved by the service worker and the pages are still available even when the user has no internet connection.
 
 ### Features
-1. Install
-You can install the application from the browser to your homescreen. So you can get the whole app experience
+#### 1. Install the app
+You can install the application from the browser to your homescreen. So you can get the whole app experience when you start the application.
 
-2. Cache
-The app remembers the pages you have visited. So when you are offline (have no internet connection) you can use the app in the offline mode with all the pages from the cache you have visited. Also when you are online and you visit pages that are in the cache, it optimses the speed of the app.
-
-Icon:
-
+##### Icon
 <img src="docs/pwa/pwa-favicon.png" alt="Favicon of the PWA" width=150px>
 
-Mobile:
-
+##### Mobile
 <img src="docs/pwa/pwa.gif" alt="have to be made - GIF of how to install and start the app" width=350px>
 
-
-Desktop:
-
+##### Desktop
 <img src="docs/pwa/pwa-app.png" alt="User Interface of the PWA" width=500px>
 
-##### [`vue.config.js`](https://github.com/RowinRuizendaal/Bloom/blob/master/client/vue.config.js#L19-L58)
+##### Created by [`vue.config.js`](https://github.com/RowinRuizendaal/Bloom/blob/master/client/vue.config.js#L19-L58)
 This file takes care of the design of the app if you have it installed on your device. This includes the theme color and favicons.
 
 ```js
@@ -225,9 +247,11 @@ pwa: {
   },
 },
 ```
+#### 2. Cache
+The app remembers the pages you've visited. So when you are offline (not connected to the internet) you can use the app in offline mode with all the cached pages you have visited. Also, if you are online and visit pages that are already cached, you will be served the page from the cache, so the speed of the app is super fast.
 
-##### [`registerServiceWorker.js`](https://github.com/RowinRuizendaal/Bloom/blob/master/client/src/registerServiceWorker.js#L5-L33)
-This file creates the service worker and finally caches the visited pages. This makes the app also available offline. When the app uses the visited pages from the cache, it helps to increase the speed of the app.
+##### Created by [`registerServiceWorker.js`](https://github.com/RowinRuizendaal/Bloom/blob/master/client/src/registerServiceWorker.js#L5-L33)
+This file registers the service worker and finally caches the visited pages. This makes the app also available offline. When the app uses the visited pages from the cache, it helps to increase the speed of the app.
 
 ```js
 if (process.env.NODE_ENV === "production") {
@@ -264,7 +288,7 @@ if (process.env.NODE_ENV === "production") {
 
 ### User Interface
 Screenshots of the pages in the application
-#### Auth
+#### Authentication
 
 <p float="left">
 
@@ -279,7 +303,7 @@ Screenshots of the pages in the application
 </p>
 
 
-#### Tour
+#### Onboarding
 <p float="left">
 
 <img src="docs/UI/tour.png" alt="The user interface of the tour page" width="250"/>
@@ -577,7 +601,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 Credits to [Eva Valkenburg](https://www.evavalkenburg.nl/) for giving us this awesome exercise.
 
 ### Code sources
-- Stackoverflow (n.d.). Searching for answers on dev questions - Stackoverflow. Retrieved 18 May 2021 from https://www.stackoverflow.com
+- https://www.stackoverflow.com
 
 - https://bezkoder.com/vue-node-express-mongodb-mevn-crud/
 
