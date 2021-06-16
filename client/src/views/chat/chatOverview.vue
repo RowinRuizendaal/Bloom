@@ -64,14 +64,18 @@
 
           <div>
             <p>{{ item.participant.firstName }} {{ item.participant.surName }}</p>
-            <p v-if="item.userChatUnique.messages.length">
+            <p v-if="item.userChatUnique.messages.length > 0">
               {{ item.userChatUnique.messages[item.userChatUnique.messages.length - 1].content }}
             </p>
 
-            <p v-else class="partialState">Stuur je eerste berichtje!</p>
+            <!-- <p v-else class="partialState">Stuur je eerste berichtje!</p> -->
 
-            <p v-if="item.userChatUnique.messages.length">
-              {{ item.userChatUnique.messages[item.userChatUnique.messages.length - 1].time }}
+            <p v-if="item.userChatUnique.messages.length > 0">
+              {{
+                convertTime(
+                  item.userChatUnique.messages[item.userChatUnique.messages.length - 1].time
+                )
+              }}
             </p>
 
             <p v-else class="partialState"></p>
@@ -86,6 +90,7 @@
 <script>
 import Nav from "@/components/nav/nav";
 import axios from "axios";
+import moment from "moment";
 
 export default {
   name: "ChatOverview",
@@ -97,40 +102,64 @@ export default {
   },
   data() {
     return {
-      chats: [],
+      chats: null,
       chatRequests: [],
       viewCreater: true,
     };
   },
   methods: {
-    // get user chat data by user ID
     async getChats() {
-      let url = `${window.location.origin}/api/chatsItems`;
+      // get user chat data by user ID
+      let currentUserId = this.$store.state.user._id;
+      let url = `${window.location.origin}/api/chatsItems/${currentUserId}`;
 
       axios
         .get(url)
         .then((response) => {
           let chats = response.data;
 
-          if (chats.length) {
-            for (let i in chats) {
-              let currentUserId = this.$store.state.user._id;
-              let acceptedState = chats[i].userChatUnique.request.accepted;
-              let requestCreater = chats[i].userChatUnique.request.creater;
+          // 1. Check if there are chats
+          if (chats.length > 0)
+            // global arr
+            var allChats = [];
 
-              if (requestCreater !== currentUserId && acceptedState == false) {
-                this.viewCreater = false;
+          // 2. If chats are not accpeted ant id isn't from creater, push them in this.chatRequests
+          for (let i in chats) {
+            if (
+              !chats[i].userChatUnique.request.accepted &&
+              chats[i].userChatUnique.request.creater != currentUserId
+            ) {
+              this.chatRequests.push(chats[i]);
+            } else {
+              // 3a Else check what the latest chatmessages are
+              let chatObject = chats[i];
+              let chatMessages = chatObject.userChatUnique.messages;
 
-                // push in chatRequests
-                this.chatRequests.push(chats[i]);
-                this.$store.state.chatRequests.push(chats[i]);
+              // 3b Check if there are messages
+              if (chatMessages.length > 0) {
+                // 3c Check what the latest chatmessages are
+                let lastMessage = chatMessages[chatMessages.length - 1];
+
+                // 4. Get the timestamp
+                let timestamp = lastMessage.time;
+
+                // 5. Push them in a global array
+                chats[i]["timeSort"] = {};
+                chats[i]["timeSort"].time = timestamp;
+                chats[i]["timeSort"].message = lastMessage;
+                allChats.push(chats[i]);
+
+                // 6. Sort the array
+                allChats.sort(function (a, b) {
+                  return b.timeSort.message.time - a.timeSort.message.time;
+                });
+
+                // 7. Assign this.chats with that global array
+                this.chats = allChats;
               } else {
-                // filter out the chatrequests
-                this.chats.push(chats[i]);
+                // No message in chat object, so put there a message in
               }
             }
-          } else {
-            this.chats = null;
           }
         })
         .catch((err) => {
@@ -146,6 +175,26 @@ export default {
       let initials = [...fullName.matchAll(rgx)] || [];
       initials = ((initials.shift()?.[1] || "") + (initials.pop()?.[1] || "")).toUpperCase();
       return initials;
+    },
+
+    // Check if time is the same as today, then remove date
+    convertTime(timestamp) {
+      let timeStampMsg = timestamp * 1000;
+
+      let todayHours = new Date().setHours(0, 0, 0, 0);
+      let chatTimeHours = new Date(timeStampMsg).setHours(0, 0, 0, 0);
+
+      if (todayHours === chatTimeHours) {
+        // Message is from today
+        // format to correct
+        let formattedDate = moment(timeStampMsg).format("HH:mm");
+        return formattedDate;
+      } else {
+        // Message is from not today
+        // format to correct
+        let formattedDate = moment(timeStampMsg).format("DD-MM-YYYY, HH:mm");
+        return formattedDate;
+      }
     },
   },
 };

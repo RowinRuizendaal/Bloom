@@ -31,11 +31,11 @@
               <FifthStep />
             </div>
 
-            <div v-else-if="stepState === 6">
+            <div v-else-if="stepState === 6" class="correction">
               <SixthStep />
             </div>
 
-            <div v-else-if="stepState === 7">
+            <div v-else-if="stepState === 7" class="correction">
               <SeventhStep />
             </div>
 
@@ -127,30 +127,55 @@ export default {
           Voornaam: this.$store.state.user.firstName,
           Achternaam: this.$store.state.user.surName,
         },
+        {
+          id: 3,
+          Geboortedatum: this.$store.state.user.birthDate,
+        },
+        {
+          id: 4,
+          Woonplaats: this.$store.state.user.town,
+        },
+        {
+          id: 5,
+          Gender: this.$store.state.user.gender,
+        },
+        {
+          id: 6,
+          Type: this.$store.state.user.typeIllness,
+        },
+        {
+          id: 7,
+          Pictogram: this.$store.state.user.profileAvatar,
+        },
+        {
+          id: 8,
+          Biografie: this.$store.state.user.about,
+        },
       ];
 
       validate.filter((element) => {
         if (element.id === this.stepState) {
-          Object.keys(element).filter((k) => {
-            if (element[k] === "" || element[k] === undefined || element[k] === null) {
-              this.errors.push(`${[k]} is niet opgegeven`);
-              return (this.validate = false);
-            } else {
+          for (let key in element) {
+            if (element[key] === "" || element[key] === undefined || element[key] === null) {
               this.errors = [];
-              this.validate = true;
+              this.errors.push(`${key} is leeg`);
+              return (this.validate = false);
             }
-          });
+            this.validate = true;
+          }
         }
       });
+
       if (sort === "next" && this.validate) {
+        this.errors = [];
         return (this.stepState += 1);
       } else if (sort === "prev" && this.validate) {
+        this.errors = [];
         return (this.stepState -= 1);
       }
 
       return;
     },
-
     onSubmit() {
       if (this.stepState === 9) {
         // Post submit to server
@@ -190,6 +215,7 @@ export default {
       registered: false,
       validate: false,
       errors: [],
+      max: 2,
     };
   },
   updated() {

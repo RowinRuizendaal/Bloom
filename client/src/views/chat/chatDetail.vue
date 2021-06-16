@@ -123,7 +123,6 @@
 <script>
 import axios from "axios";
 import io from "socket.io-client";
-import moment from "moment";
 
 export default {
   name: "ChatDetail",
@@ -196,7 +195,6 @@ export default {
     // Chat request handler
     async makeRequestChoice(choice) {
       if (choice === "reject") {
-        // console.log(choice);
         let chatID = this.$route.params.id;
         let url = `${window.location.origin}/api/deleteChat/${chatID}`;
 
@@ -206,7 +204,6 @@ export default {
             let errorMsg = response.data;
             // console.log("response: ", errorMsg);
             this.$router.push("/chats");
-            // succesfull afwijzing feedback msg
           })
           .catch((err) => {
             console.log(err);
@@ -221,17 +218,14 @@ export default {
         let url = `${window.location.origin}/api/acceptChat/${createrID}/${chatID}`;
 
         axios
-          .get(url)
+          .post(url)
           .then((response) => {
             let errorMsg = response.data;
-            console.log("response: ", errorMsg);
+            // console.log("response: ", errorMsg);
           })
           .catch((err) => {
             console.log(err);
           });
-
-        // set in db state to true + here (this.requestAccepted)
-        // chatbar appears
       }
     },
 
@@ -239,18 +233,17 @@ export default {
     send(e) {
       e.preventDefault();
       let date = new Date();
-      let formattedDate = moment(date).format("DD-MM-YYYY, hh:mm a");
+      let timestampSeconds = date.getTime() / 1000;
 
       let chatObject = {
         roomID: this.$route.params.id,
         sender: this.$store.state.user._id,
         content: this.newMessage,
-        time: formattedDate,
+        time: timestampSeconds,
       };
 
       this.socket.emit("chat-message", chatObject);
       this.newMessage = null;
-      // this.$refs.newMsg.focus();
     },
   },
 };
