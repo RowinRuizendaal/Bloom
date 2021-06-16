@@ -28,7 +28,7 @@
 
   main {
     article {
-      padding: 0.5em 0;
+      padding: 1em 0;
 
       h2,
       h3 {
@@ -53,15 +53,15 @@
         flex-direction: row;
         div {
           &:nth-of-type(1) {
-            width: 7em;
-            height: 7em;
+            width: 6.5em;
+            height: 6.5em;
             text-align: center;
-            border-radius: 5px;
+            border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.06);
 
             p {
               font-size: 2rem;
-              line-height: 112px;
+              line-height: 105px;
               font-weight: 600;
             }
           }
@@ -94,7 +94,7 @@
 
             &:nth-of-type(1) {
               li {
-                margin: .3em 0;
+                margin: 0.3em 0;
                 border-bottom: 0.5px solid #80808000;
 
                 p {
@@ -110,7 +110,7 @@
             }
 
             li {
-              margin: .3em 0;
+              margin: 0.3em 0;
               border-bottom: 0.5px solid #8080803d;
 
               p {

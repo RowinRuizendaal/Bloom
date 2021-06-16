@@ -17,23 +17,6 @@ const userSchema = new Schema({
   typeIllness: Array,
   profileAvatar: String,
   about: String,
-  chats: [
-    {
-      participant: {
-        id: Schema.Types.ObjectID,
-        firstName: String,
-        surName: String,
-        profileAvatar: String,
-      },
-      messages: [
-        {
-          sender: Schema.Types.ObjectID,
-          content: String,
-          time: String,
-        },
-      ],
-    },
-  ],
 });
 
 exports.userSchema = userSchema;
