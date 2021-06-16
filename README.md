@@ -165,10 +165,15 @@ You can install the application from the browser to your homescreen. So you can 
 2. Cache
 The app remembers the pages you have visited. So when you are offline (have no internet connection) you can use the app in the offline mode with all the pages from the cache you have visited. Also when you are online and you visit pages that are in the cache, it optimses the speed of the app.
 
-<img src="docs/pwa/pwa.gif" alt="have to be made - GIF of how to install and start the app" width=350px>
-
+Icon:
 <img src="docs/pwa/pwa-favicon.png" alt="Favicon of the PWA" width=150px>
 
+Mobile:
+
+<img src="docs/pwa/pwa.gif" alt="have to be made - GIF of how to install and start the app" width=350px>
+
+
+Desktop:
 <img src="docs/pwa/pwa-app.png" alt="User Interface of the PWA" width=500px>
 
 ##### [`vue.config.js`](https://github.com/RowinRuizendaal/Bloom/blob/master/client/vue.config.js#L19-L58)
