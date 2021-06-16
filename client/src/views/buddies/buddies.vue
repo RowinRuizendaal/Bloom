@@ -261,7 +261,8 @@ export default {
   },
   methods: {
     async getAllUsers() {
-      let url = `${window.location.origin}/api/users`;
+      let currentUserId = this.$store.state.user._id;
+      let url = `${window.location.origin}/api/users/${currentUserId}`;
 
       axios
         .get(url)

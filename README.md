@@ -142,6 +142,7 @@ This feature is built with socketIO. The package [vue-socket.io](https://vue-soc
 |[newMessage](https://github.com/RowinRuizendaal/Bloom/blob/master/client/src/views/chat/chatDetail.vue#L178-L182)| [newMessageHandler](https://github.com/RowinRuizendaal/Bloom/blob/master/server/app/controllers/socket.controllers.js#L80-L92)|
 
 #### chat order + timestamp
+LOREM!!!!
 why?
 how?
 codesnippet?
@@ -150,6 +151,7 @@ UX friendly, how?
 ## Progressive Web App
 A progressive web application (PWA) is a type of application software delivered through the web, built using common web technologies including HTML, CSS and JavaScript. It is intended to work on any platform that uses a standards-compliant browser, including both desktop and mobile devices.
 
+!!!
 Improvements:
 - speed
 - Render pages while being offline
@@ -325,8 +327,6 @@ Screenshots of the pages in the application
   <img src="docs/UI/profile.png" alt="The user interface of the profile page" width="250"/>
 
 </p>
-
-
 
 ## :1234: Data  
 We used Mongoose data schemas to create schemas before we insert the data.
