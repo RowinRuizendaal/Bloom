@@ -259,13 +259,13 @@ Screenshots of the pages in the application
 
 <p float="left">
 
-<img src="docs/UI/start.png" alt="The user interface of the start page" width="100"/>
+<img src="docs/UI/start.png" alt="The user interface of the start page" width="250"/>
 
-<img src="docs/UI/onboarding.png" alt="The user interface of the onboarding page" width="100"/>
+<img src="docs/UI/onboarding.png" alt="The user interface of the onboarding page" width="250"/>
 
-<img src="docs/UI/login.png" alt="The user interface of the login page" width="100"/>
+<img src="docs/UI/login.png" alt="The user interface of the login page" width="250"/>
 
-<img src="docs/UI/register.png" alt="The user interface of the register page" width="100"/>
+<img src="docs/UI/register.png" alt="The user interface of the register page" width="250"/>
 
 </p>
 
@@ -273,16 +273,16 @@ Screenshots of the pages in the application
 #### Tour
 <p float="left">
 
-<img src="docs/UI/tour.png" alt="The user interface of the tour page" width="100"/>
+<img src="docs/UI/tour.png" alt="The user interface of the tour page" width="250"/>
 </p>
 
 #### Themes
 
 <p float="left">
 
-  <img src="docs/UI/themes.png" alt="The user interface of the themes page" width="100"/>
+  <img src="docs/UI/themes.png" alt="The user interface of the themes page" width="250"/>
 
-  <img src="docs/UI/theme-detail.png" alt="The user interface of the theme-detail page" width="100"/>
+  <img src="docs/UI/theme-detail.png" alt="The user interface of the theme-detail page" width="250"/>
   </p>
   
   
@@ -290,11 +290,11 @@ Screenshots of the pages in the application
   
   <p float="left">
 
-  <img src="docs/UI/buddies.png" alt="The user interface of the Buddies page" width="100"/>
+  <img src="docs/UI/buddies.png" alt="The user interface of the Buddies page" width="250"/>
 
-  <img src="docs/UI/buddies-filter.png" alt="The user interface of the Buddies-filter page" width="100"/>
+  <img src="docs/UI/buddies-filter.png" alt="The user interface of the Buddies-filter page" width="250"/>
 
-  <img src="docs/UI/buddies-detail.png" alt="The user interface of the Buddies-detail page" width="100"/>
+  <img src="docs/UI/buddies-detail.png" alt="The user interface of the Buddies-detail page" width="250"/>
 
   
   </p>
@@ -303,11 +303,11 @@ Screenshots of the pages in the application
   #### Chats
   <p float="left">
   
-  <img src="docs/UI/chats-empty.png" alt="The user interface of the chats-empty page" width="100"/>
+  <img src="docs/UI/chats-empty.png" alt="The user interface of the chats-empty page" width="250"/>
 
-  <img src="docs/UI/chats-fill.png" alt="The user interface of the chats-fill page" width="100"/>
+  <img src="docs/UI/chats-fill.png" alt="The user interface of the chats-fill page" width="250"/>
 
-  <img src="docs/UI/chat-detail.png" alt="The user interface of the chat-detail page" width="100"/>
+  <img src="docs/UI/chat-detail.png" alt="The user interface of the chat-detail page" width="250"/>
   </p>
 
   
@@ -315,7 +315,7 @@ Screenshots of the pages in the application
 
   <p float="left">
 
-  <img src="docs/UI/profile.png" alt="The user interface of the profile page" width="100"/>
+  <img src="docs/UI/profile.png" alt="The user interface of the profile page" width="250"/>
 
 </p>
 
@@ -495,7 +495,6 @@ This app is built, using:
 <details>
 <summary>Server</summary>
 
-server
 ```
 📦server
  ┣ 📂app
