@@ -40,29 +40,96 @@ The purpose of this application is to connect people who have had or still have 
 - You can register an account via a Progressive Disclosure register process
 - You can login onto your account
 - You can assume a lot of information about cancer at the Themes page
+
 - You can see other buddies
 - You can filter the buddies
+- You can see a buddy's profile page
 - You can match a buddy by beginning a chat with him/her
-- You can chat with a buddy
+
+- You can accept or deny a chat request
+- You can chat real-time with a buddy
+
+- You can view your own profile
+- You can download the page as application for any device
 
 ### Tech-features
 #### Passsword hashing
-why?
-how?
-codesnippet?
-UX friendly, how?
 
-#### Vuex store encrypting
-why?
-how?
-codesnippet?
-UX friendly, how?
+Hashing passwords will protect it from attacks from inside, Hashing makes it a lot harder for someone to crack our passwords, for example, the string `'hey'` becomes `'$2b$10$rh8HVb2fHEXjZgyen17/Xe8qVOmvtdcgHQo6xc6hzvBu3rG1T7QAm'`.
 
-#### localStorage
+What hashing method do we use?
+
+As password hashing function we use 'bcrypt. bcrypt is a password-hashing function designed by Niels Provos and David Mazières, based on the Blowfish cipher and presented at USENIX in 1999. Besides incorporating a salt to protect against rainbow table attacks, bcrypt is an adaptive function: over time, the iteration count can be increased to make it slower, so it remains resistant to brute-force search attacks even with increasing computation power. The bcrypt function is the default password hash algorithm for OpenBSD and other systems including some Linux distributions such as SUSE Linux. There are implementations of bcrypt for C, C++, C#, Elixir, Go, Java, JavaScript, Perl, PHP, Python, Ruby, and other languages.
+
+
+Why?
+
+While doing our research I found out that there were different tutorial videos s/guides on the internet for bcrypt, the other ones were a bit hard to understand or they had a complex guide on how to use it. So we picked bcrypt because it is easy to use and I could follow the guides for research. Scypt is a safe hashing method but really complex with KDF, this implementation would require more research and our app is safer with just bcrypt.
+
+
+How?
+
+```js
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
+
+  // Salt the plain password
+  const passwordHash = bcrypt.hashSync(req.body.password, saltRounds);
+
+  const userObject = {
+    firstName: req.body.firstName,
+    surName: req.body.surName,
+    emailAddress: req.body.emailAddress,
+    password: passwordHash,
+    birthDate: req.body.birthDate,
+    town: req.body.town,
+    gender: req.body.gender,
+    typeIllness: req.body.typeIllness,
+    profileAvatar: req.body.profileAvatar,
+    about: req.body.about,
+  };
+```
+What are saltrounds?
+
+With "salt round" they actually mean the cost factor. The cost factor controls how much time is needed to calculate a single BCrypt hash. The higher the cost factor, the more hashing rounds are done. Increasing the cost factor by 1 double the necessary time. The more time is necessary, the more difficult is brute-forcing.
+```
+rounds=8 : ~40 hashes/sec
+rounds=9 : ~20 hashes/sec
+rounds=10: ~10 hashes/sec
+rounds=11: ~5  hashes/sec
+rounds=12: 2-3 hashes/sec
+rounds=13: ~1 sec/hash
+rounds=14: ~1.5 sec/hash
+rounds=15: ~3 sec/hash
+rounds=25: ~1 hour/hash
+rounds=31: 2-3 days/hash
+```
+
+#### Vuex store/localstorage encrypting
+
 why?
+
+We are using an encryption method with LS, to make sure that our localstorage data is encrypted, we have choosen this method because the localstorage can have personal data in it, to make sure that it is not plain text, we have decided to encrypt this.
+
 how?
-codesnippet?
-UX friendly, how?
+
+```js
+import createPersistedState from "vuex-persistedstate";
+import SecureLS from "secure-ls";
+const ls = new SecureLS({ isCompression: false });
+
+  plugins: [
+    createPersistedState({
+      storage: {
+        getItem: (key) => ls.get(key),
+        setItem: (key, value) => ls.set(key, value),
+        removeItem: (key) => ls.remove(key),
+      },
+    }),
+  ]
+```
+
+![Bloom logo](docs/localstorage.png)
 
 #### Realtime Chat
 This feature is built with socketIO. The package [vue-socket.io](https://vue-socket.io/) helped a lot also. With this feature you can chat with other people. First you join a room, that checks if there is already chat history. When there is, it sends you from the server the chat history. After that you can chat with the person you are in the room.
@@ -74,7 +141,7 @@ This feature is built with socketIO. The package [vue-socket.io](https://vue-soc
 |[roomData](https://github.com/RowinRuizendaal/Bloom/blob/master/client/src/views/chat/chatDetail.vue#L153-L176)|[roomData](https://github.com/RowinRuizendaal/Bloom/blob/master/server/app/controllers/socket.controllers.js#L58-L61)|
 |[newMessage](https://github.com/RowinRuizendaal/Bloom/blob/master/client/src/views/chat/chatDetail.vue#L178-L182)| [newMessageHandler](https://github.com/RowinRuizendaal/Bloom/blob/master/server/app/controllers/socket.controllers.js#L80-L92)|
 
-#### Dynamic backbutton
+#### chat order + timestamp
 why?
 how?
 codesnippet?
@@ -85,8 +152,11 @@ A progressive web application (PWA) is a type of application software delivered 
 
 Improvements:
 - speed
+- Render pages while being offline
+- Cache pages you've visited before
+- Update cache pages while there is new content
 
-Also this improves the UX a bit, because the speed of the app is improved by the service worker.
+Also this improves the UX a bit, because the speed of the app is improved by the service worker and the pages are still available even when the user has no internet connection.
 
 ### Features
 1. Install
@@ -185,36 +255,77 @@ if (process.env.NODE_ENV === "production") {
 
 ### User Interface
 Screenshots of the pages in the application
-<p float="left">
-
-<img src="docs/UI/start.png" alt="The user interface of the start page" width="250"/>
-
-<img src="docs/UI/onboarding.png" alt="The user interface of the onboarding page" width="250"/>
-
-<img src="docs/UI/login.png" alt="The user interface of the login page" width="250"/>
-
-</p>
+#### Auth
 
 <p float="left">
 
-<img src="docs/UI/themes.png" alt="The user interface of the themes page" width="250"/>
+<img src="docs/UI/start.png" alt="The user interface of the start page" width="100"/>
 
-<img src="docs/UI/profile.png" alt="The user interface of the profile page" width="250"/>
+<img src="docs/UI/onboarding.png" alt="The user interface of the onboarding page" width="100"/>
 
-<img src="docs/UI/buddies.png" alt="The user interface of the Buddies page" width="250"/>
+<img src="docs/UI/login.png" alt="The user interface of the login page" width="100"/>
+
+<img src="docs/UI/register.png" alt="The user interface of the register page" width="100"/>
+
 </p>
+
+
+#### Tour
+<p float="left">
+
+<img src="docs/UI/tour.png" alt="The user interface of the tour page" width="100"/>
+</p>
+
+#### Themes
 
 <p float="left">
-<img src="docs/UI/chats.png" alt="The user interface of the chats page" width="250"/>
 
-<img src="docs/UI/chat-detail.png" alt="The user interface of the chat-detail page" width="250"/>
+  <img src="docs/UI/themes.png" alt="The user interface of the themes page" width="100"/>
+
+  <img src="docs/UI/theme-detail.png" alt="The user interface of the theme-detail page" width="100"/>
+  </p>
+  
+  
+  #### Buddies
+  
+  <p float="left">
+
+  <img src="docs/UI/buddies.png" alt="The user interface of the Buddies page" width="100"/>
+
+  <img src="docs/UI/buddies-filter.png" alt="The user interface of the Buddies-filter page" width="100"/>
+
+  <img src="docs/UI/buddies-detail.png" alt="The user interface of the Buddies-detail page" width="100"/>
+
+  
+  </p>
+
+  
+  #### Chats
+  <p float="left">
+  
+  <img src="docs/UI/chats-empty.png" alt="The user interface of the chats-empty page" width="100"/>
+
+  <img src="docs/UI/chats-fill.png" alt="The user interface of the chats-fill page" width="100"/>
+
+  <img src="docs/UI/chat-detail.png" alt="The user interface of the chat-detail page" width="100"/>
+  </p>
+
+  
+#### Profile
+
+  <p float="left">
+
+  <img src="docs/UI/profile.png" alt="The user interface of the profile page" width="100"/>
+
 </p>
+
+
 
 ## :1234: Data  
 We used Mongoose data schemas to create schemas before we insert the data.
 ### User schema
-lorem ipsum 
-This data in db is created by the [createUser function](https://github.com/RowinRuizendaal/Bloom/blob/master/server/app/helpers/db.helpers.js#L41-L67).
+
+This data in the database is created in the [createUser function](https://github.com/RowinRuizendaal/Bloom/blob/master/server/app/helpers/db.helpers.js#L41-L67).
 
 ```js
 {
@@ -232,8 +343,7 @@ This data in db is created by the [createUser function](https://github.com/Rowin
 ```
 
 ### Chat schema
-lorem ipsum 
-This data is created as ```lorem``` by default when you want to chat with someone. (function object). This data can be manipulated by the accept of the other particicpant. Or delete, then this object will be deleted in the database. Or New message via socket will also be pushed to db for later visit on chat (messages history).
+This data in the database is created in the [createChat function](https://github.com/RowinRuizendaal/Bloom/blob/master/server/app/helpers/db.helpers.js#L185-L1907). The data can be manipulated by the [socket events](https://github.com/RowinRuizendaal/Bloom/blob/master/server/app/controllers/socket.controllers.js).
 
 ```js
 {
@@ -262,105 +372,33 @@ This app is built, using:
 - [Vue frontend framework](https://vuejs.org/)
 - [Vuex](https://vuex.vuejs.org/guide/#the-simplest-store)
 - [Vue Router](https://router.vuejs.org/)
+- [Vue PWA](https://cli.vuejs.org/core-plugins/pwa.html)
+- [Vue tour](https://github.com/pulsardev/vue-tour)
 - [Mongoose](https://mongoosejs.com/)
 - [Socket.io](http://socket.io/)
+- [bcrypt](https://www.npmjs.com/package/bcrypt)
 - [Heroku deployment](https://www.heroku.com/nodejs)
 
 ## Folderstructure
+>⚠️ Warning: prepare for a lot of files
+
+<details>
+<summary>Client</summary>
+
 ```
 📦client
  ┣ 📂node_modules
  ┣ 📂public
  ┃ ┣ 📂favicon
- ┃ ┃ ┣ 📜android-chrome-192x192.png
- ┃ ┃ ┣ 📜android-chrome-512x512.png
- ┃ ┃ ┣ 📜apple-touch-icon.png
- ┃ ┃ ┣ 📜browserconfig.xml
- ┃ ┃ ┣ 📜favicon-16x16.png
- ┃ ┃ ┣ 📜favicon-32x32.png
- ┃ ┃ ┣ 📜mstile-150x150.png
- ┃ ┃ ┣ 📜safari-pinned-tab.svg
- ┃ ┃ ┗ 📜site.webmanifest
  ┃ ┣ 📂fonts
- ┃ ┃ ┣ 📂Nunito
- ┃ ┃ ┃ ┣ 📜Nunito-Black.ttf
- ┃ ┃ ┃ ┣ 📜Nunito-BlackItalic.ttf
- ┃ ┃ ┃ ┣ 📜Nunito-Bold.ttf
- ┃ ┃ ┃ ┣ 📜Nunito-Bold.woff
- ┃ ┃ ┃ ┣ 📜Nunito-BoldItalic.ttf
- ┃ ┃ ┃ ┣ 📜Nunito-ExtraBold.ttf
- ┃ ┃ ┃ ┣ 📜Nunito-ExtraBold.woff
- ┃ ┃ ┃ ┣ 📜Nunito-ExtraBoldItalic.ttf
- ┃ ┃ ┃ ┣ 📜Nunito-ExtraLight.ttf
- ┃ ┃ ┃ ┣ 📜Nunito-ExtraLightItalic.ttf
- ┃ ┃ ┃ ┣ 📜Nunito-Italic.ttf
- ┃ ┃ ┃ ┣ 📜Nunito-Light.ttf
- ┃ ┃ ┃ ┣ 📜Nunito-Light.woff
- ┃ ┃ ┃ ┣ 📜Nunito-LightItalic.ttf
- ┃ ┃ ┃ ┣ 📜Nunito-Regular.ttf
- ┃ ┃ ┃ ┣ 📜Nunito-Regular.woff
- ┃ ┃ ┃ ┣ 📜Nunito-SemiBold.ttf
- ┃ ┃ ┃ ┣ 📜Nunito-SemiBold.woff
- ┃ ┃ ┃ ┗ 📜Nunito-SemiBoldItalic.ttf
- ┃ ┃ ┗ 📂Silka
- ┃ ┃ ┃ ┣ 📜Silka-Bold.ttf
- ┃ ┃ ┃ ┣ 📜Silka-Bold.woff
- ┃ ┃ ┃ ┣ 📜Silka-Light.ttf
- ┃ ┃ ┃ ┣ 📜Silka-Light.woff
- ┃ ┃ ┃ ┣ 📜Silka-Medium.ttf
- ┃ ┃ ┃ ┣ 📜Silka-Medium.woff
- ┃ ┃ ┃ ┣ 📜Silka-Regular.otf
- ┃ ┃ ┃ ┣ 📜Silka-Regular.woff
- ┃ ┃ ┃ ┗ 📜Silka-Thin.ttf
  ┃ ┣ 📂img
- ┃ ┃ ┗ 📂icons
- ┃ ┃ ┃ ┣ 📜android-chrome-192x192.png
- ┃ ┃ ┃ ┣ 📜android-chrome-512x512.png
- ┃ ┃ ┃ ┣ 📜android-chrome-maskable-192x192.png
- ┃ ┃ ┃ ┣ 📜android-chrome-maskable-512x512.png
- ┃ ┃ ┃ ┣ 📜apple-touch-icon-120x120.png
- ┃ ┃ ┃ ┣ 📜apple-touch-icon-152x152.png
- ┃ ┃ ┃ ┣ 📜apple-touch-icon-180x180.png
- ┃ ┃ ┃ ┣ 📜apple-touch-icon-60x60.png
- ┃ ┃ ┃ ┣ 📜apple-touch-icon-76x76.png
- ┃ ┃ ┃ ┣ 📜apple-touch-icon.png
- ┃ ┃ ┃ ┣ 📜favicon-16x16.png
- ┃ ┃ ┃ ┣ 📜favicon-32x32.png
- ┃ ┃ ┃ ┣ 📜msapplication-icon-144x144.png
- ┃ ┃ ┃ ┣ 📜mstile-150x150.png
- ┃ ┃ ┃ ┗ 📜safari-pinned-tab.svg
  ┃ ┣ 📜favicon.ico
  ┃ ┣ 📜index.html
  ┃ ┗ 📜robots.txt
  ┣ 📂src
  ┃ ┣ 📂assets
  ┃ ┃ ┣ 📂icons
- ┃ ┃ ┃ ┣ 📂nav
- ┃ ┃ ┃ ┃ ┣ 📜buddy-selected.svg
- ┃ ┃ ┃ ┃ ┣ 📜buddy.svg
- ┃ ┃ ┃ ┃ ┣ 📜messages-selected.svg
- ┃ ┃ ┃ ┃ ┣ 📜messages.svg
- ┃ ┃ ┃ ┃ ┣ 📜profile-selected.svg
- ┃ ┃ ┃ ┃ ┣ 📜profile.svg
- ┃ ┃ ┃ ┃ ┣ 📜theme-selected.svg
- ┃ ┃ ┃ ┃ ┗ 📜theme.svg
- ┃ ┃ ┃ ┣ 📜age.svg
- ┃ ┃ ┃ ┣ 📜arrow-down.svg
- ┃ ┃ ┃ ┣ 📜arrow.svg
- ┃ ┃ ┃ ┣ 📜check.svg
- ┃ ┃ ┃ ┣ 📜cross.svg
- ┃ ┃ ┃ ┣ 📜error.svg
- ┃ ┃ ┃ ┣ 📜filter.svg
- ┃ ┃ ┃ ┣ 📜mic.svg
- ┃ ┃ ┃ ┣ 📜more.svg
- ┃ ┃ ┃ ┣ 📜plus.svg
- ┃ ┃ ┃ ┣ 📜send.svg
- ┃ ┃ ┃ ┣ 📜settings.svg
- ┃ ┃ ┃ ┗ 📜type.svg
  ┃ ┃ ┣ 📂onboarding
- ┃ ┃ ┃ ┣ 📜onboarding-1.jpg
- ┃ ┃ ┃ ┣ 📜onboarding-2.jpg
- ┃ ┃ ┃ ┗ 📜onboarding-3.jpg
  ┃ ┃ ┣ 📂scss
  ┃ ┃ ┃ ┣ 📂variables
  ┃ ┃ ┃ ┃ ┣ 📜_assets.scss
@@ -369,19 +407,7 @@ This app is built, using:
  ┃ ┃ ┃ ┃ ┗ 📜_typography.scss
  ┃ ┃ ┃ ┗ 📜main.scss
  ┃ ┃ ┣ 📂svg
- ┃ ┃ ┃ ┣ 📜background.svg
- ┃ ┃ ┃ ┣ 📜chevron.svg
- ┃ ┃ ┃ ┣ 📜signup-background-2.svg
- ┃ ┃ ┃ ┣ 📜signup-background-3.svg
- ┃ ┃ ┃ ┣ 📜signup-background-4.svg
- ┃ ┃ ┃ ┣ 📜signup-background.svg
- ┃ ┃ ┃ ┗ 📜zoek.svg
  ┃ ┃ ┣ 📂themes
- ┃ ┃ ┃ ┣ 📜1.jpg
- ┃ ┃ ┃ ┣ 📜2.jpg
- ┃ ┃ ┃ ┣ 📜3.jpg
- ┃ ┃ ┃ ┣ 📜4.jpg
- ┃ ┃ ┃ ┗ 📜5.jpg
  ┃ ┃ ┗ 📜logo.png
  ┃ ┣ 📂components
  ┃ ┃ ┣ 📂buddies
@@ -464,6 +490,41 @@ This app is built, using:
  ┣ 📜vue.config.js
  ┗ 📜yarn.lock
  ```
+</details>
+
+<details>
+<summary>Server</summary>
+
+server
+```
+📦server
+ ┣ 📂app
+ ┃ ┣ 📂config
+ ┃ ┃ ┣ 📜db.config.js
+ ┃ ┃ ┣ 📜db.connection.js
+ ┃ ┃ ┗ 📜db.index.js
+ ┃ ┣ 📂controllers
+ ┃ ┃ ┣ 📜chat.controller.js
+ ┃ ┃ ┣ 📜socket.controllers.js
+ ┃ ┃ ┣ 📜socketEvents.js
+ ┃ ┃ ┗ 📜user.controller.js
+ ┃ ┣ 📂helpers
+ ┃ ┃ ┣ 📜db.helpers.js
+ ┃ ┃ ┗ 📜helpers.js
+ ┃ ┣ 📂models
+ ┃ ┃ ┣ 📜chat.js
+ ┃ ┃ ┗ 📜user.js
+ ┃ ┣ 📂routes
+ ┃ ┃ ┗ 📜router.js
+ ┃ ┣ 📜.env
+ ┃ ┗ 📜.env.example
+ ┣ 📂node_modules
+ ┣ 📜.gitignore
+ ┣ 📜package-lock.json
+ ┣ 📜package.json
+ ┗ 📜server.js
+ ```
+ </details>
 
 ## :gear: Installation
 >⚠️ To use the application in development, you need a MongoDB database and a URI to connect with it! Please contact us if you want to run the project.
@@ -515,6 +576,24 @@ Credits to [Eva Valkenburg](https://www.evavalkenburg.nl/) for giving us this aw
 - https://bezkoder.com/vue-node-express-mongodb-mevn-crud/
 
 - https://bezkoder.com/vue-js-crud-app/
+
+- https://medium.com/js-dojo/build-a-real-time-chat-app-with-vuejs-socket-io-and-nodejs-714c8eefa54e
+
+- https://router.vuejs.org/guide/advanced/navigation-guards.html#global-before-guards
+
+- https://router.vuejs.org/guide/advanced/meta.html
+
+- https://vueschool.io/lessons/in-component-navigation-guards
+
+- https://stackoverflow.com/questions/43027499/vuex-state-on-page-refresh
+
+- https://github.com/Linux-localhost/Chubby-racoon
+
+- https://vuex.vuejs.org/guide/forms.html#two-way-computed-property
+
+- https://medium.com/engineering-samlino/building-a-multi-step-form-with-vue-2bc861447c4a
+
+
 
 ## :cop: License
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)  
