@@ -600,7 +600,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 ## :file_folder: Sources
 Credits to [Eva Valkenburg](https://www.evavalkenburg.nl/) for giving us this awesome exercise.
 
-For a detailed progress insight you can checkout out our ![PDF](docs/product_biografie_bloom_ralf_rowin_.pdf)
+For a detailed progress insight you can checkout out our [PDF](docs/product_biografie_bloom_ralf_rowin_.pdf)
 
 ### Code sources
 - https://www.stackoverflow.com
