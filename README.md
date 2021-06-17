@@ -148,7 +148,7 @@ This feature is built with socketIO. The package [vue-socket.io](https://vue-soc
 We implemented a feature in the chat overview page where the chats are ordened by timestamp. This is an added value for the users, because it is then clear to the users which chat is the most recent and is therefore at the top. This eliminates the need for the user to search through all chats.
 
 ##### How?
-Sorting the chats is thus done by retrieving the last message of all chat objects. There it looks at the timestamp contained in the object. The timestamp is in seconds, so that is very accurate to calculate which day and time that is. When the timestamp of the chat message corresponds to the day the user is viewing, only the timestamp will be displayed and not the date. Older posts will include the date. All those chat objects are pushed into an array which is then sorted using the `.sort()` method. Then the array is rendered in the page and so the chat overview always keeps the most recent chats at the top.
+Sorting the chats is done by retrieving the last message of all chat objects. There it looks at the timestamp contained in the object. The timestamp is in seconds, so that is very accurate to calculate which day and time that is. When the timestamp of the chat message corresponds to the day the user is viewing, only the timestamp will be displayed and not the date. Older posts will include the date. All those chat objects are pushed into an array which is then sorted using the `.sort()` method. Then the array is rendered in the page and so the chat overview always keeps the most recent chats at the top.
 
 
 ###### Sorting the chats by timestamp
