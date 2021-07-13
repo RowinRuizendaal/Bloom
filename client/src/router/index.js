@@ -67,7 +67,7 @@ const routes = [
     },
   },
   {
-    path: "/info",
+    path: "/information",
     name: "info",
     component: Info,
     meta: {

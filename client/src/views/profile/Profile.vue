@@ -152,16 +152,6 @@
           <h4>Wat is de vraag?</h4>
           <p>Dit is het antwoord.</p>
         </div>
-
-        <div :class="data.profileAvatar">
-          <h4>Wat is de vraag?</h4>
-          <p>Dit is het antwoord.</p>
-        </div>
-
-        <div :class="data.profileAvatar">
-          <h4>Wat is de vraag?</h4>
-          <p>Dit is het antwoord.</p>
-        </div>
       </article>
     </main>
     <Nav active="profile" />
