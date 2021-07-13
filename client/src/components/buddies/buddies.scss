@@ -23,10 +23,16 @@
     .container {
       width: 86vw;
       height: 100%;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-around;
-      flex-direction: row;
+      // display: flex;
+      // flex-wrap: wrap;
+      // justify-content: space-around;
+      // flex-direction: row;
+      display: grid;
+      // grid-template-columns: 9rem 9rem;
+      grid-template-columns: 1fr 1fr;
+      // grid-template-rows: auto;
+      // grid-gap: 1rem;
+
     }
     .empty-state {
       display: flex;
