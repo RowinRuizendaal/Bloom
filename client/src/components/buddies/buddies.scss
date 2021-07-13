@@ -149,6 +149,15 @@
         }
         .reset {
           margin-top: 2rem;
+
+          input {
+            display: none;
+          }
+
+          label {
+            text-decoration: underline;
+            color: $orange;
+          }
         }
         flex-direction: column;
         ul.chips {
