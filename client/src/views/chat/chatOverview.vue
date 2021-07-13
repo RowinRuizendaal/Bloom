@@ -12,9 +12,7 @@
         <p v-else>verzoek</p>
       </router-link>
 
-      <div v-else>
-        <p>0</p>
-      </div>
+      <div v-else></div>
     </header>
 
     <main>

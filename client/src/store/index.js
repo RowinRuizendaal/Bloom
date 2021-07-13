@@ -252,7 +252,7 @@ export default new Vuex.Store({
       {
         // Klachten
         id: 5,
-        name: "Geld en werk",
+        name: "Geldzaken & werk",
         image: "5.jpg",
         intro:
           "Door een ernstige ziekte ontstaan soms geldproblemen. Bijvoorbeeld door extra kosten. Of doordat je minder of helemaal niet kunt werken door je ziekte. Heb je geldproblemen of schulden? Praat erover en zoek hulp.",
