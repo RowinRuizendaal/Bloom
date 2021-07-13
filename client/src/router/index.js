@@ -18,6 +18,8 @@ import Home from "../views/Home.vue";
 import Onboarding from "../views/onboarding.vue";
 import Theme from "../views/themes/theme.vue";
 import ThemeSlug from "../views/themes/slug.vue";
+import Info from "../views/themes/info.vue";
+
 import store from "../store";
 
 Vue.use(VueRouter);
@@ -60,6 +62,14 @@ const routes = [
     path: "/themes",
     name: "themes",
     component: Theme,
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
+    path: "/info",
+    name: "info",
+    component: Info,
     meta: {
       requiresAuth: true,
     },

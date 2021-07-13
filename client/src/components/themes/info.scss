@@ -1,0 +1,46 @@
+.info {
+  width: 86vw;
+  margin: 0 auto;
+  header {
+    height: 13vh;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    border-bottom: 0.5px solid #8080803d;
+    color: $orange;
+    margin-bottom: 1em;
+
+    h2 {
+      font-family: $font-family-secondary;
+      font-weight: 900;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      width: 100%;
+      color: $gray;
+      text-align: center;
+    }
+  }
+  article {
+    // background-color: red;
+
+    ul {
+      //   background-color: blue;
+      list-style: none;
+
+      li {
+        color: orange;
+        border-top: 0.5px solid #8080803d;
+        border-bottom: 0.5px solid #8080803d;
+
+        height: 2rem;
+        font-size: 0.8rem;
+        line-height: 28px;
+
+        p {
+          display: none;
+        }
+      }
+    }
+  }
+}

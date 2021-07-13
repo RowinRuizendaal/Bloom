@@ -215,6 +215,7 @@ label.textLabel {
 .correction {
   display: contents;
 }
+
 .six {
   margin-bottom: 1rem;
   ul.chips {
@@ -225,8 +226,8 @@ label.textLabel {
     width: 100%;
     li {
       display: inline-block;
-      margin: 0.7em;
-      flex-shrink: 1;
+      margin: .85rem .3rem;
+      // flex-shrink: 1;
       label {
         font-size: 0.73em;
         font-family: $font-family-primary;
