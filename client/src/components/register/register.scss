@@ -168,25 +168,25 @@ label.textLabel {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    width: 80vw;
+    width: 86vw;
     li {
-      width: 5em;
-      height: 5em;
+      width: 6.25em;
+      height: 6.25em;
       &:hover {
         cursor: pointer;
       }
       label {
         border: solid 2px transparent;
-        border-radius: 5px;
+        border-radius: 0.625rem;
         background-color: #fee89e;
         display: block;
         width: inherit;
         height: inherit;
         color: #726d61;
         transition: all 0.1s ease;
-        font-size: 2.5rem;
+        font-size: 3rem;
         font-weight: 700;
-        padding: 0.625rem 0.75rem;
+        padding: 1rem 0.75rem;
         text-align: center;
         font-family: $font-family-primary;
       }
@@ -227,6 +227,7 @@ label.textLabel {
     li {
       display: inline-block;
       margin: .85rem .3rem;
+      margin-left: 0;
       // flex-shrink: 1;
       label {
         font-size: 0.73em;
