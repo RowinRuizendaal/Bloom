@@ -6,6 +6,7 @@ import RegisterIndex from "../views/login/register/index.vue";
 import ForgotPassword from "../views/login/ForgotPassword.vue";
 
 import Profile from "../views/profile/Profile.vue";
+import ProfileEdit from "../views/profile/profileEdit.vue";
 
 import Buddies from "../views/buddies/buddies.vue";
 import BuddyDetail from "../views/buddies/buddyDetail.vue";
@@ -44,6 +45,14 @@ const routes = [
     path: "/profile",
     name: "Profile",
     component: Profile,
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
+    path: "/profile-edit",
+    name: "ProfileEdit",
+    component: ProfileEdit,
     meta: {
       requiresAuth: true,
     },

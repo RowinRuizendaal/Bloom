@@ -2,7 +2,7 @@
   <section class="profile">
     <header>
       <h2>Profiel</h2>
-      <router-link to="/profile"
+      <router-link to="/profile-edit"
         ><svg
           id="Setting"
           xmlns="http://www.w3.org/2000/svg"
