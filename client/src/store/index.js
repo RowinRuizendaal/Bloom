@@ -425,6 +425,12 @@ export default new Vuex.Store({
       state.user = value;
       state.loggedIn = true;
     },
+
+    // clear user data
+    logoutUser(state) {
+      state.user = null;
+      state.loggedIn = false;
+    },
   },
   actions: {},
   modules: {},

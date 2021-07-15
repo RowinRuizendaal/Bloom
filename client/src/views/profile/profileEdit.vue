@@ -248,7 +248,7 @@ export default {
             this.$store.state.user = "";
 
             // Set all data to LS AND VUEX
-            // this.$store.state.user = userData;
+            this.$store.commit("logoutUser");
             this.$store.commit("updateUser", userData);
 
             // Redirect to profile
@@ -271,6 +271,7 @@ export default {
       // !clear Vuex Store --> does not work because vuex is filled by LS ^
       this.$store.state.user = null;
       console.log("store after clearing: ", this.$store.state.user);
+      this.$store.commit("logoutUser");
 
       // set login to false
       this.$store.state.loggedIn = false;
