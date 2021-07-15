@@ -250,6 +250,32 @@ async function updateRequestChat(chatID, createrID) {
   );
 }
 
+// update values profile
+async function updateProfile(userID, data) {
+  const updatedValues = {
+    firstName: data.firstName,
+    surName: data.surName,
+    emailAddress: data.emailAddress,
+    birthDate: data.birthDate,
+    town: data.town,
+    gender: data.gender,
+    typeIllness: data.typeIllness,
+    profileAvatar: data.profileAvatar,
+    about: data.about,
+  };
+
+  await Users.updateOne(
+    {
+      _id: userID,
+    },
+    updatedValues
+  ).catch((err) => console.log(err));
+
+  const user = await findOneUser(userID);
+
+  return user;
+}
+
 module.exports = {
   checkValidUser,
   createUser,
@@ -262,4 +288,5 @@ module.exports = {
   updateChatMessages,
   deleteChat,
   updateRequestChat,
+  updateProfile,
 };

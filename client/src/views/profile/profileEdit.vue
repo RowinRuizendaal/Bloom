@@ -13,7 +13,19 @@
               {{ createInitials(data.firstName, data.surName) }}
             </p>
           </div>
-          <router-link to="/profile-edit"><p>Profiel pictogram wijzigen</p></router-link>
+          <router-link to="/profile-edit"
+            ><p>Profiel pictogram wijzigen</p>
+            <select id="profileAvatar">
+              <option
+                v-for="(item, index) in pictogramChoices"
+                :key="index"
+                :value="item.name"
+                :id="item.hex"
+              >
+                {{ item.name }}
+              </option>
+            </select></router-link
+          >
         </article>
 
         <article>
@@ -30,6 +42,9 @@
                 <p>Geboortedatum</p>
               </li>
               <li>
+                <p>Woonplaats</p>
+              </li>
+              <li>
                 <p>Geslacht</p>
               </li>
               <li>
@@ -42,22 +57,25 @@
 
             <ul>
               <li>
-                <!-- <input type="text" :value="data.firstName" id="firstName" v-model="firstName" /> -->
+                <input type="text" id="firstName" :value="data.firstName" />
               </li>
               <li>
-                <!-- <input type="text" :value="data.surName" id="surName" v-model="surName" /> -->
+                <input type="text" id="surName" :value="data.surName" />
               </li>
               <li>
-                <input type="date" :value="data.birthDate" />
+                <input type="date" id="birthDate" :value="data.birthDate" />
               </li>
               <li>
-                <input type="text" :value="data.gender" />
+                <input type="text" id="town" :value="data.town" />
               </li>
               <li>
-                <input type="email" :value="data.emailAddress" />
+                <input type="text" id="gender" :value="data.gender" />
               </li>
               <li>
-                <input type="text" :value="data.about" />
+                <input type="email" id="emailAddress" :value="data.emailAddress" />
+              </li>
+              <li>
+                <input type="text" id="about" :value="data.about" />
               </li>
             </ul>
           </div>
@@ -83,10 +101,9 @@
 
             <ul>
               <li>
-                <!-- make dropdown and check the selected which is selected from the db -->
-                <input type="text" :value="data.typeIllness[0]" />
+                <!-- Check the selected which is selected from the db -->
 
-                <select name="" id="">
+                <select id="typeIllness">
                   <option
                     v-for="(item, index) in typeChoices"
                     :key="index"
@@ -137,6 +154,7 @@
 
 <script>
 import Nav from "@/components/nav/nav";
+import axios from "axios";
 
 export default {
   name: "Profile",
@@ -164,6 +182,17 @@ export default {
         "Centraal zenuwstelsel",
         "Overig",
         "Zeg ik liever niet",
+      ],
+      pictogramChoices: [
+        { hex: "#fee89e", name: "yellow" },
+        { hex: "#fed7a0", name: "orange" },
+        { hex: "#feb4b0", name: "pink" },
+        { hex: "#baf0c5", name: "green" },
+        { hex: "#c2eafb", name: "blue" },
+        { hex: "#dad0fb", name: "purple" },
+        { hex: "#d3d3d3", name: "gray" },
+        { hex: "#fec5d4", name: "pinkTwo" },
+        { hex: "#fef1c5", name: "yellowTwo" },
       ],
     };
   },
@@ -194,19 +223,21 @@ export default {
     // Updates the values in the database
     updateValues() {
       let data = {
-        firstName: this.firstName,
-        surName: this.surName,
-        emailAddress: this.emailAddress.toLowerCase(),
-        birthDate: this.birthDate,
-        town: this.town,
-        gender: this.gender,
-        typeIllness: this.typeIllness,
-        profileAvatar: this.profileAvatar,
-        about: this.about,
+        firstName: this.$el.querySelector("#firstName").value,
+        surName: this.$el.querySelector("#surName").value,
+        emailAddress: this.$el.querySelector("#emailAddress").value,
+        birthDate: this.$el.querySelector("#birthDate").value,
+        town: this.$el.querySelector("#town").value,
+        gender: this.$el.querySelector("#gender").value,
+        typeIllness: this.$el.querySelector("#typeIllness").value,
+        profileAvatar: this.$el.querySelector("#profileAvatar").value,
+        about: this.$el.querySelector("#about").value,
       };
 
+      const url = `/api/profile-update/${this.$store.state.user._id}`;
+
       axios
-        .post("/api/profile-update", data, {
+        .post(url, data, {
           headers: { "Content-type": "application/json" },
         })
         .then((response) => {
@@ -216,10 +247,11 @@ export default {
             // Clean store
             this.$store.state.user = "";
 
-            // Set all data to store
-            this.$store.state.user = userData;
+            // Set all data to LS AND VUEX
+            // this.$store.state.user = userData;
+            this.$store.commit("updateUser", userData);
 
-            // redirect to profile
+            // Redirect to profile
             this.$router.push("/profile");
           }
         })

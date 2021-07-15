@@ -7,6 +7,7 @@ const {
   createChat,
   deleteChat,
   updateRequestChat,
+  updateProfile,
 } = require('../helpers/db.helpers.js');
 
 // Store userID globally for easier use
@@ -151,10 +152,26 @@ async function handleAcceptChat(req, res) {
   return true;
 }
 
+/**
+ * Profile data update handler except the password (and ID??)
+ *
+//  * @param {String} createrID - ID of the creater of the chat
+//  * @param {String} chatID - ID of the chat
+ *
+//  * @return {Boolean} true - Succesfull message of the action
+ *
+ */
+async function handleProfileUpdate(req, res) {
+  const fresh = await updateProfile(req.params.id, req.body);
+
+  return res.status(200).json(fresh);
+}
+
 module.exports = {
   handleChats,
   handleCreateChat,
   handleDeleteChat,
   handleAcceptChat,
   setGlobal,
+  handleProfileUpdate,
 };
