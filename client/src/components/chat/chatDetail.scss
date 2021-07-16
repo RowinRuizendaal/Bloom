@@ -75,69 +75,34 @@
     margin-top: 16vh;
 
     ul {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: flex-end;
-      flex-direction: column;
-      align-content: center;
-      align-items: flex-start;
-
       li {
         list-style: none;
         margin: 0.5em 0;
-        // width: 100%;
 
         div {
-          // width: fit-content;
           padding: 1em;
           height: auto;
-
           position: relative;
-
-          border-radius: 0.4em;
-
-          &:after {
-            content: "";
-            position: absolute;
-            top: 60%;
-            width: 0;
-            height: 0;
-            border: 20px solid transparent;
-            border-bottom: 0;
-            border-left: 0;
-          }
+          width: fit-content;
+          margin: 0 auto;
 
           p {
             font-size: 0.8rem;
             font-weight: 500;
           }
-        }
 
-        .other {
-          background: $lighterYellow;
-
-          &:after {
-            border-top-color: $lighterYellow;
-            left: -6%;
-            transform: rotate(180deg);
+          &.other {
+            background: $lighterYellow;
+            border-radius: 20px 20px 20px 0;
+            text-align: left;
+            margin-left: 0;
           }
-        }
 
-        .me {
-          background-color: $lightererOrange;
-          margin-right: 0em;
-          margin-left: 5em;
-          margin-left: 12em;
-          width: fit-content;
-          max-width: 13em;
-          word-break: break-word;
-          align-items: flex-end;
-
-          &:after {
-            border-top-color: $lightererOrange;
-            left: 98%;
-            transform: rotate(-180deg);
-            transform: rotateY(3rad) rotate(180deg);
+          &.me {
+            background-color: $lightererOrange;
+            border-radius: 20px 20px 0 20px;
+            text-align: right;
+            margin-right: 0;
           }
         }
       }
