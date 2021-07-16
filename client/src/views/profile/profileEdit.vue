@@ -15,6 +15,7 @@
           </div>
           <router-link to="/profile-edit"
             ><p>Profiel pictogram wijzigen</p>
+
             <select id="profileAvatar">
               <option
                 v-for="(item, index) in pictogramChoices"
@@ -22,6 +23,7 @@
                 :value="item.name"
                 :id="item.hex"
               >
+                <p v-if="data.profileAvatar == item.name">INGESTELD:</p>
                 {{ item.name }}
               </option>
             </select></router-link
@@ -101,8 +103,6 @@
 
             <ul>
               <li>
-                <!-- Check the selected which is selected from the db -->
-
                 <select id="typeIllness">
                   <option
                     v-for="(item, index) in typeChoices"
@@ -110,6 +110,7 @@
                     :value="item"
                     :id="item"
                   >
+                    <p v-if="data.typeIllness == item">INGESTELD:</p>
                     {{ item }}
                   </option>
                 </select>
@@ -248,7 +249,6 @@ export default {
             this.$store.state.user = "";
 
             // Set all data to LS AND VUEX
-            this.$store.commit("logoutUser");
             this.$store.commit("updateUser", userData);
 
             // Redirect to profile
@@ -262,6 +262,13 @@ export default {
           // }
           // this.errors.push("Niet gelukt om acc in db te zetten");
         });
+    },
+
+    // Checks which values are selected from the multiple choice questions
+    valueCheckerType(profileAvatar) {
+      // 1. check the one who is equal to the parameter value
+      // if profileAvatar
+      // else if typeIllness
     },
 
     // logout handler
