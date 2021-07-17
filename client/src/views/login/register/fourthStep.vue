@@ -6,27 +6,23 @@
       zichtbaar voor andere gebruikers.
     </p>
 
-    <input type="text" placeholder="Den H" />
+    <input type="text" placeholder="Den H" @input="searchCitiesByValue()" id="searchCity" />
 
-    <ul>
-      <li>
-        <p>Den Haag</p>
-      </li>
-    </ul>
+    <div v-if="this.found != null">
+      <ul v-for="(item, index) in this.found" :key="index">
+        <li><input type="radio" name="town" :value="item" @input="updateTown" />{{ item }}</li>
+      </ul>
+    </div>
 
     <!-- <select id="town" name="town" :value="town" @input="updateTown" required>
       <option value="" disabled selected>Selecteer jouw woonplaats</option>
-      <option value="Amsterdam">Amsterdam</option>
-      <option value="Den Haag">Den Haag</option>
-      <option value="Rotterdam">Rotterdam</option>
-      <option value="Leeuwarden">Leeuwarden</option>
     </select> -->
   </div>
 </template>
 
 <script>
-import axios from "axios";
 import { mapState } from "vuex";
+import cities from "../../../cities.js";
 
 export default {
   computed: {
@@ -34,52 +30,44 @@ export default {
       town: (state) => state.user.town,
     }),
   },
-  mounted() {
-    this.getCities();
+  data() {
+    return {
+      data: cities,
+      found: null,
+    };
   },
   methods: {
     updateTown(e) {
       this.$store.commit("updateStateTown", e.target.value);
     },
 
-    // Get all cities data
-    getCities() {
-      const url =
-        "https://gist.githubusercontent.com/ralfz123/91a16e5e30ae82bfe628c73254ea2888/raw/494015540fbb7a0a4e0685a252f8baa029ebb0bd/thenetherlands-cities";
+    // Find city by input value
+    searchCitiesByValue() {
+      const inputValue = document.querySelector("#searchCity").value;
+      const citiesData = this.data;
 
-      // better in a local file!
+      // 1. Search in all objects
+      // for (let i = 0; i < citiesData.length; i++) {
+      //   let object = citiesData[i];
+      // }
 
-      fetch(url)
-        .then((response) => response.json())
-        .then((data) => console.log(data));
+      // 2. the ones who are equal to (begin with the inputValue) --> render them
+      this.found = updateResult(inputValue, citiesData);
 
-      // fetch data on the server?
-      // axios
-      //   .get("/api/register", this.$store.state.user, {
-      //     headers: { "Content-type": "application/json" },
-      //   })
-      //   .then((response) => {
-      //     if (response.status === 200) {
-      //       let userData = response.data;
+      function updateResult(query, arr) {
+        let found = [];
+        arr.map(function (algo) {
+          query.split(" ").map(function (word) {
+            let city = algo.city;
 
-      //       // Clean store
-      //       this.$store.state.user = "";
-
-      //       // Set all data to store
-      //       this.$store.state.user = userData;
-
-      //       // Set states to true
-      //       this.registered = true;
-      //       this.$store.state.loggedIn = true;
-      //     }
-      //   })
-
-      //   .catch((err) => {
-      //     // if (this.errors.length >= 1) {
-      //     //   return;
-      //     // }
-      //     // this.errors.push("Niet gelukt om acc in db te zetten");
-      //   });
+            if (city.toLowerCase().indexOf(word) != -1) {
+              found.push(city);
+            }
+            return found;
+          });
+        });
+        return found;
+      }
     },
   },
 };
