@@ -6,17 +6,27 @@
       zichtbaar voor andere gebruikers.
     </p>
 
-    <input type="text" placeholder="Den H" @input="searchCitiesByValue()" id="searchCity" />
+    <input type="text" placeholder="Den Haag" @input="searchCitiesByValue()" id="searchCity" />
 
-    <div v-if="this.found != null">
-      <ul v-for="(item, index) in this.found" :key="index">
-        <li><input type="radio" name="town" :value="item" @input="updateTown" />{{ item }}</li>
-      </ul>
+    <ul v-if="this.found != null">
+      <li v-for="(item, index) in this.found" :key="index">
+        <input type="radio" name="town" :value="item" :id="item" @input="updateTown" />
+        <label :for="item">{{ item }}</label>
+      </li>
+    </ul>
+
+    <div v-else class="error">
+      <p>Helaas geen woonplaats gevonden. Probeer een stad die dichtbij u in de buurt ligt.</p>
     </div>
 
-    <!-- <select id="town" name="town" :value="town" @input="updateTown" required>
-      <option value="" disabled selected>Selecteer jouw woonplaats</option>
-    </select> -->
+    <!-- The dropdown way below -->
+    <!-- <div v-if="this.found != null">
+      <select name="town" id="town">
+        <option :value="item" v-for="(item, index) in this.found" :key="index">
+          {{ item }}
+        </option>
+      </select>
+    </div> -->
   </div>
 </template>
 

@@ -143,6 +143,9 @@ label.textLabel {
 
 // Fourth step
 .four {
+  font-family: $font-family-primary;
+  font-weight: 100;
+
   select {
     appearance: none;
     background: $white;
@@ -158,6 +161,41 @@ label.textLabel {
     border: 1px solid $lightgray;
     font-family: $font-family-primary;
     font-weight: 100;
+  }
+
+  ul {
+    list-style-type: none;
+
+    li {
+      font-size: 1rem;
+      height: auto;
+      border: 1px solid rgb(193, 193, 193);
+
+      input {
+        display: none;
+
+        &:checked {
+          + {
+            label {
+              color: $orange;
+              font-weight: bold;
+            }
+          }
+        }
+      }
+
+      label {
+        transition: 0.2s;
+      }
+    }
+  }
+
+  div.error {
+    p {
+      font-size: 0.7rem;
+      color: $orange;
+      font-weight: bold;
+    }
   }
 }
 
@@ -226,7 +264,7 @@ label.textLabel {
     width: 100%;
     li {
       display: inline-block;
-      margin: .85rem .3rem;
+      margin: 0.85rem 0.3rem;
       margin-left: 0;
       // flex-shrink: 1;
       label {
