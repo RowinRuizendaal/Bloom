@@ -12,16 +12,15 @@
         <p v-else>verzoek</p>
       </router-link>
 
-      <div v-else>
-        <p>0</p>
-      </div>
+      <!-- remove this tag? -->
+      <div v-else></div>
     </header>
 
     <main>
       <div v-if="chats === null || chats === undefined" class="partial-state">
         <p>
-          Je hebt nog geen chats. Probeer snel een buddy te vinden
-          <router-link :to="'/buddies/'">hier</router-link>.
+          Je hebt nog geen chats. Je kunt <router-link :to="'/buddies/'">hier</router-link> op zoek
+          gaan naar een buddy om mee te praten.
         </p>
 
         <svg

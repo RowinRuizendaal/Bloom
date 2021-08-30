@@ -2,7 +2,7 @@ import Vue from "vue";
 import Vuex from "vuex";
 import createPersistedState from "vuex-persistedstate";
 import SecureLS from "secure-ls";
-const ls = new SecureLS({ isCompression: false });
+const ls = new SecureLS({ isCompression: true });
 
 Vue.use(Vuex);
 
@@ -252,7 +252,7 @@ export default new Vuex.Store({
       {
         // Klachten
         id: 5,
-        name: "Geld en werk",
+        name: "Geldzaken & werk",
         image: "5.jpg",
         intro:
           "Door een ernstige ziekte ontstaan soms geldproblemen. Bijvoorbeeld door extra kosten. Of doordat je minder of helemaal niet kunt werken door je ziekte. Heb je geldproblemen of schulden? Praat erover en zoek hulp.",
@@ -424,6 +424,12 @@ export default new Vuex.Store({
     updateUser(state, value) {
       state.user = value;
       state.loggedIn = true;
+    },
+
+    // clear user data
+    logoutUser(state) {
+      state.user = null;
+      state.loggedIn = false;
     },
   },
   actions: {},

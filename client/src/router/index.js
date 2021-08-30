@@ -6,6 +6,7 @@ import RegisterIndex from "../views/login/register/index.vue";
 import ForgotPassword from "../views/login/ForgotPassword.vue";
 
 import Profile from "../views/profile/Profile.vue";
+import ProfileEdit from "../views/profile/profileEdit.vue";
 
 import Buddies from "../views/buddies/buddies.vue";
 import BuddyDetail from "../views/buddies/buddyDetail.vue";
@@ -18,6 +19,8 @@ import Home from "../views/Home.vue";
 import Onboarding from "../views/onboarding.vue";
 import Theme from "../views/themes/theme.vue";
 import ThemeSlug from "../views/themes/slug.vue";
+import Info from "../views/themes/info.vue";
+
 import store from "../store";
 
 Vue.use(VueRouter);
@@ -47,6 +50,14 @@ const routes = [
     },
   },
   {
+    path: "/profile-edit",
+    name: "ProfileEdit",
+    component: ProfileEdit,
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
     path: "/",
     name: "Home",
     component: Home,
@@ -60,6 +71,14 @@ const routes = [
     path: "/themes",
     name: "themes",
     component: Theme,
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
+    path: "/information",
+    name: "info",
+    component: Info,
     meta: {
       requiresAuth: true,
     },

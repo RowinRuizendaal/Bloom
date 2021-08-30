@@ -1,5 +1,5 @@
 <template>
-  <section class="profile">
+  <section class="buddyDetail">
     <header>
       <router-link to="/buddies"
         ><svg
@@ -240,6 +240,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "@/components/profile/profile.scss";
 @import "@/components/buddies/buddyDetail.scss";
 </style>

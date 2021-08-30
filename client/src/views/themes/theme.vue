@@ -1,7 +1,34 @@
 <template>
   <section class="themes">
     <header>
-      <h2>Thema's</h2>
+      <div>
+        <h2>Thema's</h2>
+        <router-link to="/information">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <g
+              id="Iconly_Bulk_Info_Circle"
+              data-name="Iconly/Bulk/Info Circle"
+              transform="translate(24 24) rotate(180)"
+            >
+              <path
+                id="Fill_1"
+                data-name="Fill 1"
+                d="M20,10A10,10,0,1,1,10,0,10,10,0,0,1,20,10"
+                transform="translate(2 2)"
+                fill="#f07904"
+                opacity="0.4"
+              />
+              <path
+                id="Combined_Shape"
+                data-name="Combined Shape"
+                d="M.005,8.468a.878.878,0,1,1,.879.875A.874.874,0,0,1,.005,8.468ZM0,5.295V.875a.875.875,0,0,1,1.75,0v4.42a.875.875,0,1,1-1.75,0Z"
+                transform="translate(11.12 7.336)"
+                fill="#f07904"
+              />
+            </g>
+          </svg>
+        </router-link>
+      </div>
 
       <svg xmlns="http://www.w3.org/2000/svg" width="17.5" height="17.5">
         <ellipse cx="7.524" cy="7.572" rx="7.524" ry="7.572" fill="#f07904" />

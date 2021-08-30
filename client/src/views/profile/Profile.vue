@@ -2,7 +2,7 @@
   <section class="profile">
     <header>
       <h2>Profiel</h2>
-      <router-link to="/profile"
+      <router-link to="/profile-edit"
         ><svg
           id="Setting"
           xmlns="http://www.w3.org/2000/svg"
@@ -148,16 +148,6 @@
 
       <article>
         <h3>Profielvragen</h3>
-        <div :class="data.profileAvatar">
-          <h4>Wat is de vraag?</h4>
-          <p>Dit is het antwoord.</p>
-        </div>
-
-        <div :class="data.profileAvatar">
-          <h4>Wat is de vraag?</h4>
-          <p>Dit is het antwoord.</p>
-        </div>
-
         <div :class="data.profileAvatar">
           <h4>Wat is de vraag?</h4>
           <p>Dit is het antwoord.</p>

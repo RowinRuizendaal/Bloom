@@ -2,14 +2,15 @@
   width: 86vw;
   margin: 0 auto;
   header {
-    height: 13vh;
+    height: 9vh;
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
     border-bottom: 0.5px solid #8080803d;
-    color: $orange;
+    color: #f07904;
     margin-bottom: 1em;
+    margin-top: 1rem;
     h2 {
       font-family: $font-family-secondary;
       font-weight: $font-weight-bold;
@@ -23,10 +24,8 @@
     .container {
       width: 86vw;
       height: 100%;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-around;
-      flex-direction: row;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
     }
     .empty-state {
       display: flex;
@@ -45,7 +44,7 @@
         width: 9em;
         height: fit-content;
         margin: 0.5em;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.06);
+        box-shadow: 0 4px 11px -3px rgba(0, 0, 0, 0.06);
         div {
           p {
             &:not(:nth-of-type(1)) {
@@ -151,6 +150,15 @@
         }
         .reset {
           margin-top: 2rem;
+
+          input {
+            display: none;
+          }
+
+          label {
+            text-decoration: underline;
+            color: $orange;
+          }
         }
         flex-direction: column;
         ul.chips {

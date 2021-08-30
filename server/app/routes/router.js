@@ -11,6 +11,7 @@ router
   .get('/api/chatsItems/:id', chatControllers.handleChats) // Chats
   .get('/api/createChat/:id', chatControllers.handleCreateChat) // Create chat env
   .get('/api/deleteChat/:id', chatControllers.handleDeleteChat) // Delete chat env
-  .post('/api/acceptChat/:createrID/:chatID', chatControllers.handleAcceptChat); // Accept chat env
+  .post('/api/acceptChat/:createrID/:chatID', chatControllers.handleAcceptChat) // Accept chat env
+  .post('/api/profile-update/:id', chatControllers.handleProfileUpdate); // Update profile data
 
 module.exports = router;
