@@ -292,10 +292,6 @@ Screenshots of the pages in the application
 
 <p float="left">
 
-<img src="docs/UI/start.png" alt="The user interface of the start page" width="250"/>
-
-<img src="docs/UI/onboarding.png" alt="The user interface of the onboarding page" width="250"/>
-
 <img src="docs/UI/login.png" alt="The user interface of the login page" width="250"/>
 
 <img src="docs/UI/register.png" alt="The user interface of the register page" width="250"/>
@@ -305,6 +301,10 @@ Screenshots of the pages in the application
 
 #### Onboarding
 <p float="left">
+    
+<img src="docs/UI/start.png" alt="The user interface of the start page" width="250"/>
+
+<img src="docs/UI/onboarding.png" alt="The user interface of the onboarding page" width="250"/>
 
 <img src="docs/UI/tour.png" alt="The user interface of the tour page" width="250"/>
 </p>
